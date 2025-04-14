@@ -346,16 +346,16 @@ namespace Controller
         private void UpdateText()
         {
             //방적기 관련 UI
-            countText.text = $"pt: {pt_deleteCount}/1"; //페트 개수
+            countText.text = $"페트병: {pt_deleteCount}/1"; //페트 개수
 
             //분쇄기 관련 UI
-            breaker_countText.text = $" glass: {glass_deleteCount}/1 \n plastic: {plastic_deleteCount}/1 \n can: {can_deleteCount}/1";
+            breaker_countText.text = $" 유리: {glass_deleteCount}/1 \n 플라스틱: {plastic_deleteCount}/1 \n 캔: {can_deleteCount}/1";
 
             //용광로 관련 UI
-            BF_countText.text = $" glass: {b_glass_deleteCount}/3 \n plastic: {b_plastic_deleteCount}/3 \n can: {b_can_deleteCount}/3";
+            BF_countText.text = $" 유리 가루: {b_glass_deleteCount}/3 \n 플라스틱 가루: {b_plastic_deleteCount}/3 \n 캔 가루: {b_can_deleteCount}/3";
 
             //방적기 관련 UI
-            C_countText.text = $"pt: {paper_deleteCount}/1"; //페트 개수
+            C_countText.text = $"종이: {paper_deleteCount}/1"; //페트 개수
         }
 
         IEnumerator DelayTime(string item_name) //기계 제작 시간
