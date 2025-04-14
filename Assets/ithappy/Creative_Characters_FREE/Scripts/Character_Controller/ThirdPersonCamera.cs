@@ -22,6 +22,7 @@ namespace Controller
         public GameObject machine_ui;
         public GameObject breaker_ui;
         public GameObject blastFurnace_ui;
+        public GameObject compressor_ui;
 
         private void LateUpdate()
         {
@@ -105,11 +106,16 @@ namespace Controller
                 {
                     blastFurnace_ui.SetActive(true);
                 }
+                else if(hit.collider.tag == "compressor")
+                {
+                    compressor_ui.SetActive(true);
+                }
                 else
                 {
                     machine_ui.SetActive(false);
-                    breaker_ui.SetActive(false );
-                    blastFurnace_ui.SetActive(false ) ;
+                    breaker_ui.SetActive(false);
+                    blastFurnace_ui.SetActive(false);
+                    compressor_ui.SetActive(false);
                 }
             }
             else
@@ -118,6 +124,7 @@ namespace Controller
                 machine_ui.SetActive(false); //¹æÀû±â(machine) UI 
                 breaker_ui.SetActive(false);
                 blastFurnace_ui.SetActive(false);
+                compressor_ui.SetActive(false);
             }
         }
     }

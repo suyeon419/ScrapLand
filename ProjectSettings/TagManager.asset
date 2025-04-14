@@ -11,6 +11,11 @@ TagManager:
   - plastic
   - can
   - BlastFurnace
+  - breakplastic
+  - breakglass
+  - breakcan
+  - compressor
+  - paper
   layers:
   - Default
   - TransparentFX

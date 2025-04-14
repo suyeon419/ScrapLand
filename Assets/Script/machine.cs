@@ -28,6 +28,8 @@ namespace Controller
         public GameObject moltenPlastic; //녹은 플라스틱
         public GameObject aluminum;//알루미늄
 
+        public GameObject compressedPaper; //압축종이
+
         //방적기 UI
         [Header("machine")]
         public GameObject loading_ui;//빙글빙글 로딩 UI
@@ -40,11 +42,17 @@ namespace Controller
         public GameObject B_finish_ui; //재료 완성 UI
         public TextMeshProUGUI breaker_countText; //분쇄기 잔량 UI
 
-        //용관로 UI
+        //용광로 UI
         [Header("Blast Furnace")]
         public GameObject BF_loading_ui;//빙글빙글 로딩 UI
         public GameObject BF_finish_ui;//재료 완성 UI
         public TextMeshProUGUI BF_countText; //분쇄기 잔량 UI
+
+        //압축기 UI
+        [Header("Compressor")]
+        public GameObject C_loading_ui;//빙글빙글 로딩 UI
+        public GameObject C_finish_ui; //재료 완성 UI
+        public TextMeshProUGUI C_countText; //페트 개수 확인 UI
 
         //방적기 재료 관련
         private int pt_deleteCount = 0; //페트 개수 확인
@@ -65,6 +73,10 @@ namespace Controller
         private bool glass_molten = false; //녹은 유리 완성 여부
         private bool plastic_molten = false; //녹은 플라스틱 완성 여부
         private bool can_molten = false; //알루미늄 완성 여부
+
+        //압축기 재료 관련
+        private int paper_deleteCount = 0; //페트 개수 확인
+        private bool compressed_paper = false; //페트실 완성 여부
 
         private void Start()
         {
@@ -217,7 +229,6 @@ namespace Controller
                             GameObject newObj = Instantiate(breakCan, handPos.transform); //손에 아이템 장착
                         }
                     }
-
                 }
 
                 //클릭된 오브젝트의 태그가 BlastFurnace일 때
@@ -293,6 +304,40 @@ namespace Controller
                     }
 
                 }
+
+                //태그가 compressor일때
+                else if (hit.collider.CompareTag("compressor"))
+                {
+                    //손이 비어있지 않을때, 압축종이가 만들어지지 않은 상태일때
+                    if (handPos != null && handPos.transform.childCount > 0 && compressed_paper == false)
+                    {
+                        if (heldTag == "paper") //손에 종이를 들고 있을 때
+                        {
+                            Destroy(child.gameObject); //오브젝트 삭제
+
+                            paper_deleteCount++; //몇 개 넣었는지 카운트
+                            UpdateText(); //UI 변경
+
+                            if (paper_deleteCount == 1) //페트실 만드는 페트병이 다 모였을 때
+                            {
+                                item_name = "compressedPaper"; //만들 아이템: 페트실
+                                StartCoroutine(DelayTime(item_name)); //코루틴 호출
+                            }
+
+                            Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 태그: {heldTag}]");
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 없음]");
+                        if (ptthread == true && handPos != null && handPos.transform.childCount == 0) //손이 비었을때만
+                        {
+                            C_finish_ui.SetActive(false); //완성UI 비활성화
+                            compressed_paper = false; //미완성으로 변경
+                            GameObject newObj = Instantiate(compressedPaper, handPos.transform); //손에 아이템 장착
+                        }
+                    }
+                }
                 Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 태그: {heldTag}]");
 
             }
@@ -308,6 +353,9 @@ namespace Controller
 
             //용광로 관련 UI
             BF_countText.text = $" glass: {b_glass_deleteCount}/3 \n plastic: {b_plastic_deleteCount}/3 \n can: {b_can_deleteCount}/3";
+
+            //방적기 관련 UI
+            C_countText.text = $"pt: {paper_deleteCount}/1"; //페트 개수
         }
 
         IEnumerator DelayTime(string item_name) //기계 제작 시간
@@ -400,6 +448,18 @@ namespace Controller
                 BF_finish_ui.SetActive(true); //완성 ui 활성화
             }
 
+            if (item_name == "compressedPaper")
+            {
+                C_loading_ui.SetActive(true); //방적기 로딩 ui활성화
+                yield return new WaitForSeconds(2.0f); // 2초 동안 대기
+                C_loading_ui.SetActive(false);//로딩 ui 비활성화
+
+                paper_deleteCount = 0; //0으로 돌려놓고
+                UpdateText(); //UI 설정
+
+                compressed_paper = true; //아이템 준비 완료
+                C_finish_ui.SetActive(true); //완성 ui활성화
+            }
 
         }
 
