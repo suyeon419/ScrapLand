@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: breakcan Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 152753561844906315, guid: 48e52d8d352ce0548a5574c7e827370e, type: 3}
+      propertyPath: m_TagString
+      value: breakcan
+      objectReference: {fileID: 0}
     - target: {fileID: 672549420742517745, guid: 48e52d8d352ce0548a5574c7e827370e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.05

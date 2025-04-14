@@ -24,6 +24,10 @@ namespace Controller
         public GameObject breakPlastic; //간 플라스틱
         public GameObject breakCan; //간 캔
 
+        public GameObject moltenGlass; //녹은 유리
+        public GameObject moltenPlastic; //녹은 플라스틱
+        public GameObject aluminum;//알루미늄
+
         //방적기 UI
         [Header("machine")]
         public GameObject loading_ui;//빙글빙글 로딩 UI
@@ -36,6 +40,12 @@ namespace Controller
         public GameObject B_finish_ui; //재료 완성 UI
         public TextMeshProUGUI breaker_countText; //분쇄기 잔량 UI
 
+        //용관로 UI
+        [Header("Blast Furnace")]
+        public GameObject BF_loading_ui;//빙글빙글 로딩 UI
+        public GameObject BF_finish_ui;//재료 완성 UI
+        public TextMeshProUGUI BF_countText; //분쇄기 잔량 UI
+
         //방적기 재료 관련
         private int pt_deleteCount = 0; //페트 개수 확인
         private bool ptthread = false; //페트실 완성 여부
@@ -47,6 +57,14 @@ namespace Controller
         private bool glass_break = false; //간 유리 완성 여부
         private bool plastic_break = false; //간 플라스틱 완성 여부
         private bool can_break = false; //간 캔 완성 여부
+
+        //용광로 재료 관련
+        private int b_glass_deleteCount = 0; //간 유리 개수 확인
+        private int b_plastic_deleteCount = 0;//간 플라스틱 개수 확인
+        private int b_can_deleteCount = 0; //간 캔 개수 확인
+        private bool glass_molten = false; //녹은 유리 완성 여부
+        private bool plastic_molten = false; //녹은 플라스틱 완성 여부
+        private bool can_molten = false; //알루미늄 완성 여부
 
         private void Start()
         {
@@ -127,6 +145,7 @@ namespace Controller
                         }
                     }
                 }
+
                 //클릭된 오브젝트의 태그가 breaker일 때
                 else if (hit.collider.CompareTag("breaker"))
                 {
@@ -200,6 +219,80 @@ namespace Controller
                     }
 
                 }
+
+                //클릭된 오브젝트의 태그가 BlastFurnace일 때
+                else if (hit.collider.CompareTag("BlastFurnace"))
+                {
+                    //어떠한 재료도 완성되지 않았고 손에 오브젝트가 있을 때
+                    if (handPos != null && handPos.transform.childCount > 0 && glass_molten == false && plastic_molten == false && glass_molten == false)
+                    {
+                        if (heldTag == "breakglass") //간 유리를 들고 있을 때
+                        {
+                            Destroy(child.gameObject); //손에 있는 오브젝트 삭제
+
+                            b_glass_deleteCount++; //간 유리 +1
+                            UpdateText(); //UI 반영
+
+                            if (b_glass_deleteCount == 3) //조건 충족
+                            {
+                                item_name = "moltenGlass"; //만들 아이템: 녹인 유리
+                                StartCoroutine(DelayTime(item_name)); //코루틴 호출
+                            }
+                        }
+                        else if (heldTag == "breakplastic") //간 플라스틱을 들고 있을 때
+                        {
+                            Destroy(child.gameObject); //손에 있는 오브젝트 삭제
+
+                            b_plastic_deleteCount++; //간 플라스틱 +1
+                            UpdateText(); //UI 반영
+
+                            if (b_plastic_deleteCount == 3) //조건
+                            {
+                                item_name = "moltenPlastic"; //만들 아이템: 녹인 플라스틱
+                                StartCoroutine(DelayTime(item_name)); //코루틴 호출
+                            }
+                        }
+                        else if (heldTag == "breakcan") //간 캔을 들고 있을 때
+                        {
+                            Destroy(child.gameObject); //손에 있는 오브젝트 삭제
+
+                            b_can_deleteCount++; //간 캔 +1
+                            UpdateText(); //UI 반영
+
+                            if (b_can_deleteCount == 3) //조건
+                            {
+                                item_name = "aluminum"; //만들 아이템: 알루미늄
+                                StartCoroutine(DelayTime(item_name)); //코루틴 호출
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("아무일도 없었다.");
+                        }
+                    }
+                    else
+                    {
+                        if (glass_molten == true && handPos != null && handPos.transform.childCount == 0)
+                        {
+                            BF_finish_ui.SetActive(false); //완성UI 비활성화
+                            glass_molten = false;
+                            GameObject newObj = Instantiate(moltenGlass, handPos.transform); //손에 아이템 장착
+                        }
+                        else if (plastic_molten == true && handPos != null && handPos.transform.childCount == 0)
+                        {
+                            BF_finish_ui.SetActive(false); //완성UI 비활성화
+                            plastic_break = false;
+                            GameObject newObj = Instantiate(moltenPlastic, handPos.transform); //손에 아이템 장착
+                        }
+                        else if (can_molten == true && handPos != null && handPos.transform.childCount == 0)
+                        {
+                            BF_finish_ui.SetActive(false); //완성UI 비활성화
+                            can_molten = false;
+                            GameObject newObj = Instantiate(aluminum, handPos.transform); //손에 아이템 장착
+                        }
+                    }
+
+                }
                 Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 태그: {heldTag}]");
 
             }
@@ -212,6 +305,9 @@ namespace Controller
 
             //분쇄기 관련 UI
             breaker_countText.text = $" glass: {glass_deleteCount}/1 \n plastic: {plastic_deleteCount}/1 \n can: {can_deleteCount}/1";
+
+            //용광로 관련 UI
+            BF_countText.text = $" glass: {b_glass_deleteCount}/3 \n plastic: {b_plastic_deleteCount}/3 \n can: {b_can_deleteCount}/3";
         }
 
         IEnumerator DelayTime(string item_name) //기계 제작 시간
@@ -229,7 +325,8 @@ namespace Controller
                 finish_ui.SetActive(true); //완성 ui활성화
                 Debug.Log($"ptthread: {ptthread}");
             }
-            else if(item_name == "breakGlass")
+
+            if(item_name == "breakGlass")
             {
                 B_loading_ui.SetActive(true);//분쇄기 로딩 ui활성화
                 yield return new WaitForSeconds(2.0f); //2초 대기
@@ -265,6 +362,44 @@ namespace Controller
                 can_break = true; //간 캔 준비 완료
                 B_finish_ui.SetActive(true); //완성 ui 활성화
             }
+
+            if (item_name == "moltenGlass")
+            {
+                BF_loading_ui.SetActive(true);//용광로 로딩 ui활성화
+                yield return new WaitForSeconds(2.0f); //2초 대기
+                BF_loading_ui.SetActive(false); //용광로 로딩 ui 비활성화
+
+                b_glass_deleteCount = 0; //0으로 다시 초기화
+                UpdateText(); //ui 업데이트
+
+                glass_molten = true; //녹은 유리 준비 완료
+                BF_finish_ui.SetActive(true); //완성 ui 활성화
+            }
+            else if (item_name == "moltenPlastic")
+            {
+                BF_loading_ui.SetActive(true);//용광로 로딩 ui활성화
+                yield return new WaitForSeconds(2.0f); //2초 대기
+                BF_loading_ui.SetActive(false); //용광로 로딩 ui 비활성화
+
+                b_plastic_deleteCount = 0; //0으로 다시 초기화
+                UpdateText(); //ui 업데이트
+
+                plastic_molten = true; //녹인 플라스틱 준비 완료
+                BF_finish_ui.SetActive(true); //완성 ui 활성화
+            }
+            else if (item_name == "aluminum")
+            {
+                BF_loading_ui.SetActive(true);//용광로 로딩 ui활성화
+                yield return new WaitForSeconds(2.0f); //2초 대기
+                BF_loading_ui.SetActive(false); //용광로 로딩 ui 비활성화
+
+                b_can_deleteCount = 0; //0으로 다시 초기화
+                UpdateText(); //ui 업데이트
+
+                can_molten = true; //간 캔 준비 완료
+                BF_finish_ui.SetActive(true); //완성 ui 활성화
+            }
+
 
         }
 

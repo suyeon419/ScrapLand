@@ -10,6 +10,7 @@ TagManager:
   - glass
   - plastic
   - can
+  - BlastFurnace
   layers:
   - Default
   - TransparentFX

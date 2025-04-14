@@ -21,6 +21,7 @@ namespace Controller
         //UI관련(키입력하시오 이런거)
         public GameObject machine_ui;
         public GameObject breaker_ui;
+        public GameObject blastFurnace_ui;
 
         private void LateUpdate()
         {
@@ -100,10 +101,15 @@ namespace Controller
                 {
                     breaker_ui.SetActive(true);
                 }
+                else if(hit.collider.tag == "BlastFurnace")
+                {
+                    blastFurnace_ui.SetActive(true);
+                }
                 else
                 {
                     machine_ui.SetActive(false);
                     breaker_ui.SetActive(false );
+                    blastFurnace_ui.SetActive(false ) ;
                 }
             }
             else
@@ -111,6 +117,7 @@ namespace Controller
                 Debug.Log("아무 오브젝트도 감지되지 않음");
                 machine_ui.SetActive(false); //방적기(machine) UI 
                 breaker_ui.SetActive(false);
+                blastFurnace_ui.SetActive(false);
             }
         }
     }

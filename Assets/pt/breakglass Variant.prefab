@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: breakglass Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7063743252289416628, guid: f9368726f996fae4a9cedf84c01a2ff0, type: 3}
+      propertyPath: m_TagString
+      value: breakglass
+      objectReference: {fileID: 0}
     - target: {fileID: 7587621701567231758, guid: f9368726f996fae4a9cedf84c01a2ff0, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.05
