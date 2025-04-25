@@ -16,6 +16,8 @@ TagManager:
   - breakcan
   - compressor
   - paper
+  - m_block
+  - B_block
   layers:
   - Default
   - TransparentFX

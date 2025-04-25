@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8565864227142981510}
   - component: {fileID: 3558487469236372121}
   - component: {fileID: 1374766739356838803}
+  - component: {fileID: 7950340504402001012}
   m_Layer: 5
   m_Name: "\uC7AC\uBD09\uD2C0UI"
   m_TagString: Untagged
@@ -78,6 +79,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7950340504402001012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227681886815824114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c0dd1cb7dabed46b5628af505d67fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBlast: 1
+  ismachine: 1
 --- !u!1 &713225780957921921
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,12 +121,12 @@ RectTransform:
   m_LocalScale: {x: 1.0083, y: 1.6111042, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8938465987655916600}
-  - {fileID: 4520340245697978652}
-  - {fileID: 2113393696881304362}
-  - {fileID: 7103645799879316830}
-  - {fileID: 7279758708434627046}
   - {fileID: 6651265246800066469}
+  - {fileID: 7279758708434627046}
+  - {fileID: 7103645799879316830}
+  - {fileID: 2113393696881304362}
+  - {fileID: 4520340245697978652}
+  - {fileID: 8938465987655916600}
   m_Father: {fileID: 3194115573781601220}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -816,6 +831,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6616946206470914768}
     m_Modifications:
+    - target: {fileID: 365725832159843582, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
+      propertyPath: m_TagString
+      value: m_block
+      objectReference: {fileID: 0}
     - target: {fileID: 1475582687494893933, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_text
       value: "\uD558\uC758"
@@ -938,7 +957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8800412572556454338, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.0235596
+      value: 3.0235748
       objectReference: {fileID: 0}
     - target: {fileID: 8800412572556454338, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -974,6 +993,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6616946206470914768}
     m_Modifications:
+    - target: {fileID: 365725832159843582, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
+      propertyPath: m_TagString
+      value: B_block
+      objectReference: {fileID: 0}
     - target: {fileID: 1475582687494893933, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_text
       value: "\uC2E0\uBC1C"
@@ -1100,7 +1123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8800412572556454338, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50.052124
+      value: -50.05211
       objectReference: {fileID: 0}
     - target: {fileID: 8800412572556454338, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1139,6 +1162,10 @@ PrefabInstance:
     - target: {fileID: 4051693306751469548, guid: 626cfa67ba70bd34abc23878e6353708, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051693306751469548, guid: 626cfa67ba70bd34abc23878e6353708, type: 3}
+      propertyPath: m_TagString
+      value: m_block
       objectReference: {fileID: 0}
     - target: {fileID: 6834379709849089124, guid: 626cfa67ba70bd34abc23878e6353708, type: 3}
       propertyPath: m_Name
@@ -1332,7 +1359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4604733366617484993, guid: 27ade84784cb4d9498facf7e9874c867, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 162.2502
+      value: 162.25021
       objectReference: {fileID: 0}
     - target: {fileID: 4604733366617484993, guid: 27ade84784cb4d9498facf7e9874c867, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1345,6 +1372,10 @@ PrefabInstance:
     - target: {fileID: 4604733366617484993, guid: 27ade84784cb4d9498facf7e9874c867, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610466516537477153, guid: 27ade84784cb4d9498facf7e9874c867, type: 3}
+      propertyPath: m_TagString
+      value: m_block
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1364,6 +1395,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6616946206470914768}
     m_Modifications:
+    - target: {fileID: 365725832159843582, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
+      propertyPath: m_TagString
+      value: m_block
+      objectReference: {fileID: 0}
     - target: {fileID: 1475582687494893933, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_text
       value: "\uC7A5\uAC11"
@@ -1486,7 +1521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8800412572556454338, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 109.17462
+      value: 109.17464
       objectReference: {fileID: 0}
     - target: {fileID: 8800412572556454338, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1522,6 +1557,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6616946206470914768}
     m_Modifications:
+    - target: {fileID: 365725832159843582, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
+      propertyPath: m_TagString
+      value: m_block
+      objectReference: {fileID: 0}
     - target: {fileID: 1475582687494893933, guid: e5b8d41b891d8c449b75eb11712c03c7, type: 3}
       propertyPath: m_text
       value: "\uC0C1\uC758\n"
