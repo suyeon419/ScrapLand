@@ -18,6 +18,9 @@ TagManager:
   - paper
   - m_block
   - B_block
+  - making_M
+  - making_C
+  - making_B
   layers:
   - Default
   - TransparentFX
