@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB179\uC778\n\uD50C\uB77C\uC2A4\uD2F1\n0/1"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
-  m_sharedMaterial: {fileID: 4592754305353038181, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 24651a2f134f66649ac8aece667d5f0a, type: 2}
+  m_sharedMaterial: {fileID: 471836763631720055, guid: 24651a2f134f66649ac8aece667d5f0a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 6808853082127783222}
   - component: {fileID: 9028981857981941936}
   m_Layer: 5
-  m_Name: "\uBAA8\uC790 \uC774\uBBF8\uC9C0"
+  m_Name: "\uB179\uC778 \uD50C\uB77C\uC2A4\uD2F1 \uC774\uBBF8\uC9C0"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

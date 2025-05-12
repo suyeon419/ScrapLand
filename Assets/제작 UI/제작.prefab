@@ -142,8 +142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC81C\uC791"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
-  m_sharedMaterial: {fileID: 4592754305353038181, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 24651a2f134f66649ac8aece667d5f0a, type: 2}
+  m_sharedMaterial: {fileID: 471836763631720055, guid: 24651a2f134f66649ac8aece667d5f0a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -353,8 +353,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uD50C\uB77C\uC2A4\uD2F1\n\uD654\uBD84"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
-  m_sharedMaterial: {fileID: 4592754305353038181, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 24651a2f134f66649ac8aece667d5f0a, type: 2}
+  m_sharedMaterial: {fileID: 471836763631720055, guid: 24651a2f134f66649ac8aece667d5f0a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -562,8 +562,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB9CC\uB4E0 \uD69F\uC218: 0"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
-  m_sharedMaterial: {fileID: 4592754305353038181, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 24651a2f134f66649ac8aece667d5f0a, type: 2}
+  m_sharedMaterial: {fileID: 471836763631720055, guid: 24651a2f134f66649ac8aece667d5f0a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -593,7 +593,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

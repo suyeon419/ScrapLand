@@ -91,17 +91,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a08e31188c1eea4cb9770c91f8e3adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meltedPlastic: 0
+  plasticThread: 0
   paper: 0
-  thread: 0
+  plastic: 0
   oldCloth: 0
-  isCapMaking: 0
   capButton: {fileID: 0}
   gloveButton: {fileID: 0}
+  topButton: {fileID: 0}
+  bottomButton: {fileID: 0}
+  shoesButton: {fileID: 0}
   capPt: {fileID: 0}
   capPaper: {fileID: 0}
+  capMaking: {fileID: 0}
   glovePt: {fileID: 0}
   gloveOldCloth: {fileID: 0}
+  gloveMaking: {fileID: 0}
+  topPt: {fileID: 0}
+  topOldCloth: {fileID: 0}
+  topMaking: {fileID: 0}
+  bottomPt: {fileID: 0}
+  bottomOldCloth: {fileID: 0}
+  bottomMaking: {fileID: 0}
+  shoesOldCloth: {fileID: 0}
+  shoesPlastic: {fileID: 0}
+  shoesMaking: {fileID: 0}
 --- !u!1 &729449790284500945
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,8 +773,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC7AC\uBD09\uD2C0"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
-  m_sharedMaterial: {fileID: 4592754305353038181, guid: 4c3b923ebf1cddd4b95436376a87a83b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d012cefa20a85b849be3a7a2e9a31a32, type: 2}
+  m_sharedMaterial: {fileID: -7719785960087807489, guid: d012cefa20a85b849be3a7a2e9a31a32, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -791,7 +804,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

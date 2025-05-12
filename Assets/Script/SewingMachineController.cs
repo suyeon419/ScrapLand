@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 public class SewingMachineController : MonoBehaviour
 {
-    // 재료 개수를 관리할 public 변수
+    // 재료 개수를 관리할 public 변수(혜리한테 받아오기)
     public int plasticThread = 0;  // 페트실
     public int paper = 0;         // 종이
     public int plastic = 0;        // 녹인 플라스틱
     public int oldCloth = 0;      // 헌 옷
+    public int vinyl = 0;       //비닐
 
     // 제작 상태를 관리할 변수
     private int CapMaking = 0;
@@ -16,6 +17,7 @@ public class SewingMachineController : MonoBehaviour
     private int TopMaking = 0;
     private int BottomMaking = 0;
     private int ShoesMaking = 0;
+    private int DollMaking = 0;
 
     // UI 버튼 및 텍스트 (Inspector에서 할당)
     public Button capButton;       // 모자 제작 버튼
@@ -23,6 +25,7 @@ public class SewingMachineController : MonoBehaviour
     public Button topButton;       // 상의 제작 버튼
     public Button bottomButton;    // 하의 제작 버튼
     public Button shoesButton;     // 신발 제작 버튼
+    public Button dollButton;      // 인형 제작 버튼
 
     //text UI
     [Header("모자")]
@@ -45,6 +48,11 @@ public class SewingMachineController : MonoBehaviour
     public TextMeshProUGUI shoesOldCloth;
     public TextMeshProUGUI shoesPlastic;
     public TextMeshProUGUI shoesMaking;
+    [Header("인형")]
+    public TextMeshProUGUI dollOldCloth;
+    public TextMeshProUGUI dollPt;
+    public TextMeshProUGUI dollVinyl;
+    public TextMeshProUGUI dollMaking;
 
     // 제작에 필요한 최소 재료 개수
     //모자
@@ -62,6 +70,10 @@ public class SewingMachineController : MonoBehaviour
     //신발
     private int ShoesPlastic = 2;
     private int ShoesOldCloth = 3;
+    //인형
+    private int DollOldCloth = 2;
+    private int DollPt = 2;
+    private int DollVinyl = 1;
 
     void Start()
     {
@@ -71,6 +83,7 @@ public class SewingMachineController : MonoBehaviour
         topButton.onClick.AddListener(() => StartTopMaking());
         topButton.onClick.AddListener(() => StartBottomMaking());
         shoesButton.onClick.AddListener(() => StartShoesMaking());
+        dollButton.onClick.AddListener(() => StartDollMaking());
 
 
         // 초기 버튼 상태 체크
@@ -110,6 +123,11 @@ public class SewingMachineController : MonoBehaviour
         shoesPlastic.text = "녹인\n플라스틱\n" + plastic.ToString() + "/2";
         shoesOldCloth.text = "헌 옷\n" + oldCloth.ToString() + "/3";
         shoesMaking.text = "만든 횟수: " + ShoesMaking.ToString();
+
+        //인형 제작 관령 UI 업데이트
+        dollOldCloth.text = "헌 옷\n" + plastic.ToString() + "/2";
+        dollPt.text = "페트실\n" + plasticThread.ToString() + "/2";
+        dollVinyl.text = "비닐\n" + vinyl.ToString() + "/1";
     }
 
     // 버튼 상태 업데이트 메서드
@@ -129,6 +147,9 @@ public class SewingMachineController : MonoBehaviour
 
         //신발 제작 버튼 활성화
         shoesButton.interactable = (plastic >= ShoesPlastic && oldCloth >= ShoesOldCloth);
+
+        //인형 제작 버튼 활성화
+        dollButton.interactable = (oldCloth >= DollOldCloth && plasticThread >= DollPt && vinyl >= DollVinyl);
     }
 
     // 모자 제작 시작
@@ -198,24 +219,18 @@ public class SewingMachineController : MonoBehaviour
         UpdateButtonStates();
     }
 
-    // 재료 추가 메서드 (예시로 호출 가능)
-    public void AddMaterial(string material, int amount)
+    //인형 제작 시작
+    void StartDollMaking()
     {
-        switch (material)
+        if(oldCloth >= DollOldCloth && plasticThread >= DollPt && vinyl >= DollVinyl)
         {
-            case "plasticThread":
-                plasticThread += amount;
-                break;
-            case "paper":
-                paper += amount;
-                break;
-            case "plastic":
-                plastic += amount;
-                break;
-            case "oldCloth":
-                oldCloth += amount;
-                break;
+            oldCloth -= DollOldCloth;
+            plasticThread -= DollPt;
+            vinyl -= DollVinyl;
+            DollMaking++;
+            UpdateUI();
         }
         UpdateButtonStates();
     }
+    
 }
