@@ -36,6 +36,16 @@ public class MakingController : MonoBehaviour
     private int TongsMaking = 0;
     private int CupMaking = 0;
     private int BowlMaking = 0;
+    /*탈 것*/
+    private int BoatMaking = 0;
+    /* 자전거 */
+    private int FrameMaking = 0;
+    private int WheelMaking = 0;
+    private int ChainMaking = 0;
+    private int HandleMaking = 0;
+    private int BrakeMaking = 0;
+    private int SaddleMaking = 0;
+    private int BikeMaking = 0;
 
     // 버튼 할당
     [Header("인테리어관련 버튼")]
@@ -52,6 +62,8 @@ public class MakingController : MonoBehaviour
     public Button tongsButton;
     public Button cupButton;
     public Button bowlButton;
+    [Header("탈 것관련 버튼")]
+    public Button boatButton;
 
     //text UI
     [Header("플라스틱 화분")]
@@ -126,6 +138,15 @@ public class MakingController : MonoBehaviour
     private int BowlMoltenGlass = 2;
     public TextMeshProUGUI bowlMaking;
 
+    [Header("페트병보트")]
+    public TextMeshProUGUI boatPaper;
+    private int BoatPaper = 1;
+    public TextMeshProUGUI boatCan;
+    private int BoatCan = 2;
+    public TextMeshProUGUI boatPt;
+    private int BoatPt = 10;
+    public TextMeshProUGUI boatMaking;
+
 
     // Start is called before the first frame update
     void Start()
@@ -146,6 +167,9 @@ public class MakingController : MonoBehaviour
         tongsButton.onClick.AddListener(() => StartTongsMaking()); //집게
         cupButton.onClick.AddListener(() => StartCupMaking()); //컵
         bowlButton.onClick.AddListener(() => StartBowlMaking()); //그릇
+
+        /* 탈 것 */
+        boatButton.onClick.AddListener(() => StartBoatMaking()); //페트병보트
 
         // 초기 버튼 상태 체크
         UpdateButtonStates();
@@ -216,6 +240,13 @@ public class MakingController : MonoBehaviour
         //그릇 관련
         bowlMoltenGlass.text = "녹인 유리\n" + moltenGlass.ToString() + "/2";
         bowlMaking.text = "만든 횟수: " + BowlMaking.ToString();
+
+        /* 탈 것 */
+        //페트병 보트
+        boatPaper.text = "종이\n" + paper.ToString() + "/1";
+        boatCan.text = "캔\n" + can.ToString() + "/2";
+        boatPt.text = "페트\n" + plasticBottle.ToString() + "/10";
+        boatMaking.text = "만든 횟수: " + BoatMaking.ToString();
     }
 
     //버튼 상태 업데이트
@@ -237,6 +268,23 @@ public class MakingController : MonoBehaviour
         cupButton.interactable = (can >= CupCan); //컵
         bowlButton.interactable = (moltenGlass >= BowlMoltenGlass); //그릇
 
+        /* 탈 것 */
+        boatButton.interactable = (can >= BoatCan && paper >= BoatPaper && plasticBottle >= BoatPt); //페트병 보트
+
+    }
+
+    /* 탈 것 */
+    void StartBoatMaking()
+    {
+        if(can >= BoatCan && paper >= BoatPaper && plasticBottle >= BoatPt)
+        {
+            can -= BoatCan;
+            paper -= BoatPaper;
+            plasticBottle -= BoatPt;
+            BoatMaking++;
+            UpdateUI();
+        }
+        UpdateButtonStates();
     }
 
     /* 판매용 */
