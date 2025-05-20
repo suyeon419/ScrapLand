@@ -21,6 +21,13 @@ public class MakingController : MonoBehaviour
     public int plasticThread = 0;  // 페트실
     public int moltenPlastic = 0; //녹은 플라스틱
 
+    public int frame = 0;
+    public int wheel = 0;
+    public int chain = 0;
+    public int handle = 0;
+    public int brake = 0;
+    public int saddle = 0;
+
     //제작 상태
     /*인테리어*/
     private int P_PotMaiking = 0;
@@ -38,13 +45,14 @@ public class MakingController : MonoBehaviour
     private int BowlMaking = 0;
     /*탈 것*/
     private int BoatMaking = 0;
-    /* 자전거 */
+    /* 자전거 부품 */
     private int FrameMaking = 0;
     private int WheelMaking = 0;
     private int ChainMaking = 0;
     private int HandleMaking = 0;
     private int BrakeMaking = 0;
     private int SaddleMaking = 0;
+    //자전거
     private int BikeMaking = 0;
 
     // 버튼 할당
@@ -64,6 +72,14 @@ public class MakingController : MonoBehaviour
     public Button bowlButton;
     [Header("탈 것관련 버튼")]
     public Button boatButton;
+    [Header("자전거 부품관련 버튼")]
+    public Button frameButton;
+    public Button wheelButton;
+    public Button chainButton;
+    public Button handleButton;
+    public Button brakeButton;
+    public Button saddleButton;
+    public Button bikeButton;
 
     //text UI
     [Header("플라스틱 화분")]
@@ -147,6 +163,58 @@ public class MakingController : MonoBehaviour
     private int BoatPt = 10;
     public TextMeshProUGUI boatMaking;
 
+    [Header("프레임")]
+    public TextMeshProUGUI frameAluminum;
+    private int FrameAluminum = 10;
+    public TextMeshProUGUI frameMaking;
+
+    [Header("바퀴")]
+    public TextMeshProUGUI wheelMoltenPlastic;
+    private int WheelMoltenPlastic = 5;
+    public TextMeshProUGUI wheelCompressedPaper;
+    private int WheelCompressedPaper = 5;
+    public TextMeshProUGUI wheelMaking;
+
+    [Header("체인")]
+    public TextMeshProUGUI chainAluminum;
+    private int ChainAluminum = 5;
+    public TextMeshProUGUI chainMaking;
+
+    [Header("핸들")]
+    public TextMeshProUGUI handleMoltenPlastic;
+    private int HandleMoltenPlastic = 3;
+    public TextMeshProUGUI handleCompressedPaper;
+    private int HandleCompressedPaper = 2;
+    public TextMeshProUGUI handleMaking;
+
+    [Header("브레이크")]
+    public TextMeshProUGUI brakeCompressedPaper;
+    private int BrakeCompressedPaper = 2;
+    public TextMeshProUGUI brakePt;
+    private int BrakePt = 3;
+    public TextMeshProUGUI brakeMaking;
+
+    [Header("안장")]
+    public TextMeshProUGUI saddleMoltenPlastic;
+    private int SaddleMoltenPlasic = 2;
+    public TextMeshProUGUI saddleOldCloth;
+    private int SaddleOldCloth = 1;
+    public TextMeshProUGUI saddleMaking;
+
+    [Header("자전거")]
+    public TextMeshProUGUI bikeFrame;
+    private int BikeFrame = 1;
+    public TextMeshProUGUI bikeWheel;
+    private int BikeWheel = 1;
+    public TextMeshProUGUI bikeChain;
+    private int BikeChain = 1;
+    public TextMeshProUGUI bikeHandle;
+    private int BikeHandle = 1;
+    public TextMeshProUGUI bikeBrake;
+    private int BikeBrake = 1;
+    public TextMeshProUGUI bikeSaddle;
+    private int BikeSaddle = 1;
+    public TextMeshProUGUI bikeMaking;
 
     // Start is called before the first frame update
     void Start()
@@ -170,6 +238,17 @@ public class MakingController : MonoBehaviour
 
         /* 탈 것 */
         boatButton.onClick.AddListener(() => StartBoatMaking()); //페트병보트
+
+        /*자전거 부품*/
+        frameButton.onClick.AddListener(() => StartFrameMaking()); //프레임
+        wheelButton.onClick.AddListener(() => StartWheelMaking()); //바퀴
+        chainButton.onClick.AddListener(() => StartChainMaking()); //체인
+        handleButton.onClick.AddListener(() => StartHandleMaking());//핸들
+        brakeButton.onClick.AddListener(() => StartBrakeMaking()); //브레이크
+        saddleButton.onClick.AddListener(() => StartSaddleMaking()); //안장
+
+        /*자전거*/
+        bikeButton.onClick.AddListener(() => StartBikeMaking()); //자전거
 
         // 초기 버튼 상태 체크
         UpdateButtonStates();
@@ -247,6 +326,44 @@ public class MakingController : MonoBehaviour
         boatCan.text = "캔\n" + can.ToString() + "/2";
         boatPt.text = "페트\n" + plasticBottle.ToString() + "/10";
         boatMaking.text = "만든 횟수: " + BoatMaking.ToString();
+
+        /* 자전거 부품 */
+        //프레임
+        frameAluminum.text = "알루미늄\n" + aluminum.ToString() + "/10";
+        frameMaking.text = "만든 횟수: " + FrameMaking.ToString();
+
+        //바퀴
+        wheelMoltenPlastic.text = "녹인\n플라스틱\n" + moltenPlastic.ToString() + "/5";
+        wheelCompressedPaper.text = "압축 종이\n" + compressedPaper.ToString() + "/5";
+        wheelMaking.text = "만든 횟수: " + WheelMaking.ToString();
+
+        //체인
+        chainAluminum.text = "알루미늄\n" + aluminum.ToString() + "/5";
+        chainMaking.text = "만든 횟수: " + ChainMaking.ToString();
+
+        //핸들
+        handleMoltenPlastic.text = "녹인\n플라스틱\n" + moltenPlastic.ToString() + "/3";
+        handleCompressedPaper.text = "압축 종이\n" + compressedPaper.ToString() + "/2";
+        handleMaking.text = "만든 횟수: " + HandleMaking.ToString();
+
+        //브레이크
+        brakeCompressedPaper.text = "압축 종이\n" + compressedPaper.ToString() + "/2";
+        brakePt.text = "페트실\n" + plasticThread.ToString() + "/3";
+        brakeMaking.text = "만든 횟수: " + BrakeMaking.ToString();
+
+        //안장
+        saddleMoltenPlastic.text = "녹인\n플라스틱\n" + moltenPlastic.ToString() + "/2";
+        saddleOldCloth.text = "헌 옷\n" + oldCloth.ToString() + "/1";
+        saddleMaking.text = "만든 횟수: " + SaddleMaking.ToString();
+
+        /* 자전거 */
+        bikeFrame.text = "프레임\n" + frame.ToString() + "/1";
+        bikeWheel.text = "바퀴\n" + wheel.ToString() + "/1";
+        bikeChain.text = "체인\n" + chain.ToString() + "/1";
+        bikeHandle.text = "핸들\n" + handle.ToString() + "/1";
+        bikeBrake.text = "브레이크\n" + brake.ToString() + "/1";
+        bikeSaddle.text = "안장\n" + saddle.ToString() + "/1";
+        bikeMaking.text = "만든 횟수: " + BikeMaking.ToString();
     }
 
     //버튼 상태 업데이트
@@ -271,6 +388,110 @@ public class MakingController : MonoBehaviour
         /* 탈 것 */
         boatButton.interactable = (can >= BoatCan && paper >= BoatPaper && plasticBottle >= BoatPt); //페트병 보트
 
+        /* 자전거 재료 */
+        frameButton.interactable = (aluminum >= FrameAluminum);//프레임
+        wheelButton.interactable = (moltenPlastic >= WheelMoltenPlastic && compressedPaper >= WheelCompressedPaper); //바퀴
+        chainButton.interactable = (aluminum >= ChainAluminum); //체인
+        handleButton.interactable = (moltenPlastic >= HandleMoltenPlastic && compressedPaper >= HandleCompressedPaper);  //핸들
+        brakeButton.interactable = (compressedPaper >= BrakeCompressedPaper && plasticThread >= BrakePt); //브레이크
+        saddleButton.interactable = (moltenPlastic >= SaddleMoltenPlasic && oldCloth >= SaddleOldCloth); //안장
+
+        /*자전거*/
+        bikeButton.interactable = (frame >= BikeFrame && wheel >= BikeWheel && chain >= BikeChain && handle >= BikeHandle && brake >= BikeBrake && saddle >= BikeFrame);
+    }
+
+    /* 자전거 */
+    void StartBikeMaking()
+    {
+        if(frame >= BikeFrame && wheel >= BikeWheel && chain >= BikeChain && handle >= BikeHandle && brake >= BikeBrake && saddle >= BikeFrame)
+        {
+            frame -= BikeFrame;
+            wheel -= BikeWheel;
+            chain -= BikeChain;
+            handle -= BikeHandle;
+            brake -= BikeBrake;
+            saddle -= BikeSaddle;
+            BikeMaking++;
+            UpdateUI();
+        }
+        UpdateButtonStates();
+    }
+
+    /* 자전거 재료 */
+    //안장
+    void StartSaddleMaking()
+    {
+        if(moltenPlastic >= SaddleMoltenPlasic && oldCloth >= SaddleOldCloth)
+        {
+            moltenPlastic -= SaddleMoltenPlasic;
+            oldCloth -= SaddleOldCloth;
+            SaddleMaking++;
+            UpdateUI();
+        }
+        UpdateButtonStates();
+    }
+
+    //브레이크
+    void StartBrakeMaking()
+    {
+        if(compressedPaper >= BrakeCompressedPaper && plasticThread >= BrakePt)
+        {
+            compressedPaper -= BrakeCompressedPaper;
+            plasticThread -= BrakePt;
+            BrakeMaking++;
+            UpdateUI();
+        }
+        UpdateButtonStates();
+    }
+
+    //핸들
+    void StartHandleMaking()
+    {
+        if(moltenPlastic >= HandleMoltenPlastic && compressedPaper >= HandleCompressedPaper)
+        {
+            moltenPlastic -= HandleMoltenPlastic;
+            compressedPaper -= HandleCompressedPaper;
+            HandleMaking++;
+            UpdateUI();
+        }
+        UpdateButtonStates();
+    }
+
+    //체인
+    void StartChainMaking()
+    {
+        if(aluminum >= ChainAluminum)
+        {
+            aluminum -= ChainAluminum;
+            ChainMaking++;
+            UpdateUI();
+        }
+        UpdateButtonStates();
+    }
+
+    //바퀴
+    void StartWheelMaking()
+    {
+        if(moltenPlastic >= WheelMoltenPlastic && compressedPaper >= WheelCompressedPaper)
+        {
+            moltenPlastic -= WheelMoltenPlastic;
+            compressedPaper -= WheelCompressedPaper;
+            WheelMaking++;
+            UpdateUI();
+        }
+        UpdateButtonStates();
+    }
+
+    //프레임
+    void StartFrameMaking()
+    {
+        if(aluminum >= FrameAluminum)
+        {
+            aluminum -= FrameAluminum;
+            FrameMaking++;
+            UpdateUI();
+        }
+        UpdateButtonStates();
     }
 
     /* 탈 것 */
