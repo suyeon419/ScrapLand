@@ -30,30 +30,30 @@ public class MakingController : MonoBehaviour
 
     //제작 상태
     /*인테리어*/
-    private int P_PotMaiking = 0;
-    private int G_PotMaiking = 0;
-    private int C_PotMaiking = 0;
-    private int TableMaking = 0;
-    private int ChairMaking = 0;
-    private int StorageBoxMaking = 0;
-    private int MobileMaking = 0;
-    private int ClockMaking = 0;
+    public int P_PotMaiking = 0;
+    public int G_PotMaiking = 0;
+    public int C_PotMaiking = 0;
+    public int TableMaking = 0;
+    public int ChairMaking = 0;
+    public int StorageBoxMaking = 0;
+    public int MobileMaking = 0;
+    public int ClockMaking = 0;
     /*판매용*/
-    private int KeyringMaking = 0;
-    private int TongsMaking = 0;
-    private int CupMaking = 0;
-    private int BowlMaking = 0;
+    public int KeyringMaking = 0;
+    public int TongsMaking = 0;
+    public int CupMaking = 0;
+    public int BowlMaking = 0;
     /*탈 것*/
-    private int BoatMaking = 0;
+    public int BoatMaking = 0;
     /* 자전거 부품 */
-    private int FrameMaking = 0;
-    private int WheelMaking = 0;
-    private int ChainMaking = 0;
-    private int HandleMaking = 0;
-    private int BrakeMaking = 0;
-    private int SaddleMaking = 0;
+    public int FrameMaking = 0;
+    public int WheelMaking = 0;
+    public int ChainMaking = 0;
+    public int HandleMaking = 0;
+    public int BrakeMaking = 0;
+    public int SaddleMaking = 0;
     //자전거
-    private int BikeMaking = 0;
+    public int BikeMaking = 0;
 
     // 버튼 할당
     [Header("인테리어관련 버튼")]
@@ -216,6 +216,17 @@ public class MakingController : MonoBehaviour
     private int BikeSaddle = 1;
     public TextMeshProUGUI bikeMaking;
 
+    /*
+    public void setMaking(string itemName, int itemMaking)
+    {
+        P_PotMaiking = GameManager_ScrapLand.instance.GetGount_Produce("Plastic Pot");
+    }
+    public void getMaking(string itemName)
+    {
+        GameManager_ScrapLand.instance.SetCount_Produce("Plastic Pot", P_PotMaiking);
+    }
+    */
+
     // Start is called before the first frame update
     void Start()
     {
@@ -266,103 +277,103 @@ public class MakingController : MonoBehaviour
     {
         /* 인테리어 */
         //플라스틱 화분 관련
-        potPt.text = "페트\n" + plasticBottle.ToString() + "/1";
+        potPt.text = plasticBottle.ToString() + "/1";
         p_potMaking.text = "만든 횟수: " + P_PotMaiking.ToString();
 
         //캔 화분 관련
-        potCan.text = "캔\n" + can.ToString() + "/1";
+        potCan.text = can.ToString() + "/1";
         c_potMaking.text = "만든 횟수: " + C_PotMaiking.ToString();
 
         //유리 화분 관련
-        potGlass.text = "유리\n" + glass.ToString() + "/1";
+        potGlass.text = glass.ToString() + "/1";
         g_potMaking.text = "만든 횟수: " + G_PotMaiking.ToString();
 
         //테이블 관련
-        tableCompressedPaper.text = "압축 종이\n" + compressedPaper.ToString() + "/4";
+        tableCompressedPaper.text = compressedPaper.ToString() + "/4";
         tableMaking.text = "만든 횟수: " + TableMaking.ToString();
 
         //의자 관련
-        chairCompressedPaper.text = "압축 종이\n" + compressedPaper + "/3";
+        chairCompressedPaper.text = compressedPaper + "/3";
         chairMaking.text = "만든 횟수: " + ChairMaking.ToString();
 
         //수납함 관련
-        storageBoxCompressedPaper.text = "압축 종이\n" + compressedPaper.ToString() + "/2";
-        storageBoxCan.text = "캔\n" + can.ToString() + "/3";
+        storageBoxCompressedPaper.text = compressedPaper.ToString() + "/2";
+        storageBoxCan.text = can.ToString() + "/3";
         storageBoxMaking.text = "만든 횟수: " + StorageBoxMaking.ToString();
 
         //모빌 관련
-        mobileMoltenGlass.text = "녹인 유리\n" + moltenGlass.ToString() + "/1";
-        mobileVinyl.text = "비닐\n" + vinyl.ToString() + "/3";
-        mobileCan.text = "캔\n" + can.ToString() + "/1";
-        mobilePtThread.text = "페트실\n" + plasticThread.ToString() + "/2";
+        mobileMoltenGlass.text = moltenGlass.ToString() + "/1";
+        mobileVinyl.text = vinyl.ToString() + "/3";
+        mobileCan.text = can.ToString() + "/1";
+        mobilePtThread.text = plasticThread.ToString() + "/2";
         mobileMaking.text = "만든 횟수: " + MobileMaking.ToString();
 
         //시계 관련
-        clockMoltenGlass.text = "녹인 유리\n" + moltenGlass.ToString() + "/1";
-        clockCompressedPaper.text = "압축 종이\n" + compressedPaper.ToString() + "/2";
-        clockCan.text = "캔\n" + can.ToString() + "/1";
+        clockMoltenGlass.text = moltenGlass.ToString() + "/1";
+        clockCompressedPaper.text = compressedPaper.ToString() + "/2";
+        clockCan.text = can.ToString() + "/1";
         clockMaking.text = "만든 횟수: " + ClockMaking.ToString();
 
         /* 판매용 */
         //키링 관련
-        keyringMoltenPlastic.text = "녹인\n플라스틱\n" + moltenPlastic.ToString() + "/1";
+        keyringMoltenPlastic.text = moltenPlastic.ToString() + "/1";
         keyringMaking.text = "만든 횟수: " + KeyringMaking.ToString();
 
         //집게 관련
-        tongsAluminum.text = "알루미늄\n" + aluminum.ToString() + "/2";
+        tongsAluminum.text = aluminum.ToString() + "/2";
         tongsMaking.text = "만든 횟수: " + TongsMaking.ToString();
 
         //컵 관련
-        cupCan.text = "캔\n" + can.ToString() + "/2";
+        cupCan.text = can.ToString() + "/2";
         cupMaking.text = "만든 횟수: " + CupMaking.ToString();
 
         //그릇 관련
-        bowlMoltenGlass.text = "녹인 유리\n" + moltenGlass.ToString() + "/2";
+        bowlMoltenGlass.text = moltenGlass.ToString() + "/2";
         bowlMaking.text = "만든 횟수: " + BowlMaking.ToString();
 
         /* 탈 것 */
         //페트병 보트
-        boatPaper.text = "종이\n" + paper.ToString() + "/1";
-        boatCan.text = "캔\n" + can.ToString() + "/2";
-        boatPt.text = "페트\n" + plasticBottle.ToString() + "/10";
+        boatPaper.text = paper.ToString() + "/1";
+        boatCan.text = can.ToString() + "/2";
+        boatPt.text = plasticBottle.ToString() + "/10";
         boatMaking.text = "만든 횟수: " + BoatMaking.ToString();
 
         /* 자전거 부품 */
         //프레임
-        frameAluminum.text = "알루미늄\n" + aluminum.ToString() + "/10";
+        frameAluminum.text = aluminum.ToString() + "/10";
         frameMaking.text = "만든 횟수: " + FrameMaking.ToString();
 
         //바퀴
-        wheelMoltenPlastic.text = "녹인\n플라스틱\n" + moltenPlastic.ToString() + "/5";
-        wheelCompressedPaper.text = "압축 종이\n" + compressedPaper.ToString() + "/5";
+        wheelMoltenPlastic.text = moltenPlastic.ToString() + "/5";
+        wheelCompressedPaper.text = compressedPaper.ToString() + "/5";
         wheelMaking.text = "만든 횟수: " + WheelMaking.ToString();
 
         //체인
-        chainAluminum.text = "알루미늄\n" + aluminum.ToString() + "/5";
+        chainAluminum.text = aluminum.ToString() + "/5";
         chainMaking.text = "만든 횟수: " + ChainMaking.ToString();
 
         //핸들
-        handleMoltenPlastic.text = "녹인\n플라스틱\n" + moltenPlastic.ToString() + "/3";
-        handleCompressedPaper.text = "압축 종이\n" + compressedPaper.ToString() + "/2";
+        handleMoltenPlastic.text = moltenPlastic.ToString() + "/3";
+        handleCompressedPaper.text = compressedPaper.ToString() + "/2";
         handleMaking.text = "만든 횟수: " + HandleMaking.ToString();
 
         //브레이크
-        brakeCompressedPaper.text = "압축 종이\n" + compressedPaper.ToString() + "/2";
-        brakePt.text = "페트실\n" + plasticThread.ToString() + "/3";
+        brakeCompressedPaper.text = compressedPaper.ToString() + "/2";
+        brakePt.text = plasticThread.ToString() + "/3";
         brakeMaking.text = "만든 횟수: " + BrakeMaking.ToString();
 
         //안장
-        saddleMoltenPlastic.text = "녹인\n플라스틱\n" + moltenPlastic.ToString() + "/2";
-        saddleOldCloth.text = "헌 옷\n" + oldCloth.ToString() + "/1";
+        saddleMoltenPlastic.text = moltenPlastic.ToString() + "/2";
+        saddleOldCloth.text = oldCloth.ToString() + "/1";
         saddleMaking.text = "만든 횟수: " + SaddleMaking.ToString();
 
         /* 자전거 */
-        bikeFrame.text = "프레임\n" + frame.ToString() + "/1";
-        bikeWheel.text = "바퀴\n" + wheel.ToString() + "/1";
-        bikeChain.text = "체인\n" + chain.ToString() + "/1";
-        bikeHandle.text = "핸들\n" + handle.ToString() + "/1";
-        bikeBrake.text = "브레이크\n" + brake.ToString() + "/1";
-        bikeSaddle.text = "안장\n" + saddle.ToString() + "/1";
+        bikeFrame.text = frame.ToString() + "/1";
+        bikeWheel.text = wheel.ToString() + "/1";
+        bikeChain.text = chain.ToString() + "/1";
+        bikeHandle.text = handle.ToString() + "/1";
+        bikeBrake.text = brake.ToString() + "/1";
+        bikeSaddle.text = saddle.ToString() + "/1";
         bikeMaking.text = "만든 횟수: " + BikeMaking.ToString();
     }
 

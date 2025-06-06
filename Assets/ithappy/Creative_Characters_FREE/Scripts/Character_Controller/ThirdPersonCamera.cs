@@ -9,7 +9,7 @@ namespace Controller
         [SerializeField, Range(0f, 2f)]
         private float m_HorizontalOffset = 0.5f;
         [SerializeField, Range(0f, 360f)]
-        private float m_CameraSpeed = 90f;
+        public float m_CameraSpeed = 90f;
         [SerializeField, Range(0f, 360f)]
         private float m_RotationSpeed = 100f;
         [SerializeField, Range(0f, 50f)]
@@ -23,6 +23,22 @@ namespace Controller
         public GameObject breaker_ui;
         public GameObject blastFurnace_ui;
         public GameObject compressor_ui;
+        public GameObject sewing_ui;
+        public GameObject Sewing;
+        public GameObject maker_ui;
+        //public GameObject Maker;
+
+        //감도 공유를 위한 게터세터
+        public float CameraSpeed
+        {
+            get => m_CameraSpeed;
+            set => m_CameraSpeed = value;
+        }
+
+        public void Start()
+        {
+            Sewing.SetActive(false);
+        }
 
         private void LateUpdate()
         {
@@ -110,12 +126,27 @@ namespace Controller
                 {
                     compressor_ui.SetActive(true);
                 }
+                else if(hit.collider.tag == "sewing")
+                {
+                    sewing_ui.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        Sewing.SetActive(true);
+                    }
+                }
+                else if(hit.collider.tag == "maker")
+                {
+                    maker_ui.SetActive(true);
+                    //if (Input.GetKeyDown(KeyCode.F)) { Maker.SetActive(true); }
+                }
                 else
                 {
                     machine_ui.SetActive(false);
                     breaker_ui.SetActive(false);
                     blastFurnace_ui.SetActive(false);
                     compressor_ui.SetActive(false);
+                    sewing_ui.SetActive(false);
+                    maker_ui.SetActive(false);
                 }
             }
             else
@@ -125,6 +156,8 @@ namespace Controller
                 breaker_ui.SetActive(false);
                 blastFurnace_ui.SetActive(false);
                 compressor_ui.SetActive(false);
+                sewing_ui.SetActive(false);
+                maker_ui.SetActive(false);
             }
         }
     }

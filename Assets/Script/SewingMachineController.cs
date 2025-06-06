@@ -12,12 +12,12 @@ public class SewingMachineController : MonoBehaviour
     public int vinyl = 0;       //비닐
 
     // 제작 상태를 관리할 변수
-    private int CapMaking = 0;
-    private int GroveMaking = 0;
-    private int TopMaking = 0;
-    private int BottomMaking = 0;
-    private int ShoesMaking = 0;
-    private int DollMaking = 0;
+    public int CapMaking = 0;
+    public int GroveMaking = 0;
+    public int TopMaking = 0;
+    public int BottomMaking = 0;
+    public int ShoesMaking = 0;
+    public int DollMaking = 0;
 
     // UI 버튼 및 텍스트 (Inspector에서 할당)
     public Button capButton;       // 모자 제작 버튼
@@ -100,34 +100,34 @@ public class SewingMachineController : MonoBehaviour
     void UpdateUI()
     {
         // 모자 제작 관련 UI 업데이트
-        capPt.text = "페트실\n" + plasticThread.ToString() + "/5";         
-        capPaper.text = "종이\n" + paper.ToString() + "/1";               
+        capPt.text = plasticThread.ToString() + "/5";         
+        capPaper.text = paper.ToString() + "/1";               
         capMaking.text = "만든 횟수: " + CapMaking.ToString();
 
         // 장갑 제작 관련 UI 업데이트
-        glovePt.text = "페트실\n" + plasticThread.ToString() + "/1";   
-        gloveOldCloth.text = "헌 옷\n" + oldCloth.ToString() + "/1";     
+        glovePt.text = plasticThread.ToString() + "/1";   
+        gloveOldCloth.text = oldCloth.ToString() + "/1";     
         gloveMaking.text = "만든 횟수: " + GroveMaking.ToString();
 
         // 상의 제작 관련 UI 업데이트
-        topPt.text = "페트실\n" + plasticThread.ToString() + "/1";      
-        topOldCloth.text = "헌 옷\n" + oldCloth.ToString() + "/3";    
+        topPt.text = plasticThread.ToString() + "/1";      
+        topOldCloth.text = oldCloth.ToString() + "/3";    
         topMaking.text = "만든 횟수: " + TopMaking.ToString();
 
         // 하의 제작 관련 UI 업데이트
-        bottomPt.text = "페트실\n" + plasticThread.ToString() + "/1";      
-        bottomOldCloth.text = "헌 옷\n" + oldCloth.ToString() + "/3";     
+        bottomPt.text = plasticThread.ToString() + "/1";      
+        bottomOldCloth.text = oldCloth.ToString() + "/3";     
         bottomMaking.text = "만든 횟수: " + BottomMaking.ToString();
 
         // 신발 제작 관련 UI 업데이트
-        shoesPlastic.text = "녹인\n플라스틱\n" + plastic.ToString() + "/2";
-        shoesOldCloth.text = "헌 옷\n" + oldCloth.ToString() + "/3";
+        shoesPlastic.text = plastic.ToString() + "/2";
+        shoesOldCloth.text = oldCloth.ToString() + "/3";
         shoesMaking.text = "만든 횟수: " + ShoesMaking.ToString();
 
         //인형 제작 관령 UI 업데이트
-        dollOldCloth.text = "헌 옷\n" + plastic.ToString() + "/2";
-        dollPt.text = "페트실\n" + plasticThread.ToString() + "/2";
-        dollVinyl.text = "비닐\n" + vinyl.ToString() + "/1";
+        dollOldCloth.text = plastic.ToString() + "/2";
+        dollPt.text = plasticThread.ToString() + "/2";
+        dollVinyl.text = vinyl.ToString() + "/1";
     }
 
     // 버튼 상태 업데이트 메서드

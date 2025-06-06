@@ -17,10 +17,12 @@ TagManager:
   - compressor
   - paper
   - m_block
-  - B_block
-  - making_M
-  - making_C
-  - making_B
+  - sewing
+  - b_block
+  - c_block
+  - mb_block
+  - mc_block
+  - bc_block
   layers:
   - Default
   - TransparentFX

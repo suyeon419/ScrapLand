@@ -11,9 +11,16 @@ namespace Controller
     public class Machine : MonoBehaviour
     {
         private ThirdPersonCamera cameraScript;
+        private BlockController machineController;
 
         //손 위치
         public GameObject handPos;
+
+        //기계 내구도
+        private int machine = 1;
+        private int breaker = 1;
+        private int blastFurnace = 1;
+        private int compressor = 1;
 
 
         //재료들
@@ -75,8 +82,8 @@ namespace Controller
         private bool can_molten = false; //알루미늄 완성 여부
 
         //압축기 재료 관련
-        private int paper_deleteCount = 0; //페트 개수 확인
-        private bool compressed_paper = false; //페트실 완성 여부
+        private int paper_deleteCount = 0; //종이 개수 확인
+        private bool compressed_paper = false; //압축종이 완성 여부
 
         private void Start()
         {
@@ -92,6 +99,11 @@ namespace Controller
                 Debug.LogWarning("handPos가 지정되지 않았습니다.");
             }
 
+            //BlockController를 사용하기 위해
+            GameObject obj = GameObject.Find("UIController");
+            if (obj != null)
+                machineController = obj.GetComponent<BlockController>();
+
             UpdateText();
         }
 
@@ -101,6 +113,14 @@ namespace Controller
             {
                 TryDeleteHeldObject();
             }
+
+            //값읽기
+            //bool currentValue = machineController.machine;
+            //if(machine == 0)
+            //{
+            //    // 값 쓰기
+            //    machineController.machine = false;
+            //}
         }
 
         private void TryDeleteHeldObject()
@@ -154,6 +174,12 @@ namespace Controller
                             finish_ui.SetActive(false); //완성UI 비활성화
                             ptthread = false; //미완성으로 변경
                             GameObject newObj = Instantiate(pt_thread, handPos.transform); //손에 아이템 장착
+                            machine--;
+                            GameObject Machine = GameObject.FindWithTag("machine");
+                            if (Machine != null)
+                            {
+                                Destroy(Machine);
+                            }
                         }
                     }
                 }

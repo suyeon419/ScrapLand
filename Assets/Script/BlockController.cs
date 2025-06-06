@@ -2,97 +2,137 @@ using UnityEngine;
 
 public class BlockController : MonoBehaviour
 {
-    private bool blast = false;
-    private bool machine = true; // 초기값 true로 설정
-    private bool compressor = false;
+    [SerializeField] private bool _machine;
+    [SerializeField] private bool _blastFurnace;
+    [SerializeField] private bool _compressor;
 
-    private GameObject[] makingBObjects;
-    private GameObject[] makingMObjects;
-    private GameObject[] makingCObjects;
+    public bool machine
+    {
+        get => _machine;
+        set
+        {
+            if (_machine != value)
+            {
+                _machine = value;
+            }
+        }
+    }
+    
+    public bool blastFurnace
+    {
+        get => _blastFurnace;
+        set
+        {
+            if (_blastFurnace != value)
+            {
+                _blastFurnace = value;
+            }
+        }
+    }
+    public bool compressor
+    {
+        get => _compressor;
+        set
+        {
+            if (_compressor != value)
+            {
+                _compressor = value;
+            }
+        }
+    }
+
+    private GameObject[] _m_block;
+    private GameObject[] _b_block;
+    private GameObject[] _c_block;
+    private GameObject[] _mb_block;
+    private GameObject[] _mc_block;
+    private GameObject[] _bc_block;
 
     void Start()
     {
-        // 태그 오브젝트를 캐싱
-        makingBObjects = GameObject.FindGameObjectsWithTag("making_B");
-        makingMObjects = GameObject.FindGameObjectsWithTag("making_M");
-        makingCObjects = GameObject.FindGameObjectsWithTag("making_C");
-
-        // 초기 상태 체크
-        CheckBlockStates();
+        _m_block = GameObject.FindGameObjectsWithTag("m_block");
+        _b_block = GameObject.FindGameObjectsWithTag("b_block");
+        _c_block = GameObject.FindGameObjectsWithTag("c_block");
+        _mb_block = GameObject.FindGameObjectsWithTag("mb_block");
+        _mc_block = GameObject.FindGameObjectsWithTag("mc_block");
+        _bc_block = GameObject.FindGameObjectsWithTag("bc_block");
+        UpdateAllUI();
     }
 
-    void Update()
+    private void UpdateAllUI()
     {
-        // 변수가 변경된 경우에만 상태 체크 (현재는 간단히 매 프레임 체크)
-        CheckBlockStates();
+        if (_m_block == null) return;
+
+        bool MB = _machine && _blastFurnace;
+        bool MC = _machine && _compressor;
+        bool BC = _blastFurnace && _compressor;
+
+        // m_block: machine이 켜지면 비활성화
+        foreach (var ui in _m_block)
+        {
+            if (ui != null)
+            {
+                ui.SetActive(!_machine);
+            }
+        }
+
+        // b_block: blastFurnace가 켜지면 비활성화
+        foreach (var ui in _b_block)
+        {
+            if (ui != null)
+            {
+                ui.SetActive(!_blastFurnace);
+            }
+        }
+
+        // c_block: compressor가 켜지면 비활성화
+        foreach (var ui in _c_block)
+        {
+            if (ui != null)
+            {
+                ui.SetActive(!_compressor);
+            }
+        }
+
+        // mb_block: machine과 blastFurnace가 모두 켜져야 활성화
+        foreach (var ui in _mb_block)
+        {
+            if (ui != null)
+            {
+                ui.SetActive(!MB);
+            }
+        }
+
+        // mc_block: machine과 compressor가 모두 켜져야 활성화
+        foreach (var ui in _mc_block)
+        {
+            if (ui != null)
+            {
+                ui.SetActive(!MC);
+            }
+        }
+
+        // bc_block: blastFurnace와 compressor가 모두 켜져야 활성화
+        foreach (var ui in _bc_block)
+        {
+            if (ui != null)
+            {
+                ui.SetActive(!BC);
+            }
+        }
     }
 
-    private void CheckBlockStates()
+    private void OnValidate()
     {
-        // blast가 true일 때 making_B 태그 오브젝트의 Block 비활성화
-        if (blast)
+        if (Application.isPlaying)
         {
-            foreach (GameObject obj in makingBObjects)
-            {
-                GameObject block = FindChildBlock(obj.transform);
-                if (block != null && block.activeSelf) // 이미 비활성화되지 않은 경우만 처리
-                {
-                    block.SetActive(false);
-                    Debug.Log($"making_B Block deactivated in {obj.name}");
-                }
-            }
-        }
-
-        // machine가 true일 때 making_M 태그 오브젝트의 Block 비활성화
-        if (machine)
-        {
-            foreach (GameObject obj in makingMObjects)
-            {
-                GameObject block = FindChildBlock(obj.transform);
-                if (block != null && block.activeSelf)
-                {
-                    block.SetActive(false);
-                    Debug.Log($"making_M Block deactivated in {obj.name}");
-                }
-            }
-        }
-
-        // compressor가 true일 때 making_C 태그 오브젝트의 Block 비활성화
-        if (compressor)
-        {
-            foreach (GameObject obj in makingCObjects)
-            {
-                GameObject block = FindChildBlock(obj.transform);
-                if (block != null && block.activeSelf)
-                {
-                    block.SetActive(false);
-                    Debug.Log($"making_C Block deactivated in {obj.name}");
-                }
-            }
+            UpdateAllUI();
         }
     }
 
-    // 자식 오브젝트에서 Block이라는 이름의 오브젝트를 찾는 메서드
-    private GameObject FindChildBlock(Transform parent)
+    [ContextMenu("머신 상태 토글")]
+    public void ToggleMachine()
     {
-        foreach (Transform child in parent)
-        {
-            if (child.gameObject.name == "Block")
-            {
-                return child.gameObject;
-            }
-            // 재귀적으로 자식의 자식까지 검색
-            GameObject block = FindChildBlock(child);
-            if (block != null)
-            {
-                return block;
-            }
-        }
-        return null;
+        machine = !machine;
     }
-
-    // 외부에서 변수 설정용 메서드 (필요 시 사용)
-    public void SetBlast(bool value) { if (blast != value) { blast = value; CheckBlockStates(); } }
-    public void SetMachine(bool value) { if (machine != value) { machine = value; CheckBlockStates(); } }
-    public void SetCompressor(bool value) { if (compressor != value) { compressor = value; CheckBlockStates(); } }
 }
