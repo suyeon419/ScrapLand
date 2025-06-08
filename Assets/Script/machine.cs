@@ -114,13 +114,6 @@ namespace Controller
                 TryDeleteHeldObject();
             }
 
-            //값읽기
-            //bool currentValue = machineController.machine;
-            //if(machine == 0)
-            //{
-            //    // 값 쓰기
-            //    machineController.machine = false;
-            //}
         }
 
         private void TryDeleteHeldObject()
@@ -241,19 +234,28 @@ namespace Controller
                             B_finish_ui.SetActive(false); //완성UI 비활성화
                             glass_break = false;
                             GameObject newObj = Instantiate(breakGlass, handPos.transform); //손에 아이템 장착
+                            breaker--;
                         }
                         else if (plastic_break == true && handPos != null && handPos.transform.childCount == 0)
                         {
                             B_finish_ui.SetActive(false); //완성UI 비활성화
                             plastic_break = false;
                             GameObject newObj = Instantiate(breakPlastic, handPos.transform); //손에 아이템 장착
+                            breaker--;
                         }
                         else if (can_break == true && handPos != null && handPos.transform.childCount == 0)
                         {
                             B_finish_ui.SetActive(false); //완성UI 비활성화
                             can_break = false;
                             GameObject newObj = Instantiate(breakCan, handPos.transform); //손에 아이템 장착
+                            breaker--;
                         }
+                        GameObject Breaker = GameObject.FindWithTag("breaker");
+                        if (Breaker != null)
+                        {
+                            Destroy(Breaker);
+                        }
+
                     }
                 }
 

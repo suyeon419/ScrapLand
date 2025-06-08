@@ -3,6 +3,7 @@ using UnityEngine;
 public class BlockController : MonoBehaviour
 {
     [SerializeField] private bool _machine;
+    [SerializeField] private bool _breaker;
     [SerializeField] private bool _blastFurnace;
     [SerializeField] private bool _compressor;
 
@@ -26,6 +27,17 @@ public class BlockController : MonoBehaviour
             if (_blastFurnace != value)
             {
                 _blastFurnace = value;
+            }
+        }
+    }
+    public bool breaker
+    {
+        get => _breaker;
+        set
+        {
+            if (_breaker != value)
+            {
+                _breaker = value;
             }
         }
     }
@@ -63,9 +75,9 @@ public class BlockController : MonoBehaviour
     {
         if (_m_block == null) return;
 
-        bool MB = _machine && _blastFurnace;
+        bool MB = _machine && _blastFurnace && _breaker;
         bool MC = _machine && _compressor;
-        bool BC = _blastFurnace && _compressor;
+        bool BC = _blastFurnace && _breaker && _compressor;
 
         // m_block: machine이 켜지면 비활성화
         foreach (var ui in _m_block)
