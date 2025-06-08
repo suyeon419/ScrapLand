@@ -7,6 +7,7 @@ public class MapPortal : MonoBehaviour
 {
     public Transform homePos;
     public GameObject player;
+    public GameObject Camera;
 
 
     private void OnTriggerEnter(Collider other)
@@ -22,6 +23,7 @@ public class MapPortal : MonoBehaviour
             controller.enabled = false;
             player.transform.position = pos;
             controller.enabled = true;
+            Camera.transform.position = pos;
             
             Debug.Log("캐릭터 집 이동 완료");
         }

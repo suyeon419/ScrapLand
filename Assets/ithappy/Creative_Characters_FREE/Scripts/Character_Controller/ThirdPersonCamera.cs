@@ -1,15 +1,14 @@
 using UnityEngine;
 
+
 namespace Controller
 {
     public class ThirdPersonCamera : PlayerCamera
     {
         [SerializeField, Range(0f, 2f)]
         private float m_Offset = 1.5f;
-        [SerializeField, Range(0f, 2f)]
-        private float m_HorizontalOffset = 0.5f;
         [SerializeField, Range(0f, 360f)]
-        public float m_CameraSpeed = 90f;
+        private float m_CameraSpeed = 90f;
         [SerializeField, Range(0f, 360f)]
         private float m_RotationSpeed = 100f;
         [SerializeField, Range(0f, 50f)]
@@ -23,22 +22,8 @@ namespace Controller
         public GameObject breaker_ui;
         public GameObject blastFurnace_ui;
         public GameObject compressor_ui;
-        public GameObject sewing_ui;
-        public GameObject Sewing;
-        public GameObject maker_ui;
-        //public GameObject Maker;
-
-        //감도 공유를 위한 게터세터
-        public float CameraSpeed
-        {
-            get => m_CameraSpeed;
-            set => m_CameraSpeed = value;
-        }
-
-        public void Start()
-        {
-            Sewing.SetActive(false);
-        }
+        public GameObject trash_ui;
+        public GameObject chest_ui;
 
         private void LateUpdate()
         {
@@ -50,16 +35,11 @@ namespace Controller
         {
             base.SetInput(delta, scroll);
 
-            m_Angles.y += delta.x * m_RotationSpeed * Time.deltaTime;
-            m_Angles.x -= delta.y * m_RotationSpeed * Time.deltaTime;
-            m_Angles.x = Mathf.Clamp(m_Angles.x, -90f, 90f);
-
             var dir = new Vector3(0, 0, -m_Distance);
             var rot = Quaternion.Euler(m_Angles.x, m_Angles.y, 0f);
 
             var playerPos = (m_Player == null) ? Vector3.zero : m_Player.position;
-            Vector3 rightOffset = m_Player != null ? m_Player.right : Vector3.right;
-            m_LookPoint = playerPos + m_Offset * Vector3.up + m_HorizontalOffset * rightOffset.normalized;
+            m_LookPoint = playerPos + m_Offset * Vector3.up;
             m_TargetPos = m_LookPoint + rot * dir;
         }
 
@@ -73,7 +53,7 @@ namespace Controller
                 var direction = m_TargetPos - m_Transform.position;
                 var delta = m_CameraSpeed * deltaTime;
 
-                if (delta * delta > direction.sqrMagnitude)
+                if(delta * delta > direction.sqrMagnitude)
                 {
                     m_Transform.position = m_TargetPos;
                 }
@@ -87,7 +67,7 @@ namespace Controller
 
             void target()
             {
-                if (m_Target == null)
+                if(m_Target == null)
                 {
                     return;
                 }
@@ -104,7 +84,10 @@ namespace Controller
             // 디버깅을 위해 레이 시각화
             Debug.DrawRay(m_Transform.position, m_Transform.forward * m_RaycastDistance, Color.red);
 
-            if (Physics.Raycast(ray, out hit, m_RaycastDistance))
+            // ItemBox 레이어 제외한 마스크 설정
+            int layerMask = ~(1 << LayerMask.NameToLayer("ItemBox"));
+
+            if (Physics.Raycast(ray, out hit, m_RaycastDistance, layerMask))
             {
                 // 충돌한 오브젝트의 이름과 태그를 출력
                 Debug.Log($"조준된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag}");
@@ -114,30 +97,38 @@ namespace Controller
                 {
                     machine_ui.SetActive(true);
                 }
-                else if(hit.collider.tag == "breaker")
+                else if (hit.collider.tag == "breaker")
                 {
                     breaker_ui.SetActive(true);
                 }
-                else if(hit.collider.tag == "BlastFurnace")
+                else if (hit.collider.tag == "BlastFurnace")
                 {
                     blastFurnace_ui.SetActive(true);
                 }
-                else if(hit.collider.tag == "compressor")
+                else if (hit.collider.tag == "compressor")
                 {
                     compressor_ui.SetActive(true);
                 }
-                else if(hit.collider.tag == "sewing")
+                else if (hit.collider.tag == "Trash")
                 {
-                    sewing_ui.SetActive(true);
-                    if (Input.GetKeyDown(KeyCode.F))
+                    trash_ui.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        Sewing.SetActive(true);
+                        string itemName = hit.collider.gameObject.name;
+                        Destroy(hit.collider.gameObject);
                     }
                 }
-                else if(hit.collider.tag == "maker")
+                else if (hit.collider.tag == "OldChest")
                 {
-                    maker_ui.SetActive(true);
-                    //if (Input.GetKeyDown(KeyCode.F)) { Maker.SetActive(true); }
+                    chest_ui.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        Animator animator = hit.collider.gameObject.GetComponent<Animator>();
+                        animator.SetTrigger("OpenChest");
+                        string itemName = hit.collider.gameObject.name;
+                        Invoke("ReSetChest", 3f);
+                        animator.SetTrigger("CloseChest");
+                    }
                 }
                 else
                 {
@@ -145,8 +136,8 @@ namespace Controller
                     breaker_ui.SetActive(false);
                     blastFurnace_ui.SetActive(false);
                     compressor_ui.SetActive(false);
-                    sewing_ui.SetActive(false);
-                    maker_ui.SetActive(false);
+                    trash_ui.SetActive(false);
+                    chest_ui.SetActive(false);
                 }
             }
             else
@@ -156,9 +147,15 @@ namespace Controller
                 breaker_ui.SetActive(false);
                 blastFurnace_ui.SetActive(false);
                 compressor_ui.SetActive(false);
-                sewing_ui.SetActive(false);
-                maker_ui.SetActive(false);
+                trash_ui.SetActive(false);
+                chest_ui.SetActive(false);
             }
         }
+
+        void ReSetChest()
+        {
+            Debug.Log("3초 기다림");
+        }
     }
+       
 }

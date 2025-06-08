@@ -6,6 +6,7 @@ public class HomePortal : MonoBehaviour
 {
     public Transform mapPos;
     public GameObject player;
+    public GameObject Camera;
 
 
     private void OnTriggerEnter(Collider other)
@@ -21,6 +22,8 @@ public class HomePortal : MonoBehaviour
             controller.enabled = false;
             player.transform.position = pos;
             controller.enabled = true;
+            Camera.transform.position = pos;
+
             Debug.Log("캐릭터 이동 완료");
         }
     }
