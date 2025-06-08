@@ -1,0 +1,1022 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &338970729869241000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 214116957395017551}
+  - component: {fileID: 2871228979824939250}
+  m_Layer: 0
+  m_Name: InventoryController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &214116957395017551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338970729869241000}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 422, y: 193, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 83962598545283358}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2871228979824939250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338970729869241000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a2f70fc35d3c34d82d7d7a962c0eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iUnderstandTheSetup: 1
+  UI: {fileID: 0}
+  items:
+  - itemType: Al
+    itemImage: {fileID: 21300000, guid: 51c302f64de43fe4b8b02506b6ed1918, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 27
+  - itemType: PressedPaper
+    itemImage: {fileID: 21300000, guid: a3643d7022c5d3a4386c8809b963a0b6, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 23
+  - itemType: MeltGlass
+    itemImage: {fileID: 21300000, guid: 93c4342162a08fb42ba1d71cc974c8be, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 54
+  - itemType: MeltPla
+    itemImage: {fileID: 21300000, guid: 51c302f64de43fe4b8b02506b6ed1918, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 38
+  - itemType: PetRope
+    itemImage: {fileID: 21300000, guid: ffee00b407527d74cbf43c311ab0b445, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 8
+  - itemType: Can_Power
+    itemImage: {fileID: 21300000, guid: bb129ece4f76ab2468eab02f5b435d28, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 8
+  - itemType: Glass_Power
+    itemImage: {fileID: 21300000, guid: ec8cf84f8255ca54497112747054509d, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 15
+  - itemType: Plastic_Power
+    itemImage: {fileID: 21300000, guid: 79701843a1fcb394ba32ed84e26ca01f, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 11
+  - itemType: Bag
+    itemImage: {fileID: 21300000, guid: 75645e5e62802f1469241e9242f0951b, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 45
+    itemPrice: 160
+  - itemType: Hat
+    itemImage: {fileID: 21300000, guid: 644176d81832bf94c9dfaf47cb457971, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 40
+    itemPrice: 143
+  - itemType: Shirt
+    itemImage: {fileID: 21300000, guid: db74398dc694efe43965bf79793f9cc2, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 145
+    itemPrice: 40
+  - itemType: Pants
+    itemImage: {fileID: 21300000, guid: e8a98c9623ee7c84d999e79db642749a, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 40
+    itemPrice: 145
+  - itemType: Glove
+    itemImage: {fileID: 21300000, guid: 719f3e58328d0ea4bafc6c9266d2f67f, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 30
+    itemPrice: 118
+  - itemType: Shoes
+    itemImage: {fileID: 21300000, guid: 9c400eb18492bfa408f35b19a4e549be, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 25
+    itemPrice: 86
+  - itemType: T_Can
+    itemImage: {fileID: 21300000, guid: 74e92ff2a4b10f248b66f3f8c8a56402, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 5
+  - itemType: T_Paper
+    itemImage: {fileID: 21300000, guid: 469467685ea4a324eb03952147cc3552, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 5
+  - itemType: T_Glass
+    itemImage: {fileID: 21300000, guid: bfebb5ade8de67c42b289e894b58e73a, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 10
+  - itemType: T_Pet
+    itemImage: {fileID: 21300000, guid: 21d639fdb7c7c0e48ab0b654d2cbd4c1, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 5
+  - itemType: T_Vinyl
+    itemImage: {fileID: 21300000, guid: 324e23f5f0af5fb45b0c7ab9e9c73c4a, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 1
+  - itemType: T_Plastic
+    itemImage: {fileID: 21300000, guid: 42e97e2b6bd82da47a0bfd24b055d1fa, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 7
+  - itemType: T_Clothes
+    itemImage: {fileID: 21300000, guid: 484857f44238baa498829520420790bc, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 10
+  - itemType: Plastic Pot
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 30
+    itemPrice: 105
+  - itemType: Can Pot
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 30
+    itemPrice: 105
+  - itemType: Glass Pot
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 40
+    itemPrice: 154
+  - itemType: Table
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 50
+    itemPrice: 190
+  - itemType: Bench
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 45
+    itemPrice: 168
+  - itemType: Old Chest
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 45
+    itemPrice: 160
+  - itemType: Mobile
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 50
+    itemPrice: 177
+  - itemType: Clock
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 50
+    itemPrice: 184
+  - itemType: Keyring
+    itemImage: {fileID: 21300000, guid: b2290c0507e950d4189cd69341e3267a, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 35
+    itemPrice: 138
+  - itemType: Tongs
+    itemImage: {fileID: 21300000, guid: 63d416d02adc0f242bcb7cacbf7d6b57, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 40
+    itemPrice: 154
+  - itemType: Cup
+    itemImage: {fileID: 21300000, guid: 23b21fa250c65284b989deddbb3a2feb, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 30
+    itemPrice: 110
+  - itemType: Bowl
+    itemImage: {fileID: 21300000, guid: 342246cd350a71d40a31e8c236fe1659, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 55
+    itemPrice: 208
+  - itemType: Doll
+    itemImage: {fileID: 21300000, guid: 2d93dbcda88e739409f1a20166d538ab, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 35
+    itemPrice: 136
+  - itemType: Per_Boat
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 45
+    itemPrice: 165
+  - itemType: Bicycle_Frame
+    itemImage: {fileID: 21300000, guid: ce6d7da7e88e86c4590095ae23302a21, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 20
+  - itemType: Bicycle_Wheel
+    itemImage: {fileID: 21300000, guid: ce84cd932e6e5d646aa8265c97f91703, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 20
+  - itemType: Bicycle_Chain
+    itemImage: {fileID: 21300000, guid: 83cf4f9ed05fbe045a5a3c41b5486436, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 20
+  - itemType: Bicycle_Handle
+    itemImage: {fileID: 21300000, guid: e4a32cdb2eef9c246b28c7db761fe61c, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 20
+  - itemType: Bicycle_Brake
+    itemImage: {fileID: 21300000, guid: 9c076924094d741419f28d4ac84c9d53, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 20
+  - itemType: Bicycle_Saddle
+    itemImage: {fileID: 21300000, guid: 0653a54b9eed522499ebe9ccfbc2ff46, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 20
+  - itemType: Bicycle
+    itemImage: {fileID: 21300000, guid: 13ed90f33d74e144aae96c1f764c6f30, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 0
+  - itemType: Grinder
+    itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 0
+  - itemType: SewingMachine
+    itemImage: {fileID: 21300000, guid: 3115c512a133e204da0ffc1e89b6c90c, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 0
+  - itemType: Filature
+    itemImage: {fileID: 21300000, guid: f178a82418f8d0b488536d1e2b2d1ae3, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 0
+  - itemType: BlastFurnace
+    itemImage: {fileID: 21300000, guid: 60f71edda42631748b769c2a059b6d87, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 0
+  - itemType: Compressor
+    itemImage: {fileID: 21300000, guid: b4f49303f963eb14ba16d6499cd038e5, type: 3}
+    maxStackAmount: 1
+    displayItemAmount: 0
+    draggable: 1
+    pressable: 1
+    RelatedGameObject: {fileID: 0}
+    itemAction:
+      m_PersistentCalls:
+        m_Calls: []
+    isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 0
+  initializeInventory:
+  - inventoryName: HotBar
+    rows: 1
+    cols: 8
+    initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: PlayerInventory
+    rows: 3
+    cols: 8
+    initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Hat
+    rows: 1
+    cols: 1
+    initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Shirt
+    rows: 1
+    cols: 1
+    initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Bag
+    rows: 1
+    cols: 1
+    initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Glove
+    rows: 1
+    cols: 1
+    initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Pants
+    rows: 1
+    cols: 1
+    initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Shoes
+    rows: 1
+    cols: 1
+    initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Storage1
+    rows: 6
+    cols: 5
+    initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  prevInventoryTracker:
+  - inventoryName: HotBar
+    rows: 1
+    cols: 8
+    initialized: 0
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: PlayerInventory
+    rows: 3
+    cols: 8
+    initialized: 0
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Hat
+    rows: 1
+    cols: 1
+    initialized: 0
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Shirt
+    rows: 1
+    cols: 1
+    initialized: 0
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Bag
+    rows: 1
+    cols: 1
+    initialized: 0
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Glove
+    rows: 1
+    cols: 1
+    initialized: 0
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Pants
+    rows: 1
+    cols: 1
+    initialized: 0
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Shoes
+    rows: 1
+    cols: 1
+    initialized: 0
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  - inventoryName: Storage1
+    rows: 6
+    cols: 5
+    initialized: 0
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
+  inventoryManagerObj: {fileID: 3813403184201485448}
+  allInventoryUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!1 &3813403184201485448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 83962598545283358}
+  - component: {fileID: 4024603368387477775}
+  m_Layer: 5
+  m_Name: InventoryUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &83962598545283358
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3813403184201485448}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8222933634511586855}
+  m_Father: {fileID: 214116957395017551}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4024603368387477775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3813403184201485448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43a4d882ebc2e044ac584ebc046914b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previouslyHighlighted: {fileID: 0}
+  inventoryName: 
+  inventory:
+    inventoryName: 
+    InventoryUIManager: {fileID: 0}
+    InventoryUIManagerInstance: {fileID: 0}
+    size: 0
+    saveInventory: 0
+  rows: 0
+  cols: 0
+  slot: {fileID: 8410958526561248465, guid: 430821e15f399204a836c6e0d281640f, type: 3}
+  SlotImage:
+    regular: {fileID: 2561534620446350566, guid: 23a48ca1e983a4c47971fcf7eab26b89, type: 3}
+    selected: {fileID: 3286202820649098227, guid: ab07d3905ed943549afe9267580f3dec, type: 3}
+  slotSize: {x: 50, y: 50}
+  slotGap: {x: 50, y: 50}
+  ItemImageSizeFactor: {x: 50, y: 50}
+  ItemImageOffset: {x: 0, y: 0}
+  textSize: 0
+  textPosition: {x: 0, y: 0}
+  background: {fileID: 7293265510252788422}
+  activeBackground: 0
+  backgroundBorder: {x: 0, y: 0}
+  slotOffsetToBackground: {x: 0, y: 0}
+  acceptance: 0
+  exceptions: []
+  slotStartPosition: 0
+  draggable: 1
+  clickable: 0
+  saveInventory: 0
+  toggleOnButtonPress: 
+  SelectSlotOnButtonPress: []
+  itemEntryExitAction: []
+  moveItemOnButtonPress: []
+  testItems: []
+  invokeOnMiss:
+    destroyOnMiss: 0
+    missAction:
+      m_PersistentCalls:
+        m_Calls: []
+    missOverSlotAction:
+      m_PersistentCalls:
+        m_Calls: []
+  slots: []
+--- !u!1 &7293265510252788422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8222933634511586855}
+  - component: {fileID: 746088182758491960}
+  - component: {fileID: 5744691576905024675}
+  m_Layer: 5
+  m_Name: BackGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &8222933634511586855
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293265510252788422}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 83962598545283358}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 960, y: -540}
+  m_SizeDelta: {x: 350, y: 100}
+  m_Pivot: {x: 0, y: 1}
+--- !u!222 &746088182758491960
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293265510252788422}
+  m_CullTransparentMesh: 1
+--- !u!114 &5744691576905024675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293265510252788422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -6045235674028870251, guid: 7ed010a2b51d0fb4f9fee6a47b1334fd, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
