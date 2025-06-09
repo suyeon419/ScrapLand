@@ -23,6 +23,13 @@ TagManager:
   - mb_block
   - mc_block
   - bc_block
+  - Slot
+  - Trash
+  - Interior
+  - making_B
+  - making_M
+  - B_block
+  - OldChest
   layers:
   - Default
   - TransparentFX
@@ -30,11 +37,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - ItemBox
+  - Floor
   - Character Preview
-  - 
-  - 
+  - Wall
+  - Ceiling
   - 
   - 
   - 
