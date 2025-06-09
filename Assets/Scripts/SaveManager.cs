@@ -12,9 +12,11 @@ public class SaveData
     public float bgmVolume;
     public float sfxVolume;
     public float sensitivityValue;
+
     public int happyGage;
     public int coin;
     public int dayNum;
+
     public List<ItemUsageData> itemUsageList;
     public List<InteriorOnHouse> Interiors;
     public List<MachineData_save> Machines;
