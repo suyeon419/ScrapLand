@@ -24,6 +24,10 @@ namespace Controller
         public GameObject compressor_ui;
         public GameObject trash_ui;
         public GameObject chest_ui;
+        public GameObject making_ui;
+        public GameObject sewing_ui;
+        public GameObject Maker_ui; 
+        public GameObject Sewing_ui;
 
         private void LateUpdate()
         {
@@ -40,6 +44,7 @@ namespace Controller
 
             var playerPos = (m_Player == null) ? Vector3.zero : m_Player.position;
             m_LookPoint = playerPos + m_Offset * Vector3.up;
+            m_LookPoint += m_Transform.right * 0.3f; // ¶Ç´Â m_Player.right * 0.3f
             m_TargetPos = m_LookPoint + rot * dir;
         }
 
@@ -130,6 +135,22 @@ namespace Controller
                         animator.SetTrigger("CloseChest");
                     }
                 }
+                else if(hit.collider.tag == "Maker")
+                {
+                    making_ui.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        Maker_ui.SetActive(true);
+                    }
+                }
+                else if(hit.collider.tag == "sewing")
+                {
+                    sewing_ui.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        Sewing_ui.SetActive(true);
+                    }
+                }
                 else
                 {
                     machine_ui.SetActive(false);
@@ -138,6 +159,8 @@ namespace Controller
                     compressor_ui.SetActive(false);
                     trash_ui.SetActive(false);
                     chest_ui.SetActive(false);
+                    making_ui.SetActive(false);
+                    sewing_ui.SetActive(false);
                 }
             }
             else
@@ -149,6 +172,8 @@ namespace Controller
                 compressor_ui.SetActive(false);
                 trash_ui.SetActive(false);
                 chest_ui.SetActive(false);
+                making_ui.SetActive(false);
+                sewing_ui.SetActive(false);
             }
         }
 

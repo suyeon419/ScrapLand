@@ -316,18 +316,26 @@ namespace Controller
                             BF_finish_ui.SetActive(false); //완성UI 비활성화
                             glass_molten = false;
                             GameObject newObj = Instantiate(moltenGlass, handPos.transform); //손에 아이템 장착
+                            blastFurnace--;
                         }
                         else if (plastic_molten == true && handPos != null && handPos.transform.childCount == 0)
                         {
                             BF_finish_ui.SetActive(false); //완성UI 비활성화
                             plastic_break = false;
                             GameObject newObj = Instantiate(moltenPlastic, handPos.transform); //손에 아이템 장착
+                            blastFurnace--;
                         }
                         else if (can_molten == true && handPos != null && handPos.transform.childCount == 0)
                         {
                             BF_finish_ui.SetActive(false); //완성UI 비활성화
                             can_molten = false;
                             GameObject newObj = Instantiate(aluminum, handPos.transform); //손에 아이템 장착
+                            blastFurnace--;
+                        }
+                        GameObject BlastFurnace = GameObject.FindWithTag("BlastFurnace");
+                        if (BlastFurnace != null)
+                        {
+                            Destroy(BlastFurnace);
                         }
                     }
 
@@ -363,6 +371,12 @@ namespace Controller
                             C_finish_ui.SetActive(false); //완성UI 비활성화
                             compressed_paper = false; //미완성으로 변경
                             GameObject newObj = Instantiate(compressedPaper, handPos.transform); //손에 아이템 장착
+                            compressor--;
+                            GameObject Compressor = GameObject.FindWithTag("compressor");
+                            if (Compressor != null)
+                            {
+                                Destroy(Compressor);
+                            }
                         }
                     }
                 }
