@@ -12,7 +12,7 @@ public class DayCycleManager : MonoBehaviour
     public Material skyboxMaterial;
     public Gradient skyColorOverTime;
 
-    private float totalDayDuration = 10f;//15qns=900 ¿œ¥‹ 10√ «ÿµ“
+    private float totalDayDuration = 900f;//15qns=900 ¿œ¥‹ 10√ «ÿµ“
     private float currentTime = 0f;
     private bool dayEnded = false;
 
