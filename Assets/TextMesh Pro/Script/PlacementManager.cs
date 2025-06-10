@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 public class PlacementManager : MonoBehaviour
 {
-    public Transform playerHand; // ÇÃ·¹ÀÌ¾î ¼Õ
+    public Transform playerHand; // í”Œë ˆì´ì–´ ì†
     public LayerMask floorLayer, wallLayer, ceilingLayer;
     public float placeDistance = 0.5f;
 
     private GameObject heldItem;
-    private GameObject previewItem;  // ¹Ì¸®º¸±â ¾ÆÀÌÅÛ
-    private bool isPreviewActive = false;  // ¹Ì¸®º¸±â ¾ÆÀÌÅÛ È°¼ºÈ­ ¿©ºÎ
+    private GameObject previewItem;  // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œ
+    private bool isPreviewActive = false;  // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œ í™œì„±í™” ì—¬ë¶€
     private Dictionary<string, int> itemScores = new Dictionary<string, int>()
     {
         { "Bench", 45 },
@@ -28,7 +28,7 @@ public class PlacementManager : MonoBehaviour
 
         HandleRotation();
 
-        // ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀÌ È°¼ºÈ­µÇ¾î ÀÖÀ¸¸é À§Ä¡ ¾÷µ¥ÀÌÆ®
+        // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì´ í™œì„±í™”ë˜ì–´ ìˆìœ¼ë©´ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
         if (isPreviewActive)
         {
             UpdatePreviewItem();
@@ -44,13 +44,13 @@ public class PlacementManager : MonoBehaviour
     {
         heldItem = item;
 
-        // ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀ» »ı¼ºÇÏ°í È°¼ºÈ­
+        // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì„ ìƒì„±í•˜ê³  í™œì„±í™”
         if (previewItem == null)
         {
             previewItem = Instantiate(heldItem, Vector3.zero, Quaternion.identity);
-            previewItem.SetActive(true);  // ¹Ì¸®º¸±â ¾ÆÀÌÅÛ È°¼ºÈ­
-            isPreviewActive = true;  // ¹Ì¸®º¸±â È°¼ºÈ­
-            SetPreviewItemTransparency(0.3f);  // ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀÇ Åõ¸íµµ ¼³Á¤
+            previewItem.SetActive(true);  // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œ í™œì„±í™”
+            isPreviewActive = true;  // ë¯¸ë¦¬ë³´ê¸° í™œì„±í™”
+            SetPreviewItemTransparency(0.3f);  // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì˜ íˆ¬ëª…ë„ ì„¤ì •
         }
     }
 
@@ -73,27 +73,27 @@ public class PlacementManager : MonoBehaviour
         Quaternion placeRot = heldItem.transform.rotation;
         RaycastHit hit;
 
-        previewItem.transform.rotation = placeRot;  // ¹Ì¸®º¸±â ¾ÆÀÌÅÛ¿¡ Áï½Ã È¸Àü Àû¿ë
+        previewItem.transform.rotation = placeRot;  // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì— ì¦‰ì‹œ íšŒì „ ì ìš©
 
-        // ¹èÄ¡ÇÒ À§Ä¡¸¦ °áÁ¤ÇÏ´Â ·ÎÁ÷ (¹Ì¸®º¸±â ¾ÆÀÌÅÛ À§Ä¡ ¼³Á¤)
+        // ë°°ì¹˜í•  ìœ„ì¹˜ë¥¼ ê²°ì •í•˜ëŠ” ë¡œì§ (ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œ ìœ„ì¹˜ ì„¤ì •)
         switch (item.placeType)
         {
             case PlaceType.Floor:
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, floorLayer))
                 {
-                    if (item.name == "Old Chest")
+                    if(item.name == "Old Chest")
                     {
-                        placePos = hit.point + new Vector3(0, 0.5f, 0); // ¹Ù´Ú¿¡¼­ Á¶±İ ´õ À§·Î ¹èÄ¡
+                        placePos = hit.point + new Vector3(0, 0.5f, 0); // ë°”ë‹¥ì—ì„œ ì¡°ê¸ˆ ë” ìœ„ë¡œ ë°°ì¹˜
                     }
 
                     else
                     {
-                        placePos = hit.point + new Vector3(0, 0, 0); // ¹Ù´Ú¿¡¼­ Á¶±İ ´õ À§·Î ¹èÄ¡
+                        placePos = hit.point + new Vector3(0, 0, 0); // ë°”ë‹¥ì—ì„œ ì¡°ê¸ˆ ë” ìœ„ë¡œ ë°°ì¹˜
                     }
-                    // ÇÃ·¹ÀÌ¾î¿Í ³Ê¹« °¡±î¿îÁö Ã¼Å©ÇÏ¿© ÃÖ¼Ò °Å¸® ¼³Á¤
+                    // í”Œë ˆì´ì–´ì™€ ë„ˆë¬´ ê°€ê¹Œìš´ì§€ ì²´í¬í•˜ì—¬ ìµœì†Œ ê±°ë¦¬ ì„¤ì •
                     if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
                     {
-                        placePos = playerHand.position + playerHand.forward * 0.5f; // ÃÖ¼Ò °Å¸® 0.5·Î ¼³Á¤
+                        placePos = playerHand.position + playerHand.forward * 0.5f; // ìµœì†Œ ê±°ë¦¬ 0.5ë¡œ ì„¤ì •
                     }
                 }
                 else
@@ -104,53 +104,68 @@ public class PlacementManager : MonoBehaviour
 
 
             case PlaceType.Wall:
-                placePos = Vector3.zero; // placePos¸¦ ±âº»°ªÀ¸·Î ÃÊ±âÈ­ (°ªÀÌ ÇÒ´çµÇÁö ¾Êµµ·Ï)
+                placePos = Vector3.zero; // placePosë¥¼ ê¸°ë³¸ê°’ìœ¼ë¡œ ì´ˆê¸°í™”
 
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, wallLayer))
                 {
-                    placePos = hit.point;  // º®¿¡ ¼³Ä¡µÉ À§Ä¡
+                    placePos = hit.point;  // ë²½ì— ì„¤ì¹˜ë  ìœ„ì¹˜
 
-                    // º®¿¡ ¸Â°Ô È¸Àü, º®¿¡ ¹èÄ¡µÇÁö¸¸, ÇÃ·¹ÀÌ¾î°¡ ¹Ù¶óº¸´Â ¹æÇâÀ¸·Î ¾ÕÀ» À¯ÁöÇÏµµ·Ï ¼³Á¤
-                    Vector3 wallNormal = hit.normal;  // º®ÀÇ ¹ı¼± º¤ÅÍ
-                    Vector3 playerDirection = playerHand.forward;  // ÇÃ·¹ÀÌ¾îÀÇ ½Ã¼± ¹æÇâ
+                    // ë²½ì— ë§ê²Œ íšŒì „, ë²½ì— ë°°ì¹˜ë˜ì§€ë§Œ, í”Œë ˆì´ì–´ê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ìœ¼ë¡œ ì•ì„ ìœ ì§€í•˜ë„ë¡ ì„¤ì •
+                    Vector3 wallNormal = hit.normal;  // ë²½ì˜ ë²•ì„  ë²¡í„°
+                    Vector3 playerDirection = playerHand.forward;  // í”Œë ˆì´ì–´ì˜ ì‹œì„  ë°©í–¥
 
-                    // ÇÃ·¹ÀÌ¾î°¡ ¹Ù¶óº¸´Â º®ÀÇ '¾Õ'¿¡ ¹èÄ¡µÇµµ·Ï ¼³Á¤
-                    if (Vector3.Dot(wallNormal, playerDirection) < 0) // º®ÀÇ ¹ı¼± ¹æÇâÀÌ ÇÃ·¹ÀÌ¾î ¹æÇâ°ú ¹İ´ëÀÏ ¶§
+                    // í”Œë ˆì´ì–´ê°€ ë°”ë¼ë³´ëŠ” ë²½ì˜ 'ì•'ì— ë°°ì¹˜ë˜ë„ë¡ ì„¤ì •
+                    if (Vector3.Dot(wallNormal, playerDirection) < 0) // ë²½ì˜ ë²•ì„  ë°©í–¥ì´ í”Œë ˆì´ì–´ ë°©í–¥ê³¼ ë°˜ëŒ€ì¼ ë•Œ
                     {
-                        placeRot = Quaternion.LookRotation(wallNormal); // º®ÀÇ ¹æÇâÀ¸·Î È¸Àü (º®ÀÇ ¾ÕÂÊ)
+                        placeRot = Quaternion.LookRotation(wallNormal); // ë²½ì˜ ë°©í–¥ìœ¼ë¡œ íšŒì „ (ë²½ì˜ ì•ìª½)
                     }
                     else
                     {
-                        placeRot = Quaternion.LookRotation(-wallNormal); // º®ÀÇ ¹İ´ë ¹æÇâÀ¸·Î È¸Àü (º®ÀÇ ¾ÕÂÊ)
+                        placeRot = Quaternion.LookRotation(-wallNormal); // ë²½ì˜ ë°˜ëŒ€ ë°©í–¥ìœ¼ë¡œ íšŒì „ (ë²½ì˜ ì•ìª½)
                     }
 
-                    // º®¿¡ ³Ê¹« °¡±î¿öÁöÁö ¾Êµµ·Ï ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¿ÍÀÇ °Å¸®¸¦ °í·Á
-                    placePos = hit.point + (wallNormal * 0.07f);  // º®ÀÇ ¾ÕÂÊ¿¡ Á¶±İ ¹èÄ¡ (0.07f·Î ¼³Á¤)
+                    // ë²½ì— ë„ˆë¬´ ê°€ê¹Œì›Œì§€ì§€ ì•Šë„ë¡ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ì™€ì˜ ê±°ë¦¬ë¥¼ ê³ ë ¤
+                    placePos = hit.point + (wallNormal * 0.07f);  // ë²½ì˜ ì•ìª½ì— ì¡°ê¸ˆ ë°°ì¹˜ (0.07fë¡œ ì„¤ì •)
 
-                    // ¾ÆÀÌÅÛÀÌ ÇÃ·¹ÀÌ¾î¿Í ³Ê¹« °¡±î¿öÁöÁö ¾Êµµ·Ï 0.5f °Å¸®¸¸Å­ ¹Ğ¾î³¿
+                    // í”Œë ˆì´ì–´ì™€ ë„ˆë¬´ ê°€ê¹Œì›Œì§€ì§€ ì•Šë„ë¡ 0.5f ê±°ë¦¬ë§Œí¼ ë°€ì–´ëƒ„
                     float distanceToPlayer = Vector3.Distance(placePos, playerHand.position);
                     if (distanceToPlayer < 0.5f)
                     {
-                        // ¾ÆÀÌÅÛÀÌ ÇÃ·¹ÀÌ¾î¿¡°Ô ³Ê¹« °¡±î¿öÁöÁö ¾Êµµ·Ï 0.5f °Å¸®¸¸Å­ ¹Ğ¾î³¿
-                        placePos = playerHand.position + playerHand.forward * 0.5f;  // ÃÖ¼Ò °Å¸® 0.5 ¼³Á¤
+                        // ì•„ì´í…œì´ í”Œë ˆì´ì–´ì—ê²Œ ë„ˆë¬´ ê°€ê¹Œì›Œì§€ì§€ ì•Šë„ë¡ 0.5f ê±°ë¦¬ë§Œí¼ ë°€ì–´ëƒ„
+                        placePos = playerHand.position + playerHand.forward * 0.5f;  // ìµœì†Œ ê±°ë¦¬ 0.5 ì„¤ì •
                     }
 
-                    // º®¿¡¸¸ ¹èÄ¡µÇµµ·Ï º¸Àå (º®À» ¹ş¾î³ªÁö ¾Ê°Ô)
+                    // ë²½ì—ë§Œ ë°°ì¹˜ë˜ë„ë¡ ë³´ì¥ (ë²½ì„ ë²—ì–´ë‚˜ì§€ ì•Šê²Œ)
                     if (Vector3.Distance(placePos, hit.point) > placeDistance)
                     {
-                        placePos = hit.point + (wallNormal * 0.07f);  // º®ÀÇ ¾ÕÂÊ¿¡ Á¤È®È÷ ¹èÄ¡
+                        placePos = hit.point + (wallNormal * 0.07f);  // ë²½ì˜ ì•ìª½ì— ì •í™•íˆ ë°°ì¹˜
                     }
 
-                    // ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀ» ¼³Á¤µÈ À§Ä¡¿Í È¸ÀüÀ¸·Î ÀÌµ¿
-                    previewItem.transform.position = placePos;
-                    previewItem.transform.rotation = placeRot;
+                    // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì„ ì„¤ì •ëœ ìœ„ì¹˜ì™€ íšŒì „ìœ¼ë¡œ ì´ë™
+                    if (previewItem != null)
+                    {
+                        previewItem.SetActive(true);  // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œ í™œì„±í™”
+                        previewItem.transform.position = placePos;
+                        previewItem.transform.rotation = placeRot;
+
+                        // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œê³¼ í”Œë ˆì´ì–´ ê°„ì˜ ì¶©ëŒì„ ë¬´ì‹œ
+                        Collider previewItemCollider = previewItem.GetComponent<Collider>();
+                        Collider playerHandCollider = playerHand.GetComponent<Collider>();
+
+                        if (previewItemCollider != null && playerHandCollider != null)
+                        {
+                            Physics.IgnoreCollision(previewItemCollider, playerHandCollider, true);  // ì¶©ëŒ ë¬´ì‹œ
+                        }
+                    }
                 }
                 else
                 {
-                    // º®¿¡ ·¹ÀÌ°¡ ½îÀÌÁö ¾ÊÀ¸¸é ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀ» ºñÈ°¼ºÈ­ÇÏ°Å³ª »ı¼ºÇÏÁö ¾ÊÀ½
+                    // ë²½ì— ë ˆì´ê°€ ì˜ì´ì§€ ì•Šìœ¼ë©´ ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì„ ë¹„í™œì„±í™”í•˜ì§€ ì•Šê³ , ìœ„ì¹˜ë§Œ ê°±ì‹ 
                     if (previewItem != null)
                     {
-                        previewItem.SetActive(false);  // ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀ» ºñÈ°¼ºÈ­
+                        previewItem.SetActive(true);  // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì„ ê³„ì† í™œì„±í™”
+                        previewItem.transform.position = playerHand.position;  // ìœ„ì¹˜ë¥¼ í”Œë ˆì´ì–´ ì† ìœ„ì¹˜ë¡œ ê°±ì‹ 
+                        previewItem.transform.rotation = playerHand.rotation;  // íšŒì „ë„ ê°±ì‹ 
                     }
                 }
                 break;
@@ -161,11 +176,11 @@ public class PlacementManager : MonoBehaviour
             case PlaceType.Ceiling:
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, ceilingLayer))
                 {
-                    placePos = hit.point + new Vector3(0, -1.8f, 0);  // ÃµÀå¿¡¼­ Á¶±İ ´õ À§·Î
-                                                                      // ÇÃ·¹ÀÌ¾î¿Í ³Ê¹« °¡±î¿îÁö Ã¼Å©ÇÏ¿© ÃÖ¼Ò °Å¸® ¼³Á¤
+                    placePos = hit.point + new Vector3(0, -1.8f, 0);  // ì²œì¥ì—ì„œ ì¡°ê¸ˆ ë” ìœ„ë¡œ
+                                                                      // í”Œë ˆì´ì–´ì™€ ë„ˆë¬´ ê°€ê¹Œìš´ì§€ ì²´í¬í•˜ì—¬ ìµœì†Œ ê±°ë¦¬ ì„¤ì •
                     if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
                     {
-                        placePos = playerHand.position + playerHand.forward * 0.5f; // ÃÖ¼Ò °Å¸® 0.5·Î ¼³Á¤
+                        placePos = playerHand.position + playerHand.forward * 0.5f; // ìµœì†Œ ê±°ë¦¬ 0.5ë¡œ ì„¤ì •
                     }
                 }
                 else
@@ -176,15 +191,15 @@ public class PlacementManager : MonoBehaviour
                 return;
         }
 
-        // ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀ» ¼³Á¤µÈ À§Ä¡¿Í È¸ÀüÀ¸·Î ÀÌµ¿
+        // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì„ ì„¤ì •ëœ ìœ„ì¹˜ì™€ íšŒì „ìœ¼ë¡œ ì´ë™
         previewItem.transform.position = placePos;
         previewItem.transform.rotation = placeRot;
 
-        // ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀÇ Äİ¶óÀÌ´õ¸¦ ºñÈ°¼ºÈ­ÇÏ¿© ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹ÇÏÁö ¾Ê°Ô ÇÔ
+        // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì˜ ì½œë¼ì´ë”ë¥¼ ë¹„í™œì„±í™”í•˜ì—¬ í”Œë ˆì´ì–´ì™€ ì¶©ëŒí•˜ì§€ ì•Šê²Œ í•¨
         Collider previewCollider = previewItem.GetComponent<Collider>();
         if (previewCollider != null)
         {
-            previewCollider.enabled = false;  // Äİ¶óÀÌ´õ ºñÈ°¼ºÈ­
+            previewCollider.enabled = false;  // ì½œë¼ì´ë” ë¹„í™œì„±í™”
         }
     }
 
@@ -198,33 +213,33 @@ public class PlacementManager : MonoBehaviour
         Vector3 placePos = previewItem.transform.position;
         Quaternion placeRot = previewItem.transform.rotation;
 
-        // ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀÇ Äİ¶óÀÌ´õ¸¦ ºñÈ°¼ºÈ­ (¹èÄ¡ Àü)
+        // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì˜ ì½œë¼ì´ë”ë¥¼ ë¹„í™œì„±í™” (ë°°ì¹˜ ì „)
         Collider previewCollider = previewItem.GetComponent<Collider>();
         if (previewCollider != null)
         {
-            previewCollider.enabled = false;  // Äİ¶óÀÌ´õ ºñÈ°¼ºÈ­
+            previewCollider.enabled = false;  // ì½œë¼ì´ë” ë¹„í™œì„±í™”
         }
 
-        // ¾ÆÀÌÅÛÀ» ¹èÄ¡ÇÒ À§Ä¡¿¡ ÀÎ½ºÅÏ½ºÈ­
+        // ì•„ì´í…œì„ ë°°ì¹˜í•  ìœ„ì¹˜ì— ì¸ìŠ¤í„´ìŠ¤í™”
         GameObject placedObject = Instantiate(heldItem, placePos, placeRot);
-        placedObject.SetActive(true);  // ¹èÄ¡µÈ ¾ÆÀÌÅÛ È°¼ºÈ­
+        placedObject.SetActive(true);  // ë°°ì¹˜ëœ ì•„ì´í…œ í™œì„±í™”
 
-        // ¹èÄ¡ ÈÄ¿¡ Äİ¶óÀÌ´õ¸¦ ´Ù½Ã È°¼ºÈ­ (¹èÄ¡µÈ ¾ÆÀÌÅÛ)
+        // ë°°ì¹˜ í›„ì— ì½œë¼ì´ë”ë¥¼ ë‹¤ì‹œ í™œì„±í™” (ë°°ì¹˜ëœ ì•„ì´í…œ)
         Collider placedCollider = placedObject.GetComponent<Collider>();
         if (placedCollider != null)
         {
-            placedCollider.enabled = true;  // ¹èÄ¡µÈ ¾ÆÀÌÅÛÀÇ Äİ¶óÀÌ´õ È°¼ºÈ­
+            placedCollider.enabled = true;  // ë°°ì¹˜ëœ ì•„ì´í…œì˜ ì½œë¼ì´ë” í™œì„±í™”
         }
 
-        // heldItemÀ» »èÁ¦ÇÏ°í ¼Õ¿¡ ¾ÆÀÌÅÛÀ» µé°í ÀÖÁö ¾Ê°Ô Ã³¸®
+        // heldItemì„ ì‚­ì œí•˜ê³  ì†ì— ì•„ì´í…œì„ ë“¤ê³  ìˆì§€ ì•Šê²Œ ì²˜ë¦¬
         heldItem = null;
 
-        // ¹Ì¸®º¸±â ¾ÆÀÌÅÛ »èÁ¦
+        // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œ ì‚­ì œ
         Destroy(previewItem);
-        previewItem = null;  // ¹Ì¸®º¸±â ¾ÆÀÌÅÛ ÃÊ±âÈ­
-        isPreviewActive = false;  // ¹Ì¸®º¸±â ºñÈ°¼ºÈ­
+        previewItem = null;  // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œ ì´ˆê¸°í™”
+        isPreviewActive = false;  // ë¯¸ë¦¬ë³´ê¸° ë¹„í™œì„±í™”
 
-        // ¾ÆÀÌÅÛ ¹èÄ¡ Á¤º¸ ¾÷µ¥ÀÌÆ®
+        // ì•„ì´í…œ ë°°ì¹˜ ì •ë³´ ì—…ë°ì´íŠ¸
         UpdatePlacementInfo(item.itemName);
     }
 
@@ -235,45 +250,49 @@ public class PlacementManager : MonoBehaviour
         if (itemScores.ContainsKey(itemName))
         {
             int score = itemScores[itemName];
-            Debug.Log($"{itemName} ¹èÄ¡µÊ. Á¡¼ö: {score}");
+            Debug.Log($"{itemName} ë°°ì¹˜ë¨. ì ìˆ˜: {score}");
         }
         else
         {
-            Debug.Log($"{itemName} ¹èÄ¡µÊ. Á¡¼ö Á¤º¸ ¾øÀ½.");
+            Debug.Log($"{itemName} ë°°ì¹˜ë¨. ì ìˆ˜ ì •ë³´ ì—†ìŒ.");
         }
     }
 
-    // ¹Ì¸®º¸±â ¾ÆÀÌÅÛÀÇ Åõ¸íµµ¸¦ ¼³Á¤ÇÏ´Â ÇÔ¼ö
+    // ë¯¸ë¦¬ë³´ê¸° ì•„ì´í…œì˜ íˆ¬ëª…ë„ë¥¼ ì„¤ì •í•˜ëŠ” í•¨ìˆ˜
     void SetPreviewItemTransparency(float alpha)
     {
-        Renderer renderer = previewItem.GetComponent<Renderer>();
-        if (renderer != null)
+        // previewItemì˜ Renderer ë¿ë§Œ ì•„ë‹ˆë¼ ìì‹ ì˜¤ë¸Œì íŠ¸ì˜ Rendererë„ ì ìš©í•´ì•¼ í•˜ë¯€ë¡œ ëª¨ë“  Rendererë¥¼ ì°¾ì•„ì„œ ì ìš©
+        Renderer[] renderers = previewItem.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer renderer in renderers)
         {
-            // ·»´õ·¯ÀÇ ¸ğµç ¸ÓÆ¼¸®¾óÀ» °¡Á®¿É´Ï´Ù.
-            Material[] materials = renderer.materials;
-
-            foreach (Material material in materials)
+            if (renderer != null)
             {
-                // ÇöÀç »ç¿ëÇÏ´Â ½¦ÀÌ´õ°¡ Åõ¸íµµ¸¦ Áö¿øÇÏ´ÂÁö È®ÀÎ
-                if (material.HasProperty("_Color"))
-                {
-                    // »ö»óÀ» ÆÄ¶õ»ö ÅæÀ¸·Î ¼³Á¤ (RGB: 0, 0, 1Àº ÆÄ¶õ»ö)
-                    Color color = material.color;
-                    color = new Color(0f / 255f, 255f / 255f, 255f / 255f, alpha); // ÆÄ¶õ»ö (R=0, G=0, B=1) + ¾ËÆÄ °ªÀ¸·Î Åõ¸íµµ ¼³Á¤
-                    material.color = color;
+                // ë Œë”ëŸ¬ì˜ ëª¨ë“  ë¨¸í‹°ë¦¬ì–¼ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
+                Material[] materials = renderer.materials;
 
-                    // ¾ËÆÄ°ªÀ» º¯°æÇÒ ¶§, ½¦ÀÌ´õ°¡ Åõ¸íµµ¸¦ Áö¿øÇÏµµ·Ï ¼³Á¤
-                    material.SetFloat("_Mode", 3); // Transparent ¸ğµå·Î ¼³Á¤
-                    material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-                    material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                    material.SetInt("_ZWrite", 0);
-                    material.DisableKeyword("_ALPHATEST_ON");
-                    material.EnableKeyword("_ALPHABLEND_ON");
-                    material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                    material.renderQueue = 3000;
+                foreach (Material material in materials)
+                {
+                    // í˜„ì¬ ì‚¬ìš©í•˜ëŠ” ì‰ì´ë”ê°€ íˆ¬ëª…ë„ë¥¼ ì§€ì›í•˜ëŠ”ì§€ í™•ì¸
+                    if (material.HasProperty("_Color"))
+                    {
+                        // ìƒ‰ìƒì„ íŒŒë€ìƒ‰ í†¤ìœ¼ë¡œ ì„¤ì • (RGB: 0, 0, 1ì€ íŒŒë€ìƒ‰)
+                        Color color = material.color;
+                        color = new Color(0f / 255f, 255f / 255f, 255f / 255f, alpha); // íŒŒë€ìƒ‰ (R=0, G=0, B=1) + ì•ŒíŒŒ ê°’ìœ¼ë¡œ íˆ¬ëª…ë„ ì„¤ì •
+                        material.color = color;
+
+                        // ì•ŒíŒŒê°’ì„ ë³€ê²½í•  ë•Œ, ì‰ì´ë”ê°€ íˆ¬ëª…ë„ë¥¼ ì§€ì›í•˜ë„ë¡ ì„¤ì •
+                        material.SetFloat("_Mode", 3); // Transparent ëª¨ë“œë¡œ ì„¤ì •
+                        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                        material.SetInt("_ZWrite", 0);
+                        material.DisableKeyword("_ALPHATEST_ON");
+                        material.EnableKeyword("_ALPHABLEND_ON");
+                        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                        material.renderQueue = 3000;
+                    }
                 }
             }
         }
     }
-
 }

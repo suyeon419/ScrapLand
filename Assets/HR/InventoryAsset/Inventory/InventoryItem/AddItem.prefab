@@ -48,8 +48,8 @@ MonoBehaviour:
   selectedItemIndex: 0
   SelectedInventoryIndex: 0
   item:
-    itemType: MeltGlass
-    itemImage: {fileID: 21300000, guid: 93c4342162a08fb42ba1d71cc974c8be, type: 3}
+    itemType: Al
+    itemImage: {fileID: 21300000, guid: 51c302f64de43fe4b8b02506b6ed1918, type: 3}
     maxStackAmount: 1
     displayItemAmount: 0
     draggable: 1
@@ -59,9 +59,17 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     isNull: 0
+    itemHappyPoint: 0
+    itemPrice: 27
   inventory:
     inventoryName: HotBar
     rows: 1
     cols: 8
     initialized: 1
+    inventoryRef:
+      inventoryName: 
+      InventoryUIManager: {fileID: 0}
+      InventoryUIManagerInstance: {fileID: 0}
+      size: 0
+      saveInventory: 0
   controller: {fileID: 0}

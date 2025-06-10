@@ -75,9 +75,15 @@ namespace InventorySampleScene
         {
             addRuby.SetActive(true);
         }
+
+        public void AddItemTest_()
+        {
+            InventoryController.instance.AddItemToHotBarOrPlayerInventory("Hat", 1);
+        }
+
         public void ClearMain()
         {
-            InventoryController.instance.InventoryClear("Inventory");
+            InventoryController.instance.InventoryClear("PlayerInventory");
         }
         public void ClearHotBar()
         {

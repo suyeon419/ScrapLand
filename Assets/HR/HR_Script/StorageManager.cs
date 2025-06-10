@@ -58,12 +58,6 @@ public class StorageManager : MonoBehaviour
         //인벤토리 위치 이동
         PlayerInvenManager.InvenOpen();
 
-        //나중에 깔끔하게 코드 다듬기
-        /*PlayerInvenManager.InventoryUI.anchoredPosition = new Vector2(840, 120);
-        PlayerInvenManager.Inventory_Cloth.transform.position = new Vector2(485, 0);
-        PlayerInvenManager.Inven_Background.transform.position = new Vector2(925, 320);
-        PlayerInvenManager.HotBar_Bar.transform.position = new Vector2(835, -220);*/
-
         InventoryUI.anchoredPosition = new Vector2(-50, 120);
         Inventory_Cloth.anchoredPosition = new Vector2(300, 0);
         HotBar.anchoredPosition = new Vector2(-55, -220);
@@ -78,16 +72,9 @@ public class StorageManager : MonoBehaviour
     {
         //인벤토리 위치 이동
         PlayerInvenManager.InvenClose();
-        //나중에 깔끔하게 코드 다듬기
-        /*PlayerInvenManager.InventoryUI.anchoredPosition = new Vector2(840, 120);
-        PlayerInvenManager.Inventory_Cloth.transform.position = new Vector2(485, 0);
-        PlayerInvenManager.Inven_Background.transform.position = new Vector2(925, 320);
-        PlayerInvenManager.HotBar_Bar.transform.position = new Vector2(835, -220);*/
-
-/*        InventoryUI.anchoredPosition = new Vector2(-350, 120);
+        InventoryUI.anchoredPosition = new Vector2(-350, 120);
         Inventory_Cloth.anchoredPosition = new Vector2(0, 0);
-        HotBar.anchoredPosition = new Vector2(-350, -220);
-        Inven_Background.anchoredPosition = new Vector2(-435, 320);*/
+        Inven_Background.anchoredPosition = new Vector2(-435, 320);
 
         //StorageActive = false;
         Storage1.SetActive(false);

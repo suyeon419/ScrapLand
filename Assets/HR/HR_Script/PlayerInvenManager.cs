@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using InventorySystem;
 
 [System.Serializable]
 public class PlayerInvenManager : MonoBehaviour
@@ -134,4 +135,5 @@ public class PlayerInvenManager : MonoBehaviour
             Debug.LogWarning("Target image or cloth sprite is not set.");
         }
     }
+
 }

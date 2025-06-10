@@ -138,8 +138,11 @@ public class ShopManager : MonoBehaviour
 
     public void ShopModeOff()
     {
-        //인벤 원래 위치로 이동 코드 필요함
-
+        //인벤 원래 위치로 이동 코드
+        Inven_Xbtn.SetActive(true);
+        Cloth.anchoredPosition = new Vector2(0, 0);
+        Inven_Background.anchoredPosition = new Vector2(-435, 320);
+        InventoryUI.anchoredPosition = new Vector2(-350, 120);
 
         InvenManager.InvenClose(); //상점을 닫고 핫바 상태로 전환
         ShopUI.SetActive(false);
