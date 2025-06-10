@@ -139,7 +139,7 @@ namespace Controller
                 else if (hit.collider.tag == "Maker")
                 {
                     maker_ui.SetActive(true);
-                    if (!Input.GetKeyDown(KeyCode.F))
+                    if (Input.GetKeyDown(KeyCode.F))
                     {
                         MakerUI.SetActive(true);
                     }
@@ -147,7 +147,7 @@ namespace Controller
                 else if(hit.collider.tag == "Sewing")
                 {
                     sewing_ui.SetActive(true);
-                    if (!Input.GetKeyDown(KeyCode.F))
+                    if (Input.GetKeyDown(KeyCode.F))
                     {
                         SewingUI.SetActive(true);
                     }
