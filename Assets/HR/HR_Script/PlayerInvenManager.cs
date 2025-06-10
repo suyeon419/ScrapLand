@@ -9,6 +9,9 @@ using InventorySystem;
 [System.Serializable]
 public class PlayerInvenManager : MonoBehaviour
 {
+    public static PlayerInvenManager instance;
+    //싱글톤 패턴
+
     //private string SavePath => Application.persistentDataPath + "/Player_save.json";
 
     [Tooltip("토글할 인벤토리 오브젝트")]
@@ -28,9 +31,12 @@ public class PlayerInvenManager : MonoBehaviour
 
     // 옷 인벤 변경
     public Sprite clothsprite; //옷 장착시 스프라이트
-
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
     }
 
     // Start is called before the first frame update
@@ -133,6 +139,35 @@ public class PlayerInvenManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Target image or cloth sprite is not set.");
+        }
+    }
+
+    //HH: AddItemToHotBarOrPlayerInventory 메서드 추가
+    public void AddItemToHotBarOrPlayerInventory(string itemType, int amount = 1)
+    {
+        string hotBarName = "HotBar";
+        string playerInventoryName = "PlayerInventory";
+
+        // 1. 핫바가 가득 찼는지 확인
+        bool isHotBarFull = InventoryController.instance.InventoryFull(hotBarName, itemType);
+
+        if (!isHotBarFull)
+        {
+            // 핫바에 공간이 있으면 핫바에 추가
+            InventoryController.instance.AddItem(hotBarName, itemType, amount);
+        }
+        else
+        {
+            // 핫바가 가득 찼고, PlayerInventory가 활성화된 경우
+            if (IsBagOn)
+            {
+                InventoryController.instance.AddItem(playerInventoryName, itemType, amount);
+            }
+            else
+            {
+                // PlayerInventory가 비활성화 상태라면 원하는 동작(예: 무시, 대기 등) 추가
+                Debug.Log("PlayerInventory가 비활성화 상태입니다.");
+            }
         }
     }
 

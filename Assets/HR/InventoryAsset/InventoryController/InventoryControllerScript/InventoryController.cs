@@ -776,7 +776,7 @@ namespace InventorySystem
             InventorySaveSystem.SaveInventory(inventoryManager, SceneManager.GetActiveScene().name);
         }
 
-        //HH: AddItemToHotBarOrPlayerInventory 메서드 추가
+        /*//HH: AddItemToHotBarOrPlayerInventory 메서드 추가
         public void AddItemToHotBarOrPlayerInventory(string itemType, int amount = 1)
         {
             string hotBarName = "HotBar";
@@ -793,7 +793,7 @@ namespace InventorySystem
             else
             {
                 // 핫바가 가득 찼고, PlayerInventory가 활성화된 경우
-                if (checkEnabled(playerInventoryName))
+                if (PlayerInvenManager.instance.IsBagOn)
                 {
                     AddItem(playerInventoryName, itemType, amount);
                 }
@@ -803,6 +803,6 @@ namespace InventorySystem
                     Debug.Log("PlayerInventory가 비활성화 상태입니다.");
                 }
             }
-        }
+        }*/
     }
 }

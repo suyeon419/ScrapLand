@@ -78,7 +78,7 @@ namespace InventorySampleScene
 
         public void AddItemTest_()
         {
-            InventoryController.instance.AddItemToHotBarOrPlayerInventory("Hat", 1);
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Hat");
         }
 
         public void ClearMain()
