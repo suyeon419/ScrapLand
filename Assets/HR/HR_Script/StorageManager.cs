@@ -6,6 +6,8 @@ using InventorySystem;
 
 public class StorageManager : MonoBehaviour
 {
+    public static StorageManager instance { get; private set; }
+
     public Transform storageUIPos;
     private string storageName = "Storage1";
     private int storageRow = 6;
@@ -26,6 +28,15 @@ public class StorageManager : MonoBehaviour
     public RectTransform Inven_Background;
 
     public GameObject Storage1;
+
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
     void Start()
 {
     InventoryController = FindObjectOfType<InventoryController>();

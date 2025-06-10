@@ -84,17 +84,14 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)){ //판매 상점
+/*        if (Input.GetKeyDown(KeyCode.Q)){ //판매 상점
             ShopModeOn();
         }
         if (Input.GetKeyDown(KeyCode.E)) //구매 상점
         {
             BuyShopModeOn();
-        }
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            TrySell();
-        }
+        }*/
+
     }
 
     public void SellingBtnClicked()
@@ -104,6 +101,7 @@ public class ShopManager : MonoBehaviour
 
     public void ShopModeOn()
     {
+        //Camera.enabled = false;
         InvenManager.InvenOpen();
 
         //인벤토리 위치 이동
@@ -122,6 +120,8 @@ public class ShopManager : MonoBehaviour
 
     public void BuyShopModeOn()
     {
+        UpdateAllMachinePrices(); // 모든 기계의 가격 업데이트
+
         CoinManager.Instance.UpdateMoneyText(CoinManager.Instance.coin);
         InventoryUI.gameObject.SetActive(false);
         HotBar.gameObject.SetActive(false);
@@ -234,6 +234,22 @@ public class ShopManager : MonoBehaviour
         machineImage.sprite = machine.image;
     }
 
+    public void UpdateAllMachinePrices()
+    {
+        foreach (var machine in machines)
+        {
+            if (!machine.isPurchased)
+            {
+                machine.priceText.text = "100 코인";
+            }
+            else
+            {
+                machine.priceText.text = $"{machine.originalPrice:N0} 코인";
+            }
+        }
+    }
+
+
     public void PurchaseSelectedMachine()
     {
         if (selectedMachine == null)
@@ -263,6 +279,8 @@ public class ShopManager : MonoBehaviour
             //Debug.Log("돈이 부족합니다!");
             FirstP.text = "돈이 부족합니다!";
         }
+
+        UpdateAllMachinePrices(); // 모든 기계의 가격 업데이트
     }
 }
 
@@ -280,4 +298,6 @@ public class MachineData
 
     public bool isPurchased = false;
     public ItemInitializer relatedItem;
+
+    public TextMeshProUGUI priceText; // UI에 표시할 가격 텍스트
 }
