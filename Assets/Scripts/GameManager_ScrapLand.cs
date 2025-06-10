@@ -330,11 +330,13 @@ public class GameManager_ScrapLand : MonoBehaviour
         Debug.Log("엔딩조건: 모든 제품 제작, 게이지는 이미 검사 후 넘어온 것");
         if (CheckAllProduction())
         {
+            SoundManager.instance.TurnOff_BGM();
             SaveManager.instance.ResetGame();
             SceneManager.LoadScene("HappyEndingScene");
         }
         else
         {
+            SoundManager.instance.TurnOff_BGM();
             SaveManager.instance.ResetGame();
             SceneManager.LoadScene("BadEndingScene");
         }

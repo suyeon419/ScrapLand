@@ -38,6 +38,11 @@ public class SoundManager : MonoBehaviour
         sfx_player = GameObject.Find("SFX_Player").GetComponent <AudioSource>();
     }
 
+    public void TurnOff_BGM()
+    {
+        bgm_player.Stop();
+    }
+
     void ChangeBgmSound(float value)
     {
         GameManager_ScrapLand.instance?.SetBgmVolume(value);
