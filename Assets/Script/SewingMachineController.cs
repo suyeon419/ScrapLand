@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SewingMachineController : MonoBehaviour
 {
     //내구도
-    private int SewingMachine = 1;
+    private int SewingMachine = 5;
 
     // 재료 개수를 관리할 public 변수(혜리한테 받아오기)
     public int plasticThread = 0;  // 페트실
@@ -103,10 +103,9 @@ public class SewingMachineController : MonoBehaviour
         craftingButtons.Add(shoesButton);
         craftingButtons.Add(dollButton);
 
-        sewingObject = GameObject.Find("sewing");
-
         // 초기 버튼 상태 체크
         UpdateButtonStates();
+        UpdateUI();
     }
 
     void Update()
@@ -187,9 +186,12 @@ public class SewingMachineController : MonoBehaviour
         if(SewingMachine == 0)
         {
             SetAllButtonsActive(false);
+            sewingObject = GameObject.Find("sewing(Clone)");
             if (sewingObject != null)
             {
                 Destroy(sewingObject);
+                
+                SewingMachine = 5;
             }
         }
     }
@@ -207,9 +209,11 @@ public class SewingMachineController : MonoBehaviour
             UpdateUI();
         }
         UpdateButtonStates();
+        sewingObject = GameObject.Find("sewing(Clone)");
         if (sewingObject != null)
         {
             Destroy(sewingObject);
+            SewingMachine = 5;
         }
 
     }
@@ -226,9 +230,11 @@ public class SewingMachineController : MonoBehaviour
             UpdateUI();
         }
         UpdateButtonStates();
+        sewingObject = GameObject.Find("sewing(Clone)");
         if (sewingObject != null)
         {
             Destroy(sewingObject);
+            SewingMachine = 5;
         }
     }
 
@@ -244,9 +250,11 @@ public class SewingMachineController : MonoBehaviour
             UpdateUI();
         }
         UpdateButtonStates();
+        sewingObject = GameObject.Find("sewing(Clone)");
         if (sewingObject != null)
         {
             Destroy(sewingObject);
+            SewingMachine = 5;
         }
     }
 
@@ -262,9 +270,11 @@ public class SewingMachineController : MonoBehaviour
             UpdateUI();
         }
         UpdateButtonStates();
+        sewingObject = GameObject.Find("sewing(Clone)");
         if (sewingObject != null)
         {
             Destroy(sewingObject);
+            SewingMachine = 5;
         }
     }
 
@@ -281,9 +291,11 @@ public class SewingMachineController : MonoBehaviour
             UpdateUI();
         }
         UpdateButtonStates();
+        sewingObject = GameObject.Find("sewing(Clone)");
         if (sewingObject != null)
         {
             Destroy(sewingObject);
+            SewingMachine = 5;
         }
     }
 

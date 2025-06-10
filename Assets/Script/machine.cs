@@ -17,10 +17,10 @@ namespace Controller
         public GameObject handPos;
 
         //기계 내구도
-        private int machine = 1;
-        private int breaker = 1;
-        private int blastFurnace = 1;
-        private int compressor = 1;
+        private int machine = 10;
+        private int breaker = 45;
+        private int blastFurnace = 15;
+        private int compressor = 10;
 
 
         //재료들
