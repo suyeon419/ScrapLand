@@ -1,3 +1,4 @@
+using Controller;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,9 +63,6 @@ public class GameManager_ScrapLand : MonoBehaviour
 {
     public static GameManager_ScrapLand instance;
 
-    [SerializeField]
-    private Slider sens_Slider;
-
     private float brightnessValue = 1;
     private float bgmVolume = 0.5f;
     private float sfxVolume = 0.5f;
@@ -87,8 +85,6 @@ public class GameManager_ScrapLand : MonoBehaviour
             DontDestroyOnLoad(instance.gameObject);
             InitializeItemUsages();
             InitializeMachines();
-            sens_Slider = sens_Slider.GetComponent<Slider>();
-            sens_Slider.onValueChanged.AddListener(SetSensitivity);
         }
         else
         {
@@ -109,7 +105,16 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        SetSettings();
         LoadGame();
+    }
+
+    void SetSettings()
+    {
+        SetBgmVolume(bgmVolume);
+        SetSfxVolume(sfxVolume);
+        SetBrightness(brightnessValue);
+        SetSensitivity(sensitivityValue);
     }
 
     void InitializeItemUsages()
@@ -163,7 +168,6 @@ public class GameManager_ScrapLand : MonoBehaviour
         }
     }
 
-
     public bool IsHappyGageAvailable_install(string itemName) // 인테리어 설치 횟수 확인해서 되면 +1
     {
         if (itemName == null) { return false; }
@@ -213,10 +217,28 @@ public class GameManager_ScrapLand : MonoBehaviour
             sound.SetSfxVolume(value);
         }
     }
-    public void SetSensitivity(float value) // 감도 아직 덜 만들어졌고
+    public void SetSensitivity(float value)
     {
+        if (value <= 0) { value = 0.1f; }
         sensitivityValue = value;
-        // 통합 후 추가 (실제 감도 설정 스크립트에서 Set)
+        Camera mainCam = Camera.main; // 태그가 MainCamera인 오브젝트 참조
+        if (mainCam != null)
+        {
+            ThirdPersonCamera camera = mainCam.GetComponent<ThirdPersonCamera>();
+            if (camera != null)
+            {
+                camera.SetSensitivity(value);
+            }
+            else
+            {
+                Debug.LogWarning("Main Camera에 ThirdPersonCamera 스크립트가 없습니다.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Main Camera 오브젝트를 찾을 수 없습니다.");
+
+        }
     }
     public void SetDayNum(int day)
     {

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/AllSkyFree/_AllSkyFreeDemoEnvironment/Materials.meta
 guid: 61212ccf8a66dac42ac77e7f1dc67264
+========
+guid: 474c01a46c1f6fe40aa5fad50bc107ff
+>>>>>>>> 4fc56465b2866e749e1c6337b7b9a2463760836b:Assets/AllSkyFree/_AllSkyFreeDemoEnvironment.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
