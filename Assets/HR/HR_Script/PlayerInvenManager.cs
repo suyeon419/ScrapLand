@@ -5,6 +5,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using InventorySystem;
+using TMPro;
 
 [System.Serializable]
 public class PlayerInvenManager : MonoBehaviour
@@ -31,6 +32,7 @@ public class PlayerInvenManager : MonoBehaviour
 
     // 옷 인벤 변경
     public Sprite clothsprite; //옷 장착시 스프라이트
+
     private void Awake()
     {
         if (instance == null)
