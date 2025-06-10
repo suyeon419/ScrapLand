@@ -29,6 +29,7 @@ namespace Controller
         public GameObject sewing_ui;
         public GameObject Maker_ui; 
         public GameObject Sewing_ui;
+        public GameObject Shop_ui;
 
         private ThirdPersonCamera Camera;
 
@@ -38,6 +39,7 @@ namespace Controller
             Maker_ui.SetActive(false);
             Sewing_ui.SetActive(false);
         }
+
         private void LateUpdate()
         {
             Move(Time.deltaTime);
@@ -142,9 +144,10 @@ namespace Controller
                         string itemName = hit.collider.gameObject.name;
                         Invoke("ReSetChest", 3f);
                         animator.SetTrigger("CloseChest");
+                        StorageManager.instance.OpenStorage(); //StorageManager의 OpenStorage 메소드 호출
                     }
                 }
-                else if(hit.collider.tag == "Maker")
+                else if (hit.collider.tag == "Maker")
                 {
                     making_ui.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.F))
@@ -153,12 +156,26 @@ namespace Controller
                         Camera.enabled = false;
                     }
                 }
-                else if(hit.collider.tag == "sewing")
+                else if (hit.collider.tag == "sewing")
                 {
                     sewing_ui.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.F))
                     {
                         Sewing_ui.SetActive(true);
+                        Camera.enabled = false;
+                    }
+                }
+                else if (hit.collider.tag == "shop")
+                {
+                    Shop_ui.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.Q))
+                    { //판매 상점
+                        ShopManager.Instance.ShopModeOn();
+                        Camera.enabled = false;
+                    }
+                    if (Input.GetKeyDown(KeyCode.E)) //구매 상점
+                    {
+                        ShopManager.Instance.BuyShopModeOn();
                         Camera.enabled = false;
                     }
                 }
@@ -172,6 +189,7 @@ namespace Controller
                     chest_ui.SetActive(false);
                     making_ui.SetActive(false);
                     sewing_ui.SetActive(false);
+                    Shop_ui.SetActive(false);
                 }
             }
             else
@@ -185,6 +203,7 @@ namespace Controller
                 chest_ui.SetActive(false);
                 making_ui.SetActive(false);
                 sewing_ui.SetActive(false);
+                Shop_ui.SetActive(false);
             }
         }
         
