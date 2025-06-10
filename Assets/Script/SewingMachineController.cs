@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Controller;
 using TMPro;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine.UI;
 
 public class SewingMachineController : MonoBehaviour
 {
+    //내구도
+    private int SewingMachine = 1;
+
     // 재료 개수를 관리할 public 변수(혜리한테 받아오기)
     public int plasticThread = 0;  // 페트실
     public int paper = 0;         // 종이
@@ -27,6 +31,11 @@ public class SewingMachineController : MonoBehaviour
     public Button bottomButton;    // 하의 제작 버튼
     public Button shoesButton;     // 신발 제작 버튼
     public Button dollButton;      // 인형 제작 버튼
+
+    // 버튼 리스트 선언
+    private List<Button> craftingButtons = new List<Button>();
+
+    private GameObject sewingObject;
 
     //text UI
     [Header("모자")]
@@ -86,6 +95,15 @@ public class SewingMachineController : MonoBehaviour
         shoesButton.onClick.AddListener(() => StartShoesMaking());
         dollButton.onClick.AddListener(() => StartDollMaking());
 
+        // 버튼을 리스트에 추가
+        craftingButtons.Add(capButton);
+        craftingButtons.Add(gloveButton);
+        craftingButtons.Add(topButton);
+        craftingButtons.Add(bottomButton);
+        craftingButtons.Add(shoesButton);
+        craftingButtons.Add(dollButton);
+
+        sewingObject = GameObject.Find("sewing");
 
         // 초기 버튼 상태 체크
         UpdateButtonStates();
@@ -93,8 +111,8 @@ public class SewingMachineController : MonoBehaviour
 
     void Update()
     {
-        UpdateUI();
-        UpdateButtonStates();
+        //UpdateUI();
+        //UpdateButtonStates();
     }
 
     // UI 업데이트 메서드
@@ -132,7 +150,7 @@ public class SewingMachineController : MonoBehaviour
     }
 
     // 버튼 상태 업데이트 메서드
-    void UpdateButtonStates()
+    public void UpdateButtonStates()
     {
         // 모자 제작 버튼 활성화
         capButton.interactable = (plasticThread >= CapPt && paper >= CapPaper);
@@ -161,10 +179,19 @@ public class SewingMachineController : MonoBehaviour
             plasticThread -= CapPt;
             paper -= CapPaper;
             CapMaking++;
+            SewingMachine--;
             Debug.Log("모자 제작 시작! CapMaking: " + CapMaking);
             UpdateUI();
         }
         UpdateButtonStates();
+        if(SewingMachine == 0)
+        {
+            SetAllButtonsActive(false);
+            if (sewingObject != null)
+            {
+                Destroy(sewingObject);
+            }
+        }
     }
 
     // 장갑 제작 시작
@@ -175,10 +202,16 @@ public class SewingMachineController : MonoBehaviour
             plasticThread -= GrovePt;
             oldCloth -= GloveOldCloth;
             GroveMaking++;
+            SewingMachine--;
             Debug.Log("장갑 제작 시작!");
             UpdateUI();
         }
         UpdateButtonStates();
+        if (sewingObject != null)
+        {
+            Destroy(sewingObject);
+        }
+
     }
 
     // 상의 제작 시작
@@ -189,9 +222,14 @@ public class SewingMachineController : MonoBehaviour
             plasticThread -= TopPt;
             oldCloth -= TopOldCloth;
             TopMaking++;
+            SewingMachine--;
             UpdateUI();
         }
         UpdateButtonStates();
+        if (sewingObject != null)
+        {
+            Destroy(sewingObject);
+        }
     }
 
     // 하의 제작 시작
@@ -202,9 +240,14 @@ public class SewingMachineController : MonoBehaviour
             plasticThread -= BottomPt;
             oldCloth -= BottomOldCloth;
             BottomMaking++;
+            SewingMachine--;
             UpdateUI();
         }
         UpdateButtonStates();
+        if (sewingObject != null)
+        {
+            Destroy(sewingObject);
+        }
     }
 
     //신발 제작 시작
@@ -215,9 +258,14 @@ public class SewingMachineController : MonoBehaviour
             plastic -= ShoesPlastic;
             oldCloth -= ShoesOldCloth;
             ShoesMaking++;
+            SewingMachine--;
             UpdateUI();
         }
         UpdateButtonStates();
+        if (sewingObject != null)
+        {
+            Destroy(sewingObject);
+        }
     }
 
     //인형 제작 시작
@@ -229,9 +277,23 @@ public class SewingMachineController : MonoBehaviour
             plasticThread -= DollPt;
             vinyl -= DollVinyl;
             DollMaking++;
+            SewingMachine--;
             UpdateUI();
         }
         UpdateButtonStates();
+        if (sewingObject != null)
+        {
+            Destroy(sewingObject);
+        }
+    }
+
+    public void SetAllButtonsActive(bool isActive)
+    {
+        Debug.Log("SetAllButtonsActive called: " + isActive);
+        foreach (Button button in craftingButtons)
+        {
+            button.interactable = isActive;
+        }
     }
     
 }

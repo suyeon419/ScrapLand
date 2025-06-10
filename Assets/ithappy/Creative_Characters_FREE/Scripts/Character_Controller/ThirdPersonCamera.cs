@@ -187,7 +187,7 @@ namespace Controller
                 sewing_ui.SetActive(false);
             }
         }
-
+        
         void ReSetChest()
         {
             Debug.Log("3초 기다림");
