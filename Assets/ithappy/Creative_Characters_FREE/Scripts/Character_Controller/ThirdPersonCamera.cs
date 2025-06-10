@@ -1,3 +1,4 @@
+using GLTF.Schema;
 using UnityEngine;
 
 
@@ -29,6 +30,14 @@ namespace Controller
         public GameObject Maker_ui; 
         public GameObject Sewing_ui;
 
+        private ThirdPersonCamera Camera;
+
+        private void Start()
+        {
+            Camera = GetComponent<ThirdPersonCamera>();
+            Maker_ui.SetActive(false);
+            Sewing_ui.SetActive(false);
+        }
         private void LateUpdate()
         {
             Move(Time.deltaTime);
@@ -141,6 +150,7 @@ namespace Controller
                     if (Input.GetKeyDown(KeyCode.F))
                     {
                         Maker_ui.SetActive(true);
+                        Camera.enabled = false;
                     }
                 }
                 else if(hit.collider.tag == "sewing")
@@ -149,6 +159,7 @@ namespace Controller
                     if (Input.GetKeyDown(KeyCode.F))
                     {
                         Sewing_ui.SetActive(true);
+                        Camera.enabled = false;
                     }
                 }
                 else
