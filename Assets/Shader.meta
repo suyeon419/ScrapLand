@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ithappy/Creative_Characters_FREE/Saved_Characters/mainCharacter.meta
+guid: 7f17552f80aaa944eb80b17c9efac40c
+========
 guid: e54cc8957431da44aad18c6923cba9b3
+>>>>>>>> 3eac18ab7dc0d9a56bf89d8a12ef0a488da66949:Assets/Shader.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
