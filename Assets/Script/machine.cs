@@ -85,6 +85,8 @@ namespace Controller
         private int paper_deleteCount = 0; //종이 개수 확인
         private bool compressed_paper = false; //압축종이 완성 여부
 
+
+
         private void Start()
         {
             cameraScript = GetComponent<ThirdPersonCamera>();
