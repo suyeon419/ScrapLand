@@ -29,6 +29,7 @@ public class MakingController : MonoBehaviour
     public int saddle = 0;
 
     //제작 상태
+    public int BagMaking = 0;
     /*인테리어*/
     public int P_PotMaiking = 0;
     public int G_PotMaiking = 0;
@@ -56,6 +57,7 @@ public class MakingController : MonoBehaviour
     public int BikeMaking = 0;
 
     // 버튼 할당
+    public Button bagButton;
     [Header("인테리어관련 버튼")]
     public Button p_potButton;
     public Button g_potButton;
@@ -82,6 +84,9 @@ public class MakingController : MonoBehaviour
     public Button bikeButton;
 
     //text UI
+    public TextMeshProUGUI bagOldCloth;
+    private int BagOldCloth = 6;
+    public TextMeshProUGUI bagMaking;
     [Header("플라스틱 화분")]
     public TextMeshProUGUI potPt;
     private int PotPt = 1;
@@ -231,6 +236,7 @@ public class MakingController : MonoBehaviour
     void Start()
     {
         //버튼 클릭 이벤트
+        bagButton.onClick.AddListener(() => StartBagMaking()); //가방
         /*인테리어*/
         p_potButton.onClick.AddListener(() => StartP_PotMaking()); //플라스틱 화분
         c_potButton.onClick.AddListener(() => StartC_PotMaking()); //캔 화분
@@ -275,6 +281,9 @@ public class MakingController : MonoBehaviour
     //UI업데이트
     void UpdateUI()
     {
+        bagOldCloth.text = oldCloth.ToString() + "/6";
+        bagMaking.text = "만든 횟수: " + BagMaking.ToString();
+
         /* 인테리어 */
         //플라스틱 화분 관련
         potPt.text = plasticBottle.ToString() + "/1";
@@ -380,6 +389,7 @@ public class MakingController : MonoBehaviour
     //버튼 상태 업데이트
     void UpdateButtonStates()
     {
+        bagButton.interactable = (oldCloth >= BagOldCloth);
         /* 인테리어 */
         p_potButton.interactable = (plasticBottle >= PotPt); //플라스틱 화분
         c_potButton.interactable = (can >= PotCan); //캔 화분
@@ -409,6 +419,17 @@ public class MakingController : MonoBehaviour
 
         /*자전거*/
         bikeButton.interactable = (frame >= BikeFrame && wheel >= BikeWheel && chain >= BikeChain && handle >= BikeHandle && brake >= BikeBrake && saddle >= BikeFrame);
+    }
+
+    void StartBagMaking()
+    {
+        if(oldCloth >= BagOldCloth)
+        {
+            oldCloth -= BagOldCloth;
+            BagMaking++;
+            UpdateUI();
+        }
+        UpdateButtonStates();
     }
 
     /* 자전거 */
