@@ -17,12 +17,20 @@ TagManager:
   - compressor
   - paper
   - m_block
-  - sewing
   - b_block
   - c_block
   - mb_block
   - mc_block
   - bc_block
+  - Slot
+  - Trash
+  - Interior
+  - OldChest
+  - Maker
+  - Sewing
+  - making_B
+  - making_M
+  - B_block
   layers:
   - Default
   - TransparentFX
@@ -30,11 +38,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - ItemBox
+  - Floor
   - Character Preview
-  - 
-  - 
+  - Wall
+  - Ceiling
   - 
   - 
   - 

@@ -81,7 +81,7 @@ public class PlacementManager : MonoBehaviour
             case PlaceType.Floor:
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, floorLayer))
                 {
-                    if(item.name == "Old Chest")
+                    if (item.name == "Old Chest")
                     {
                         placePos = hit.point + new Vector3(0, 0.5f, 0); // 바닥에서 조금 더 위로 배치
                     }
@@ -104,34 +104,59 @@ public class PlacementManager : MonoBehaviour
 
 
             case PlaceType.Wall:
+                placePos = Vector3.zero; // placePos를 기본값으로 초기화 (값이 할당되지 않도록)
+
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, wallLayer))
                 {
                     placePos = hit.point;  // 벽에 설치될 위치
 
                     // 벽에 맞게 회전, 벽에 배치되지만, 플레이어가 바라보는 방향으로 앞을 유지하도록 설정
-                    Vector3 wallNormal = hit.normal;
-                    Vector3 playerDirection = playerHand.forward;
+                    Vector3 wallNormal = hit.normal;  // 벽의 법선 벡터
+                    Vector3 playerDirection = playerHand.forward;  // 플레이어의 시선 방향
 
-                    // 벽의 법선 방향과 플레이어의 방향을 고려하여 회전
+                    // 플레이어가 바라보는 벽의 '앞'에 배치되도록 설정
                     if (Vector3.Dot(wallNormal, playerDirection) < 0) // 벽의 법선 방향이 플레이어 방향과 반대일 때
                     {
-                        placeRot = Quaternion.LookRotation(wallNormal); // 벽의 방향으로 아이템을 회전
+                        placeRot = Quaternion.LookRotation(wallNormal); // 벽의 방향으로 회전 (벽의 앞쪽)
                     }
                     else
                     {
-                        placeRot = Quaternion.LookRotation(-wallNormal); // 벽의 반대 방향으로 회전
+                        placeRot = Quaternion.LookRotation(-wallNormal); // 벽의 반대 방향으로 회전 (벽의 앞쪽)
                     }
 
                     // 벽에 너무 가까워지지 않도록 플레이어의 위치와의 거리를 고려
-                    placePos = hit.point + (playerHand.forward * 0.3f); // 플레이어와 아이템 간의 고정된 거리
-                    if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
+                    placePos = hit.point + (wallNormal * 0.07f);  // 벽의 앞쪽에 조금 배치 (0.07f로 설정)
+
+                    // 아이템이 플레이어와 너무 가까워지지 않도록 0.5f 거리만큼 밀어냄
+                    float distanceToPlayer = Vector3.Distance(placePos, playerHand.position);
+                    if (distanceToPlayer < 0.5f)
                     {
-                        placePos = playerHand.position + playerHand.forward * 0.5f; // 최소 거리 0.5로 설정
+                        // 아이템이 플레이어에게 너무 가까워지지 않도록 0.5f 거리만큼 밀어냄
+                        placePos = playerHand.position + playerHand.forward * 0.5f;  // 최소 거리 0.5 설정
                     }
+
+                    // 벽에만 배치되도록 보장 (벽을 벗어나지 않게)
+                    if (Vector3.Distance(placePos, hit.point) > placeDistance)
+                    {
+                        placePos = hit.point + (wallNormal * 0.07f);  // 벽의 앞쪽에 정확히 배치
+                    }
+
+                    // 미리보기 아이템을 설정된 위치와 회전으로 이동
+                    previewItem.transform.position = placePos;
+                    previewItem.transform.rotation = placeRot;
                 }
                 else
-                    return;
+                {
+                    // 벽에 레이가 쏘이지 않으면 미리보기 아이템을 비활성화하거나 생성하지 않음
+                    if (previewItem != null)
+                    {
+                        previewItem.SetActive(false);  // 미리보기 아이템을 비활성화
+                    }
+                }
                 break;
+
+
+
 
             case PlaceType.Ceiling:
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, ceilingLayer))
