@@ -17,7 +17,6 @@ TagManager:
   - compressor
   - paper
   - m_block
-  - sewing
   - b_block
   - c_block
   - mb_block
@@ -26,10 +25,12 @@ TagManager:
   - Slot
   - Trash
   - Interior
+  - OldChest
+  - Maker
+  - Sewing
   - making_B
   - making_M
   - B_block
-  - OldChest
   layers:
   - Default
   - TransparentFX

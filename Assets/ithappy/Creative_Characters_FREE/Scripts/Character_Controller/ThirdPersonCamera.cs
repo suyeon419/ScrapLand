@@ -24,6 +24,10 @@ namespace Controller
         public GameObject compressor_ui;
         public GameObject trash_ui;
         public GameObject chest_ui;
+        public GameObject maker_ui;
+        public GameObject sewing_ui;
+        public GameObject MakerUI;
+        public GameObject SewingUI;
 
         private void LateUpdate()
         {
@@ -40,6 +44,8 @@ namespace Controller
 
             var playerPos = (m_Player == null) ? Vector3.zero : m_Player.position;
             m_LookPoint = playerPos + m_Offset * Vector3.up;
+            // 우측으로 살짝 이동 
+            m_LookPoint += m_Transform.right * 0.3f; // 또는 m_Player.right * 0.3f
             m_TargetPos = m_LookPoint + rot * dir;
         }
 
@@ -130,6 +136,22 @@ namespace Controller
                         animator.SetTrigger("CloseChest");
                     }
                 }
+                else if (hit.collider.tag == "Maker")
+                {
+                    maker_ui.SetActive(true);
+                    if (!Input.GetKeyDown(KeyCode.F))
+                    {
+                        MakerUI.SetActive(true);
+                    }
+                }
+                else if(hit.collider.tag == "Sewing")
+                {
+                    sewing_ui.SetActive(true);
+                    if (!Input.GetKeyDown(KeyCode.F))
+                    {
+                        SewingUI.SetActive(true);
+                    }
+                }
                 else
                 {
                     machine_ui.SetActive(false);
@@ -138,6 +160,8 @@ namespace Controller
                     compressor_ui.SetActive(false);
                     trash_ui.SetActive(false);
                     chest_ui.SetActive(false);
+                    maker_ui.SetActive(false);
+                    sewing_ui.SetActive(false);
                 }
             }
             else
@@ -149,6 +173,8 @@ namespace Controller
                 compressor_ui.SetActive(false);
                 trash_ui.SetActive(false);
                 chest_ui.SetActive(false);
+                maker_ui.SetActive(false);
+                sewing_ui.SetActive(false);
             }
         }
 
