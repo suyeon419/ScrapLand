@@ -104,7 +104,7 @@ public class PlacementManager : MonoBehaviour
 
 
             case PlaceType.Wall:
-                placePos = Vector3.zero; // placePos를 기본값으로 초기화 (값이 할당되지 않도록)
+                placePos = Vector3.zero; // placePos를 기본값으로 초기화
 
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, wallLayer))
                 {
@@ -127,7 +127,7 @@ public class PlacementManager : MonoBehaviour
                     // 벽에 너무 가까워지지 않도록 플레이어의 위치와의 거리를 고려
                     placePos = hit.point + (wallNormal * 0.07f);  // 벽의 앞쪽에 조금 배치 (0.07f로 설정)
 
-                    // 아이템이 플레이어와 너무 가까워지지 않도록 0.5f 거리만큼 밀어냄
+                    // 플레이어와 너무 가까워지지 않도록 0.5f 거리만큼 밀어냄
                     float distanceToPlayer = Vector3.Distance(placePos, playerHand.position);
                     if (distanceToPlayer < 0.5f)
                     {
@@ -142,15 +142,30 @@ public class PlacementManager : MonoBehaviour
                     }
 
                     // 미리보기 아이템을 설정된 위치와 회전으로 이동
-                    previewItem.transform.position = placePos;
-                    previewItem.transform.rotation = placeRot;
+                    if (previewItem != null)
+                    {
+                        previewItem.SetActive(true);  // 미리보기 아이템 활성화
+                        previewItem.transform.position = placePos;
+                        previewItem.transform.rotation = placeRot;
+
+                        // 미리보기 아이템과 플레이어 간의 충돌을 무시
+                        Collider previewItemCollider = previewItem.GetComponent<Collider>();
+                        Collider playerHandCollider = playerHand.GetComponent<Collider>();
+
+                        if (previewItemCollider != null && playerHandCollider != null)
+                        {
+                            Physics.IgnoreCollision(previewItemCollider, playerHandCollider, true);  // 충돌 무시
+                        }
+                    }
                 }
                 else
                 {
-                    // 벽에 레이가 쏘이지 않으면 미리보기 아이템을 비활성화하거나 생성하지 않음
+                    // 벽에 레이가 쏘이지 않으면 미리보기 아이템을 비활성화하지 않고, 위치만 갱신
                     if (previewItem != null)
                     {
-                        previewItem.SetActive(false);  // 미리보기 아이템을 비활성화
+                        previewItem.SetActive(true);  // 미리보기 아이템을 계속 활성화
+                        previewItem.transform.position = playerHand.position;  // 위치를 플레이어 손 위치로 갱신
+                        previewItem.transform.rotation = playerHand.rotation;  // 회전도 갱신
                     }
                 }
                 break;
@@ -246,34 +261,38 @@ public class PlacementManager : MonoBehaviour
     // 미리보기 아이템의 투명도를 설정하는 함수
     void SetPreviewItemTransparency(float alpha)
     {
-        Renderer renderer = previewItem.GetComponent<Renderer>();
-        if (renderer != null)
+        // previewItem의 Renderer 뿐만 아니라 자식 오브젝트의 Renderer도 적용해야 하므로 모든 Renderer를 찾아서 적용
+        Renderer[] renderers = previewItem.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer renderer in renderers)
         {
-            // 렌더러의 모든 머티리얼을 가져옵니다.
-            Material[] materials = renderer.materials;
-
-            foreach (Material material in materials)
+            if (renderer != null)
             {
-                // 현재 사용하는 쉐이더가 투명도를 지원하는지 확인
-                if (material.HasProperty("_Color"))
-                {
-                    // 색상을 파란색 톤으로 설정 (RGB: 0, 0, 1은 파란색)
-                    Color color = material.color;
-                    color = new Color(0f / 255f, 255f / 255f, 255f / 255f, alpha); // 파란색 (R=0, G=0, B=1) + 알파 값으로 투명도 설정
-                    material.color = color;
+                // 렌더러의 모든 머티리얼을 가져옵니다.
+                Material[] materials = renderer.materials;
 
-                    // 알파값을 변경할 때, 쉐이더가 투명도를 지원하도록 설정
-                    material.SetFloat("_Mode", 3); // Transparent 모드로 설정
-                    material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-                    material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                    material.SetInt("_ZWrite", 0);
-                    material.DisableKeyword("_ALPHATEST_ON");
-                    material.EnableKeyword("_ALPHABLEND_ON");
-                    material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                    material.renderQueue = 3000;
+                foreach (Material material in materials)
+                {
+                    // 현재 사용하는 쉐이더가 투명도를 지원하는지 확인
+                    if (material.HasProperty("_Color"))
+                    {
+                        // 색상을 파란색 톤으로 설정 (RGB: 0, 0, 1은 파란색)
+                        Color color = material.color;
+                        color = new Color(0f / 255f, 255f / 255f, 255f / 255f, alpha); // 파란색 (R=0, G=0, B=1) + 알파 값으로 투명도 설정
+                        material.color = color;
+
+                        // 알파값을 변경할 때, 쉐이더가 투명도를 지원하도록 설정
+                        material.SetFloat("_Mode", 3); // Transparent 모드로 설정
+                        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                        material.SetInt("_ZWrite", 0);
+                        material.DisableKeyword("_ALPHATEST_ON");
+                        material.EnableKeyword("_ALPHABLEND_ON");
+                        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                        material.renderQueue = 3000;
+                    }
                 }
             }
         }
     }
-
 }
