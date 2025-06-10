@@ -26,6 +26,7 @@ public class StorageManager : MonoBehaviour
     public RectTransform Inventory_Cloth;
     public RectTransform HotBar;
     public RectTransform Inven_Background;
+    public GameObject StorageClose;
 
     public GameObject Storage1;
 
@@ -73,6 +74,7 @@ public class StorageManager : MonoBehaviour
         Inventory_Cloth.anchoredPosition = new Vector2(300, 0);
         HotBar.anchoredPosition = new Vector2(-55, -220);
         Inven_Background.anchoredPosition = new Vector2(-135, 320);
+        StorageClose.SetActive(true);
 
         //StorageActive = true;
         Storage1.SetActive(true);
@@ -86,6 +88,7 @@ public class StorageManager : MonoBehaviour
         InventoryUI.anchoredPosition = new Vector2(-350, 120);
         Inventory_Cloth.anchoredPosition = new Vector2(0, 0);
         Inven_Background.anchoredPosition = new Vector2(-435, 320);
+        StorageClose.SetActive(false);
 
         //StorageActive = false;
         Storage1.SetActive(false);

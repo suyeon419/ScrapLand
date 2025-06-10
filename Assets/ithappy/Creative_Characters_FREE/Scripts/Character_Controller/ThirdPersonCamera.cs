@@ -44,6 +44,14 @@ namespace Controller
         {
             Move(Time.deltaTime);
             CheckAimTarget();
+            if(PlayerInvenManager.instance.InvenMode == true)
+            {
+                Camera.enabled = false;
+            }
+            else
+            {
+                Camera.enabled = true;
+            }
         }
 
         public override void SetInput(in Vector2 delta, float scroll)
@@ -144,7 +152,11 @@ namespace Controller
                         string itemName = hit.collider.gameObject.name;
                         Invoke("ReSetChest", 3f);
                         animator.SetTrigger("CloseChest");
+
+                        //hr
                         StorageManager.instance.OpenStorage(); //StorageManager의 OpenStorage 메소드 호출
+                        chest_ui.SetActive(false);
+                        Camera.enabled = false;
                     }
                 }
                 else if (hit.collider.tag == "Maker")
@@ -172,11 +184,13 @@ namespace Controller
                     { //판매 상점
                         ShopManager.Instance.ShopModeOn();
                         Camera.enabled = false;
+                        Shop_ui.SetActive(false);
                     }
                     if (Input.GetKeyDown(KeyCode.E)) //구매 상점
                     {
                         ShopManager.Instance.BuyShopModeOn();
                         Camera.enabled = false;
+                        Shop_ui.SetActive(false);
                     }
                 }
                 else

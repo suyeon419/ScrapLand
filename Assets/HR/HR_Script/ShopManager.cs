@@ -255,6 +255,12 @@ public class ShopManager : MonoBehaviour
         if (selectedMachine == null)
             return;
 
+        if (selectedMachine.isOnMap)
+        {
+            FirstP.text = "이미 설치된 기계입니다.";
+            return;
+        }
+
         if (coinManager.coin >= selectedMachine.currentPrice)
         {
             coinManager.coin -= selectedMachine.currentPrice;
@@ -297,6 +303,8 @@ public class MachineData
     public int currentPrice = 100; // 첫 구매는 100, 이후는 원래 가격
 
     public bool isPurchased = false;
+    public bool isOnMap = false; // 맵에 배치 여부
+
     public ItemInitializer relatedItem;
 
     public TextMeshProUGUI priceText; // UI에 표시할 가격 텍스트
