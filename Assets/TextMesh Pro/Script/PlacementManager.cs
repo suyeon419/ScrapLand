@@ -81,7 +81,7 @@ public class PlacementManager : MonoBehaviour
             case PlaceType.Floor:
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, floorLayer))
                 {
-                    if(item.name == "Old Chest")
+                    if (item.name == "Old Chest")
                     {
                         placePos = hit.point + new Vector3(0, 0.5f, 0); // 바닥에서 조금 더 위로 배치
                     }
@@ -267,17 +267,17 @@ public class PlacementManager : MonoBehaviour
         {
             if (renderer != null)
             {
-                Material[] materials = renderer.sharedMaterials;
+                Material[] materials = renderer.materials;
 
                 foreach (Material material in materials)
                 {
+                    // 현재 사용하는 쉐이더가 투명도를 지원하는지 확인
                     if (material.HasProperty("_Color"))
                     {
                         Color color = material.color;
-                        color = new Color(0f / 255f, 255f / 255f, 255f / 255f, alpha); // 파란색 (R=0, G=0, B=1) + 알파 값으로 투명도 설정
+                        color = new Color(0f / 255f, 255f / 255f, 255f / 255f, alpha);
                         material.color = color;
 
-                        // 알파값을 변경할 때, 쉐이더가 투명도를 지원하도록 설정
                         material.SetFloat("_Mode", 3); // Transparent 모드로 설정
                         material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
                         material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
