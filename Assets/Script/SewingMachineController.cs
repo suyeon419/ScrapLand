@@ -85,8 +85,23 @@ public class SewingMachineController : MonoBehaviour
     private int DollPt = 2;
     private int DollVinyl = 1;
 
+    void UpdateMaterialCountsFromInventory()
+    {
+        // 딕셔너리 받아오기
+        //var itemCounts = InventorySelectionManager.Instance.GetTotalItemCounts();
+
+        // 각 재료 변수에 값 할당 (없으면 0)
+        //plasticThread = itemCounts.ContainsKey("plasticThread") ? itemCounts["plasticThread"] : 0;
+        //paper = itemCounts.ContainsKey("paper") ? itemCounts["paper"] : 0;
+        //plastic = itemCounts.ContainsKey("plastic") ? itemCounts["plastic"] : 0;
+        //oldCloth = itemCounts.ContainsKey("oldCloth") ? itemCounts["oldCloth"] : 0;
+        //vinyl = itemCounts.ContainsKey("vinyl") ? itemCounts["vinyl"] : 0;
+    }
+
     void Start()
     {
+        UpdateMaterialCountsFromInventory();
+
         // 버튼 클릭 이벤트 설정
         capButton.onClick.AddListener(() => StartCapMaking());
         gloveButton.onClick.AddListener(() => StartGloveMaking());
@@ -106,10 +121,12 @@ public class SewingMachineController : MonoBehaviour
         // 초기 버튼 상태 체크
         UpdateButtonStates();
         UpdateUI();
+
     }
 
     void Update()
     {
+        UpdateMaterialCountsFromInventory();
         //UpdateUI();
         //UpdateButtonStates();
     }

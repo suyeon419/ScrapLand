@@ -186,5 +186,4 @@ public class InventorySelectionManager : MonoBehaviour
         }
         Debug.Log(sb.ToString());
     }
-
 }
