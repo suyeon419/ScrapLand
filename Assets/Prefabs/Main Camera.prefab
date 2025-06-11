@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1466566175680879916}
   - component: {fileID: 5727546305996108360}
   - component: {fileID: 4409793793831727136}
+  - component: {fileID: 2622838397308093725}
+  - component: {fileID: 3571553517744418836}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -66,15 +68,15 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.2
+  far clip plane: 500
+  field of view: 39.16
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 287
+    m_Bits: 2015
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -149,11 +151,81 @@ MonoBehaviour:
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
   m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
+  m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &2622838397308093725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80127203231105388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f4329458cdb464796191393167d4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensitivityX: 0.05
+  m_SensitivityY: 0.05
+  m_Zoom: 0.5
+  m_SensetivityZoom: 0.1
+  m_MinAngle: 0
+  m_MaxAngle: 50
+  m_Offset: 1.7
+  m_CameraSpeed: 90
+  m_RotationSpeed: 100
+  m_RaycastDistance: 10
+  machine_ui: {fileID: 0}
+  breaker_ui: {fileID: 0}
+  blastFurnace_ui: {fileID: 0}
+  compressor_ui: {fileID: 0}
+  trash_ui: {fileID: 0}
+  chest_ui: {fileID: 0}
+  making_ui: {fileID: 0}
+  sewing_ui: {fileID: 0}
+  Maker_ui: {fileID: 0}
+  Sewing_ui: {fileID: 0}
+  Shop_ui: {fileID: 0}
+--- !u!114 &3571553517744418836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80127203231105388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a91b460cb919764ca1a18e70c4719e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handPos: {fileID: 0}
+  pt_thread: {fileID: 3321775021416415219, guid: 757d5dbd463b7444bafba76f164addb8, type: 3}
+  breakGlass: {fileID: 7212851892332324910, guid: 6eb7288c8851e684cbe642900623bd07, type: 3}
+  breakPlastic: {fileID: 1339702686087110434, guid: dd5a1b712e4d8fd46be0e7c06bb7f7e6, type: 3}
+  breakCan: {fileID: 3962956105314844313, guid: f36c2cb92d7e27f42be140ebc045a528, type: 3}
+  moltenGlass: {fileID: 7424926082642492635, guid: 4efe835f0cf91904c818ab6149786a88, type: 3}
+  moltenPlastic: {fileID: 7056914306025044686, guid: 850e24d97aeae2240838324f60d6d97e, type: 3}
+  aluminum: {fileID: 1877077095629728073, guid: b80a464092695784cbcc697ee61ef9f4, type: 3}
+  compressedPaper: {fileID: 2841834158281327035, guid: 3d6c59d07eb6d7e45bcc78afe01666ce, type: 3}
+  loading_ui: {fileID: 0}
+  finish_ui: {fileID: 0}
+  countText: {fileID: 0}
+  B_loading_ui: {fileID: 0}
+  B_finish_ui: {fileID: 0}
+  breaker_countText_glass: {fileID: 0}
+  breaker_countText_plastic: {fileID: 0}
+  breaker_countText_can: {fileID: 0}
+  BF_loading_ui: {fileID: 0}
+  BF_finish_ui: {fileID: 0}
+  BF_countText_glass: {fileID: 0}
+  BF_countText_plastic: {fileID: 0}
+  BF_countText_can: {fileID: 0}
+  C_loading_ui: {fileID: 0}
+  C_finish_ui: {fileID: 0}
+  C_countText: {fileID: 0}
 --- !u!1 &5437636476602768196
 GameObject:
   m_ObjectHideFlags: 0
