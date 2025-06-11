@@ -27,7 +27,7 @@ namespace Controller
         public GameObject chest_ui;
         public GameObject making_ui;
         public GameObject sewing_ui;
-        public GameObject Maker_ui; 
+        public GameObject Maker_ui;
         public GameObject Sewing_ui;
         public GameObject Shop_ui;
 
@@ -36,15 +36,15 @@ namespace Controller
         private void Start()
         {
             Camera = GetComponent<ThirdPersonCamera>();
-            Debug.Log("Start���� ThirdPersonCamera ������Ʈ �Ҵ� �õ�");
+            Debug.Log("Start에서 ThirdPersonCamera 컴포넌트 할당 시도");
             if (Camera == null)
             {
-                Debug.LogError("ThirdPersonCamera ������Ʈ�� ã�� ���߽��ϴ�!");
+                Debug.LogError("ThirdPersonCamera 컴포넌트를 찾지 못했습니다!");
             }
             else
             {
-                Debug.Log("ThirdPersonCamera ������Ʈ�� ���������� ã�ҽ��ϴ�.");
-                Debug.Log("���� Camera.enabled ����: " + Camera.enabled);
+                Debug.Log("ThirdPersonCamera 컴포넌트를 성공적으로 찾았습니다.");
+                Debug.Log("현재 Camera.enabled 상태: " + Camera.enabled);
             }
             Maker_ui.SetActive(false);
             Sewing_ui.SetActive(false);
@@ -73,7 +73,7 @@ namespace Controller
 
             var playerPos = (m_Player == null) ? Vector3.zero : m_Player.position;
             m_LookPoint = playerPos + m_Offset * Vector3.up;
-            m_LookPoint += m_Transform.right * 0.3f; // �Ǵ� m_Player.right * 0.3f
+            m_LookPoint += m_Transform.right * 0.3f; // 또는 m_Player.right * 0.3f
             m_TargetPos = m_LookPoint + rot * dir;
         }
 
@@ -87,7 +87,7 @@ namespace Controller
                 var direction = m_TargetPos - m_Transform.position;
                 var delta = m_CameraSpeed * deltaTime;
 
-                if(delta * delta > direction.sqrMagnitude)
+                if (delta * delta > direction.sqrMagnitude)
                 {
                     m_Transform.position = m_TargetPos;
                 }
@@ -101,7 +101,7 @@ namespace Controller
 
             void target()
             {
-                if(m_Target == null)
+                if (m_Target == null)
                 {
                     return;
                 }
@@ -115,18 +115,18 @@ namespace Controller
             Ray ray = new Ray(m_Transform.position, m_Transform.forward);
             RaycastHit hit;
 
-            // ������� ���� ���� �ð�ȭ
+            // 디버깅을 위해 레이 시각화
             Debug.DrawRay(m_Transform.position, m_Transform.forward * m_RaycastDistance, Color.red);
 
-            // ItemBox ���̾� ������ ����ũ ����
+            // ItemBox 레이어 제외한 마스크 설정
             int layerMask = ~(1 << LayerMask.NameToLayer("ItemBox"));
 
             if (Physics.Raycast(ray, out hit, m_RaycastDistance, layerMask))
             {
-                // �浹�� ������Ʈ�� �̸��� �±׸� ���
-                Debug.Log($"���ص� ������Ʈ: {hit.collider.gameObject.name}, �±�: {hit.collider.tag}");
+                // 충돌한 오브젝트의 이름과 태그를 출력
+                Debug.Log($"조준된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag}");
 
-                //������(machine) UI 
+                //방적기(machine) UI  
                 if (hit.collider.tag == "machine")
                 {
                     machine_ui.SetActive(true);
@@ -164,7 +164,7 @@ namespace Controller
                         animator.SetTrigger("CloseChest");
 
                         //hr
-                        StorageManager.instance.OpenStorage(); //StorageManager�� OpenStorage �޼ҵ� ȣ��
+                        StorageManager.instance.OpenStorage(); //StorageManager의 OpenStorage 메소드 호출
                         chest_ui.SetActive(false);
                         Camera.enabled = false;
                     }
@@ -191,12 +191,12 @@ namespace Controller
                 {
                     Shop_ui.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Q))
-                    { //�Ǹ� ����
+                    { //판매 상점
                         ShopManager.Instance.ShopModeOn();
                         Camera.enabled = false;
                         Shop_ui.SetActive(false);
                     }
-                    if (Input.GetKeyDown(KeyCode.E)) //���� ����
+                    if (Input.GetKeyDown(KeyCode.E)) //구매 상점
                     {
                         ShopManager.Instance.BuyShopModeOn();
                         Camera.enabled = false;
@@ -218,8 +218,8 @@ namespace Controller
             }
             else
             {
-                Debug.Log("�ƹ� ������Ʈ�� �������� ����");
-                machine_ui.SetActive(false); //������(machine) UI 
+                Debug.Log("아무 오브젝트도 감지되지 않음");
+                machine_ui.SetActive(false); //방적기(machine) UI 
                 breaker_ui.SetActive(false);
                 blastFurnace_ui.SetActive(false);
                 compressor_ui.SetActive(false);
@@ -230,11 +230,11 @@ namespace Controller
                 Shop_ui.SetActive(false);
             }
         }
-        
+
         void ReSetChest()
         {
-            Debug.Log("3�� ��ٸ�");
+            Debug.Log("3초 기다림");
         }
     }
-       
+
 }
