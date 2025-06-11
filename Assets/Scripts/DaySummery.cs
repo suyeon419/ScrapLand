@@ -75,7 +75,13 @@ public class DaySummery : MonoBehaviour
         // 추후 다음날 버튼 누르면 -> SaveGame에서 GameManager에 코인시스템의 코인을 반영
         // LoagGame에서 코인시스템의 코인을 GameManager의 코인을 반영 ( 이 부분은 코인시스템 코드 보고 해야할듯)
 
+        GlobalCanvasManager.instance.StopCamMoving();
         summeryPan.SetActive(true);
+    }
+
+    public bool IsActiveSummeryPannel()
+    {
+        return summeryPan.activeSelf;
     }
 
     public void OnNextDayButton()

@@ -16,13 +16,6 @@ namespace Controller
         //손 위치
         public GameObject handPos;
 
-        //기계 내구도
-        private int machine = 10;
-        private int breaker = 45;
-        private int blastFurnace = 15;
-        private int compressor = 10;
-
-
         //재료들
         [Header("items")]
         public GameObject pt_thread; //페트실
@@ -47,19 +40,29 @@ namespace Controller
         [Header("breaker")]
         public GameObject B_loading_ui;//빙글빙글 로딩 UI
         public GameObject B_finish_ui; //재료 완성 UI
-        public TextMeshProUGUI breaker_countText; //분쇄기 잔량 UI
+        public TextMeshProUGUI breaker_countText_glass; //분쇄기 잔량 UI
+        public TextMeshProUGUI breaker_countText_plastic; //분쇄기 잔량 UI
+        public TextMeshProUGUI breaker_countText_can; //분쇄기 잔량 UI
 
         //용광로 UI
         [Header("Blast Furnace")]
         public GameObject BF_loading_ui;//빙글빙글 로딩 UI
         public GameObject BF_finish_ui;//재료 완성 UI
-        public TextMeshProUGUI BF_countText; //분쇄기 잔량 UI
+        public TextMeshProUGUI BF_countText_glass; //용광로 잔량 UI
+        public TextMeshProUGUI BF_countText_plastic; //용광로 잔량 UI
+        public TextMeshProUGUI BF_countText_can; //용광로 잔량 UI
 
         //압축기 UI
         [Header("Compressor")]
         public GameObject C_loading_ui;//빙글빙글 로딩 UI
         public GameObject C_finish_ui; //재료 완성 UI
         public TextMeshProUGUI C_countText; //페트 개수 확인 UI
+
+        //기계 내구도
+        private int machine = 10;
+        private int breaker = 45;
+        private int blastFurnace = 15;
+        private int compressor = 10;
 
         //방적기 재료 관련
         private int pt_deleteCount = 0; //페트 개수 확인
@@ -85,6 +88,55 @@ namespace Controller
         private int paper_deleteCount = 0; //종이 개수 확인
         private bool compressed_paper = false; //압축종이 완성 여부
 
+        // 1. 내구도 관리
+        public int GetMachineDurability() => machine;
+        public void SetMachineDurability(int value) { machine = value; UpdateText(); }
+        public int GetBreakerDurability() => breaker;
+        public void SetBreakerDurability(int value) { breaker = value; UpdateText(); }
+        public int GetBlastFurnaceDurability() => blastFurnace;
+        public void SetBlastFurnaceDurability(int value) { blastFurnace = value; UpdateText(); }
+        public int GetCompressorDurability() => compressor;
+        public void SetCompressorDurability(int value) { compressor = value; UpdateText(); }
+
+        // 2. 방적기 재료 관련
+        public int GetPtDeleteCount() => pt_deleteCount;
+        public void SetPtDeleteCount(int value) { pt_deleteCount = value; UpdateText(); }
+        public bool IsPtThreadCompleted() => ptthread;
+        public void SetPtThreadCompletion(bool value) { ptthread = value; UpdateText(); }
+
+        // 3. 분쇄기 재료 관련
+        public int GetGlassDeleteCount() => glass_deleteCount;
+        public void SetGlassDeleteCount(int value) { glass_deleteCount = value; UpdateText(); }
+        public int GetPlasticDeleteCount() => plastic_deleteCount;
+        public void SetPlasticDeleteCount(int value) { plastic_deleteCount = value; UpdateText(); }
+        public int GetCanDeleteCount() => can_deleteCount;
+        public void SetCanDeleteCount(int value) { can_deleteCount = value; UpdateText(); }
+        public bool IsGlassBreakCompleted() => glass_break;
+        public void SetGlassBreakCompletion(bool value) { glass_break = value; UpdateText(); }
+        public bool IsPlasticBreakCompleted() => plastic_break;
+        public void SetPlasticBreakCompletion(bool value) { plastic_break = value; UpdateText(); }
+        public bool IsCanBreakCompleted() => can_break;
+        public void SetCanBreakCompletion(bool value) { can_break = value; UpdateText(); }
+
+        // 4. 용광로 재료 관련
+        public int GetBGlassDeleteCount() => b_glass_deleteCount;
+        public void SetBGlassDeleteCount(int value) { b_glass_deleteCount = value; UpdateText(); }
+        public int GetBPlasticDeleteCount() => b_plastic_deleteCount;
+        public void SetBPlasticDeleteCount(int value) { b_plastic_deleteCount = value; UpdateText(); }
+        public int GetBCanDeleteCount() => b_can_deleteCount;
+        public void SetBCanDeleteCount(int value) { b_can_deleteCount = value; UpdateText(); }
+        public bool IsGlassMoltenCompleted() => glass_molten;
+        public void SetGlassMoltenCompletion(bool value) { glass_molten = value; UpdateText(); }
+        public bool IsPlasticMoltenCompleted() => plastic_molten;
+        public void SetPlasticMoltenCompletion(bool value) { plastic_molten = value; UpdateText(); }
+        public bool IsCanMoltenCompleted() => can_molten;
+        public void SetCanMoltenCompletion(bool value) { can_molten = value; UpdateText(); }
+
+        // 5. 압축기 재료 관련
+        public int GetPaperDeleteCount() => paper_deleteCount;
+        public void SetPaperDeleteCount(int value) { paper_deleteCount = value; UpdateText(); }
+        public bool IsCompressedPaperCompleted() => compressed_paper;
+        public void SetCompressedPaperCompletion(bool value) { compressed_paper = value; UpdateText(); }
 
 
         private void Start()
@@ -171,10 +223,15 @@ namespace Controller
                             GameObject newObj = Instantiate(pt_thread, handPos.transform); //손에 아이템 장착
                             machine--;
                             GameObject Machine = GameObject.FindWithTag("machine");
-                            if (Machine != null)
+                            if(machine == 0)
                             {
-                                Destroy(Machine);
+                                if (Machine != null)
+                                {
+                                    Destroy(Machine);
+                                    machine = 10;
+                                }
                             }
+                            
                         }
                     }
                 }
@@ -253,9 +310,13 @@ namespace Controller
                             breaker--;
                         }
                         GameObject Breaker = GameObject.FindWithTag("breaker");
-                        if (Breaker != null)
+                        if (breaker == 0)
                         {
-                            Destroy(Breaker);
+                            if (Breaker != null)
+                            {
+                                Destroy(Breaker);
+                                breaker = 45;
+                            }
                         }
 
                     }
@@ -335,9 +396,13 @@ namespace Controller
                             blastFurnace--;
                         }
                         GameObject BlastFurnace = GameObject.FindWithTag("BlastFurnace");
-                        if (BlastFurnace != null)
+                        if (blastFurnace == 0)
                         {
-                            Destroy(BlastFurnace);
+                            if (BlastFurnace != null)
+                            {
+                                Destroy(BlastFurnace);
+                                blastFurnace = 15;
+                            }
                         }
                     }
 
@@ -375,9 +440,13 @@ namespace Controller
                             GameObject newObj = Instantiate(compressedPaper, handPos.transform); //손에 아이템 장착
                             compressor--;
                             GameObject Compressor = GameObject.FindWithTag("compressor");
-                            if (Compressor != null)
+                            if (compressor == 0)
                             {
-                                Destroy(Compressor);
+                                if (Compressor != null)
+                                {
+                                    Destroy(Compressor);
+                                    compressor = 15;
+                                }
                             }
                         }
                     }
@@ -390,16 +459,20 @@ namespace Controller
         private void UpdateText()
         {
             //방적기 관련 UI
-            countText.text = $"페트병: {pt_deleteCount}/1"; //페트 개수
+            countText.text = $"{pt_deleteCount}/1"; //페트 개수
 
             //분쇄기 관련 UI
-            breaker_countText.text = $" 유리: {glass_deleteCount}/1 \n 플라스틱: {plastic_deleteCount}/1 \n 캔: {can_deleteCount}/1";
+            breaker_countText_glass.text = $"{glass_deleteCount}/1";
+            breaker_countText_plastic.text = $"{plastic_deleteCount}/1";
+            breaker_countText_can.text = $"{can_deleteCount}/1";
 
             //용광로 관련 UI
-            BF_countText.text = $" 유리 가루: {b_glass_deleteCount}/3 \n 플라스틱 가루: {b_plastic_deleteCount}/3 \n 캔 가루: {b_can_deleteCount}/3";
+            breaker_countText_glass.text = $"{b_glass_deleteCount}/3";
+            breaker_countText_plastic.text = $"{b_plastic_deleteCount}/3";
+            breaker_countText_can.text = $"{b_can_deleteCount}/3";
 
             //방적기 관련 UI
-            C_countText.text = $"종이: {paper_deleteCount}/1"; //페트 개수
+            C_countText.text = $"{paper_deleteCount}/1"; //페트 개수
         }
 
         IEnumerator DelayTime(string item_name) //기계 제작 시간

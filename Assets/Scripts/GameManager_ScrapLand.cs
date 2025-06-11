@@ -66,7 +66,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     private float brightnessValue = 1;
     private float bgmVolume = 0.5f;
     private float sfxVolume = 0.5f;
-    private float sensitivityValue = 1;
+    private float sensitivityValue = 1f;
 
     private int HappyGage = -1;
     private int Coin = 0;
@@ -228,6 +228,30 @@ public class GameManager_ScrapLand : MonoBehaviour
             if (camera != null)
             {
                 camera.SetSensitivity(value);
+            }
+            else
+            {
+                Debug.LogWarning("Main Camera에 ThirdPersonCamera 스크립트가 없습니다.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Main Camera 오브젝트를 찾을 수 없습니다.");
+
+        }
+    }
+    /// <summery>
+    /// 현재 저장되어있는 감도로 재 설정 하는 함수.(패널껐을때 불러오려고 만듦)
+    /// </summery>
+    public void SetSensOrigin()
+    {
+        Camera mainCam = Camera.main;
+        if (mainCam != null)
+        {
+            ThirdPersonCamera camera = mainCam.GetComponent<ThirdPersonCamera>();
+            if (camera != null)
+            {
+                camera.SetSensitivity(sensitivityValue);
             }
             else
             {
