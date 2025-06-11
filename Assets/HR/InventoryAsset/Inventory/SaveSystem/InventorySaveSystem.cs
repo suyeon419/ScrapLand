@@ -78,6 +78,85 @@ namespace InventorySystem
 
             Debug.Log($"인벤토리 데이터가 JSON으로 저장되었습니다: {path}");
         }
+
+        public static void SaveInventoryWithBackup(Dictionary<string, Inventory> inventoryManager, string saveLocation, string backupFileName)
+        {
+            // 1. 원본 저장
+            SaveInventory(inventoryManager, saveLocation);
+
+            // 2. 복제(백업) 파일로 복사
+            string originalPath = Application.persistentDataPath + "/" + saveLocation;
+            string backupPath = Application.persistentDataPath + "/" + backupFileName;
+
+            if (File.Exists(originalPath))
+            {
+                File.Copy(originalPath, backupPath, true); // true: 덮어쓰기 허용
+                Debug.Log($"인벤토리 백업 파일 생성: {backupPath}");
+            }
+            else
+            {
+                Debug.LogWarning("원본 인벤토리 파일이 존재하지 않아 백업에 실패했습니다.");
+            }
+        }
+
+        public static InventoryData LoadBackup(string backupFileName)
+        {
+            string backupPath = Application.persistentDataPath + "/" + backupFileName;
+            if (File.Exists(backupPath))
+            {
+                FileStream fileStream = new FileStream(backupPath, FileMode.Open);
+                if (fileStream.Length == 0)
+                {
+                    fileStream.Close();
+                    return null;
+                }
+                BinaryFormatter formatter = new BinaryFormatter();
+                InventoryData InventoryData = formatter.Deserialize(fileStream) as InventoryData;
+                fileStream.Close();
+                return InventoryData;
+            }
+            else
+            {
+                Debug.LogError("백업 파일이 존재하지 않습니다: " + backupPath);
+                return null;
+            }
+        }
+
+        public static void RestoreInventoryFromBackup(InventoryData backupData)
+        {
+            if (backupData == null)
+            {
+                Debug.LogWarning("복원할 데이터가 없습니다.");
+                return;
+            }
+
+            // 기존 인벤토리 초기화
+            foreach (var pair in InventoryController.instance.GetInventoryManager())
+                pair.Value.Clear();
+
+            // 백업 데이터로 인벤토리 복원
+            foreach (var pair in backupData.inventories)
+            {
+                if (pair.Key == null) continue;
+                if (!InventoryController.instance.GetInventoryManager().ContainsKey(pair.Key)) continue;
+
+                Inventory inventory = InventoryController.instance.GetInventoryManager()[pair.Key];
+                foreach (var item in pair.Value)
+                {
+                    if (item.name != null)
+                    {
+                        ItemInitializer itemInit = InventoryController.instance.GetItems().Find(x => x.GetItemType() == item.name);
+                        if (itemInit != null)
+                        {
+                            InventoryItem template = new InventoryItem(itemInit);
+                            InventoryItem newItem = new InventoryItem(template, item.amount);
+                            inventory.AddItemPos(item.position, newItem);
+                        }
+                    }
+                }
+            }
+            Debug.Log("백업 데이터로 인벤토리 복원 완료");
+        }
     }
 }
 

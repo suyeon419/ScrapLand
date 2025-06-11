@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
-using InventorySystem;
 using TMPro;
 
 [System.Serializable]
@@ -32,6 +31,9 @@ public class PlayerInvenManager : MonoBehaviour
 
     // 옷 인벤 변경
     public Sprite clothsprite; //옷 장착시 스프라이트
+
+    private const string backupFileName = "manual_backup.dat";
+
 
     private void Awake()
     {
@@ -78,6 +80,24 @@ public class PlayerInvenManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I)) //Esc키로 인벤 닫기
         {
             AddItemToHotBarOrPlayerInventory("T_Paper");
+        }
+
+        if( Input.GetKeyDown(KeyCode.M))
+        {
+            Debug.Log("백업 파일로 인벤토리 저장 시도");
+            InventorySaveSystem.SaveInventoryWithBackup(
+                InventoryController.instance.GetInventoryManager(),
+                UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
+                backupFileName
+            );
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            Debug.Log("백업 파일에서 인벤토리 불러오기 시도");
+            var backupData = InventorySaveSystem.LoadBackup(backupFileName);
+            InventorySaveSystem.RestoreInventoryFromBackup(backupData);
+            InvenClose(); // 인벤토리 닫기
         }
     }
     
