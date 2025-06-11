@@ -7,7 +7,12 @@ using UnityEngine.UI;
 public class SewingMachineController : MonoBehaviour
 {
     //내구도
-    private int SewingMachine = 5;
+    private int _sewingMachine = 5;
+    public int SewingMachine
+    {
+        get { return _sewingMachine; }
+        set { _sewingMachine = value; }
+    }
 
     // 재료 개수를 관리할 public 변수(혜리한테 받아오기)
     public int plasticThread = 0;  // 페트실
@@ -17,12 +22,47 @@ public class SewingMachineController : MonoBehaviour
     public int vinyl = 0;       //비닐
 
     // 제작 상태를 관리할 변수
-    public int CapMaking = 0;
-    public int GroveMaking = 0;
-    public int TopMaking = 0;
-    public int BottomMaking = 0;
-    public int ShoesMaking = 0;
-    public int DollMaking = 0;
+    private int _capMaking = 0;
+    public int CapMaking
+    {
+        get { return _capMaking; }
+        set { _capMaking = value; }
+    }
+
+    private int _groveMaking = 0;
+    public int GroveMaking
+    {
+        get { return _groveMaking; }
+        set { _groveMaking = value; }
+    }
+
+    private int _topMaking = 0;
+    public int TopMaking
+    {
+        get { return _topMaking; }
+        set { _topMaking = value; }
+    }
+
+    private int _bottomMaking = 0;
+    public int BottomMaking
+    {
+        get { return _bottomMaking; }
+        set { _bottomMaking = value; }
+    }
+
+    private int _shoesMaking = 0;
+    public int ShoesMaking
+    {
+        get { return _shoesMaking; }
+        set { _shoesMaking = value; }
+    }
+
+    private int _dollMaking = 0;
+    public int DollMaking
+    {
+        get { return _dollMaking; }
+        set { _dollMaking = value; }
+    }
 
     // UI 버튼 및 텍스트 (Inspector에서 할당)
     public Button capButton;       // 모자 제작 버튼

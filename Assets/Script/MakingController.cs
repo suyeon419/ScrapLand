@@ -28,33 +28,136 @@ public class MakingController : MonoBehaviour
     public int brake = 0;
     public int saddle = 0;
 
-    //제작 상태
-    public int BagMaking = 0;
-    /*인테리어*/
-    public int P_PotMaiking = 0;
-    public int G_PotMaiking = 0;
-    public int C_PotMaiking = 0;
-    public int TableMaking = 0;
-    public int ChairMaking = 0;
-    public int StorageBoxMaking = 0;
-    public int MobileMaking = 0;
-    public int ClockMaking = 0;
-    /*판매용*/
-    public int KeyringMaking = 0;
-    public int TongsMaking = 0;
-    public int CupMaking = 0;
-    public int BowlMaking = 0;
-    /*탈 것*/
-    public int BoatMaking = 0;
-    /* 자전거 부품 */
-    public int FrameMaking = 0;
-    public int WheelMaking = 0;
-    public int ChainMaking = 0;
-    public int HandleMaking = 0;
-    public int BrakeMaking = 0;
-    public int SaddleMaking = 0;
-    //자전거
-    public int BikeMaking = 0;
+    // 내부 변수 선언 (private)
+    private int _bagMaking = 0;
+    private int _pPotMaking = 0;
+    private int _gPotMaking = 0;
+    private int _cPotMaking = 0;
+    private int _tableMaking = 0;
+    private int _chairMaking = 0;
+    private int _storageBoxMaking = 0;
+    private int _mobileMaking = 0;
+    private int _clockMaking = 0;
+    private int _keyringMaking = 0;
+    private int _tongsMaking = 0;
+    private int _cupMaking = 0;
+    private int _bowlMaking = 0;
+    private int _boatMaking = 0;
+    private int _frameMaking = 0;
+    private int _wheelMaking = 0;
+    private int _chainMaking = 0;
+    private int _handleMaking = 0;
+    private int _brakeMaking = 0;
+    private int _saddleMaking = 0;
+    private int _bikeMaking = 0;
+
+    // 게터/세터 (public)
+    public int BagMaking
+    {
+        get { return _bagMaking; }
+        set { _bagMaking = value; }
+    }
+    public int P_PotMaiking
+    {
+        get { return _pPotMaking; }
+        set { _pPotMaking = value; }
+    }
+    public int G_PotMaiking
+    {
+        get { return _gPotMaking; }
+        set { _gPotMaking = value; }
+    }
+    public int C_PotMaiking
+    {
+        get { return _cPotMaking; }
+        set { _cPotMaking = value; }
+    }
+    public int TableMaking
+    {
+        get { return _tableMaking; }
+        set { _tableMaking = value; }
+    }
+    public int ChairMaking
+    {
+        get { return _chairMaking; }
+        set { _chairMaking = value; }
+    }
+    public int StorageBoxMaking
+    {
+        get { return _storageBoxMaking; }
+        set { _storageBoxMaking = value; } // 오타 주의: 실제로는 _storageBoxMaking이 맞습니다.
+    }
+    public int MobileMaking
+    {
+        get { return _mobileMaking; }
+        set { _mobileMaking = value; }
+    }
+    public int ClockMaking
+    {
+        get { return _clockMaking; }
+        set { _clockMaking = value; }
+    }
+    public int KeyringMaking
+    {
+        get { return _keyringMaking; }
+        set { _keyringMaking = value; }
+    }
+    public int TongsMaking
+    {
+        get { return _tongsMaking; }
+        set { _tongsMaking = value; }
+    }
+    public int CupMaking
+    {
+        get { return _cupMaking; }
+        set { _cupMaking = value; }
+    }
+    public int BowlMaking
+    {
+        get { return _bowlMaking; }
+        set { _bowlMaking = value; }
+    }
+    public int BoatMaking
+    {
+        get { return _boatMaking; }
+        set { _boatMaking = value; }
+    }
+    public int FrameMaking
+    {
+        get { return _frameMaking; }
+        set { _frameMaking = value; }
+    }
+    public int WheelMaking
+    {
+        get { return _wheelMaking; }
+        set { _wheelMaking = value; }
+    }
+    public int ChainMaking
+    {
+        get { return _chainMaking; }
+        set { _chainMaking = value; }
+    }
+    public int HandleMaking
+    {
+        get { return _handleMaking; }
+        set { _handleMaking = value; }
+    }
+    public int BrakeMaking
+    {
+        get { return _brakeMaking; }
+        set { _brakeMaking = value; }
+    }
+    public int SaddleMaking
+    {
+        get { return _saddleMaking; }
+        set { _saddleMaking = value; }
+    }
+    public int BikeMaking
+    {
+        get { return _bikeMaking; }
+        set { _bikeMaking = value; }
+    }
+
 
     // 버튼 할당
     public Button bagButton;
