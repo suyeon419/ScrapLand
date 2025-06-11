@@ -36,6 +36,16 @@ namespace Controller
         private void Start()
         {
             Camera = GetComponent<ThirdPersonCamera>();
+            Debug.Log("Start에서 ThirdPersonCamera 컴포넌트 할당 시도");
+            if (Camera == null)
+            {
+                Debug.LogError("ThirdPersonCamera 컴포넌트를 찾지 못했습니다!");
+            }
+            else
+            {
+                Debug.Log("ThirdPersonCamera 컴포넌트를 성공적으로 찾았습니다.");
+                Debug.Log("현재 Camera.enabled 상태: " + Camera.enabled);
+            }
             Maker_ui.SetActive(false);
             Sewing_ui.SetActive(false);
         }
@@ -44,14 +54,14 @@ namespace Controller
         {
             Move(Time.deltaTime);
             CheckAimTarget();
-            if(PlayerInvenManager.instance.InvenMode == true)
-            {
-                Camera.enabled = false;
-            }
-            else
-            {
-                Camera.enabled = true;
-            }
+            //if (PlayerInvenManager.instance.InvenMode == true)
+            //{
+            //    Camera.enabled = false;
+            //}
+            //else
+            //{
+            //    Camera.enabled = true;
+            //}
         }
 
         public override void SetInput(in Vector2 delta, float scroll)
