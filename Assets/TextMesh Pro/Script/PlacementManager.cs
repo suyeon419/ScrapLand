@@ -261,22 +261,18 @@ public class PlacementManager : MonoBehaviour
     // 미리보기 아이템의 투명도를 설정하는 함수
     void SetPreviewItemTransparency(float alpha)
     {
-        // previewItem의 Renderer 뿐만 아니라 자식 오브젝트의 Renderer도 적용해야 하므로 모든 Renderer를 찾아서 적용
         Renderer[] renderers = previewItem.GetComponentsInChildren<Renderer>();
 
         foreach (Renderer renderer in renderers)
         {
             if (renderer != null)
             {
-                // 렌더러의 모든 머티리얼을 가져옵니다.
-                Material[] materials = renderer.materials;
+                Material[] materials = renderer.sharedMaterials;
 
                 foreach (Material material in materials)
                 {
-                    // 현재 사용하는 쉐이더가 투명도를 지원하는지 확인
                     if (material.HasProperty("_Color"))
                     {
-                        // 색상을 파란색 톤으로 설정 (RGB: 0, 0, 1은 파란색)
                         Color color = material.color;
                         color = new Color(0f / 255f, 255f / 255f, 255f / 255f, alpha); // 파란색 (R=0, G=0, B=1) + 알파 값으로 투명도 설정
                         material.color = color;
