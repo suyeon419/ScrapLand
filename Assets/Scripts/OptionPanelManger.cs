@@ -1,5 +1,7 @@
+using Controller;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GlobalCanvasManager : MonoBehaviour
 {
@@ -28,11 +30,27 @@ public class GlobalCanvasManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (optionPanel.activeSelf) 
+            {
+                GameManager_ScrapLand.instance.SetSensOrigin();
+            }
+            else
+            {
+                StopCamMoving();
+            }
             optionPanel.SetActive(!optionPanel.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
+            if (TutoPanel.activeSelf) 
+            {
+                GameManager_ScrapLand.instance.SetSensOrigin();
+            }
+            else
+            {
+                StopCamMoving();
+            }
             TutoPanel.SetActive(!TutoPanel.activeSelf);
         }
 
@@ -44,11 +62,23 @@ public class GlobalCanvasManager : MonoBehaviour
 
     public void ActiveOptionPanel(bool active = true)
     {
+        StopCamMoving();
         optionPanel.SetActive(active);
     }
 
     public void ActiveTutoPanel(bool active = true)
     {
+        StopCamMoving();
         TutoPanel.SetActive(active);
+    }
+
+    public void StopCamMoving()
+    {
+        Camera mainCam = Camera.main;
+        ThirdPersonCamera camera = mainCam.GetComponent<ThirdPersonCamera>();
+        if (camera != null)
+        {
+            camera.SetSensitivity(0);
+        }
     }
 }
