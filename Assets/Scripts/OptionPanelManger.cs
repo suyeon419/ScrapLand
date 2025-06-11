@@ -28,6 +28,14 @@ public class GlobalCanvasManager : MonoBehaviour
 
     void Update()
     {
+        if (DaySummery.instance != null)
+        {
+            if (DaySummery.instance.IsActiveSummeryPannel())
+            {
+                return;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (optionPanel.activeSelf) 

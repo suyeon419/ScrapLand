@@ -79,6 +79,11 @@ public class DaySummery : MonoBehaviour
         summeryPan.SetActive(true);
     }
 
+    public bool IsActiveSummeryPannel()
+    {
+        return summeryPan.activeSelf;
+    }
+
     public void OnNextDayButton()
     {
         var game = GameManager_ScrapLand.instance;
