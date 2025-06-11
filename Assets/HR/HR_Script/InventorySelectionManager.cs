@@ -11,17 +11,17 @@ public class InventorySelectionManager : MonoBehaviour
     public static GameObject SelectedSlot { get; private set; }
     public static InventoryUIManager SelectedInventoryUI { get; private set; }
 
-    // �տ� ���
-    public TextMeshProUGUI DebugText; //����׿� �ؽ�Ʈ
-    public GameObject Handpos; //�տ� ��� ��ġ ������Ʈ
+    // 손에 들기
+    public TextMeshProUGUI DebugText; //디버그용 텍스트
+    public GameObject Handpos; //손에 들기 위치 오브젝트
 
-    // �κ��丮 �Ŵ��� ��ųʸ� ����
+    // 인벤토리 매니저 딕셔너리 선언
     private Dictionary<string, Inventory> inventoryManager = new Dictionary<string, Inventory>();
 
-    // HotBar, PlayerInventory �� �κ��丮 UI �Ŵ����� �����Ϳ��� �Ҵ�
+    // HotBar, PlayerInventory 등 인벤토리 UI 매니저를 에디터에서 할당
     public InventoryUIManager hotBarUIManager;
     public InventoryUIManager playerInventoryUIManager;
-    public InventoryController inventoryController; // �κ��丮 ��Ʈ�ѷ�
+    public InventoryController inventoryController; // 인벤토리 컨트롤러
 
     private void Awake()
     {
@@ -40,32 +40,32 @@ public class InventorySelectionManager : MonoBehaviour
         if (hotBarUIManager != null)
         {
             inventoryManager["HotBar"] = hotBarUIManager.GetInventory();
-            Debug.Log("HotBar �κ��丮 ��ϵ�");
+            Debug.Log("HotBar 인벤토리 등록됨");
         }
         else
         {
-            Debug.LogWarning("hotBarUIManager�� �Ҵ���� �ʾҽ��ϴ�.");
+            Debug.LogWarning("hotBarUIManager가 할당되지 않았습니다.");
         }
         if (playerInventoryUIManager != null)
         {
             inventoryManager["PlayerInventory"] = playerInventoryUIManager.GetInventory();
-            Debug.Log("PlayerInventory �κ��丮 ��ϵ�");
+            Debug.Log("PlayerInventory 인벤토리 등록됨");
         }
         else
         {
-            Debug.LogWarning("playerInventoryUIManager�� �Ҵ���� �ʾҽ��ϴ�.");
+            Debug.LogWarning("playerInventoryUIManager가 할당되지 않았습니다.");
         }
 
-        Handpos.SetActive(false); // ���� �� �տ� ��� ������Ʈ ��Ȱ��ȭ
+        Handpos.SetActive(false); // 시작 시 손에 들기 오브젝트 비활성화
 
-        
+
     }
 
     private void Update()
     {
         /*        if (Input.GetKeyDown(KeyCode.P))
                 {
-                    // PŰ�� �κ��丮 ������ ������ ���
+                    // P키로 인벤토리 아이템 데이터 출력
                     GetInventoryItemData();
                 }*/
 
@@ -84,12 +84,12 @@ public class InventorySelectionManager : MonoBehaviour
         InventoryItem item = slot.GetComponent<Slot>().GetItem();
         if (item != null)
         {
-            int price = item.GetItemPrice(); // InventoryItem���� ������ ����
-            ShopManager.Instance.ShopText.text = $"{price}���� �Դϴ�. \n�Ǹ��Ͻðڽ��ϱ�?";
+            int price = item.GetItemPrice(); // InventoryItem에서 가져온 가격
+            ShopManager.Instance.ShopText.text = $"{price}코인 입니다. \n판매하시겠습니까?";
         }
         else
         {
-            ShopManager.Instance.ShopText.text = $"�������� �����ϴ�.";
+            ShopManager.Instance.ShopText.text = $"아이템이 없습니다.";
         }
 
         Instance.OnSlotClicked();
@@ -102,9 +102,9 @@ public class InventorySelectionManager : MonoBehaviour
     }
 
 
-    //��������Ʈ ����
+    //해피포인트 관리
 
-    // ������ Ÿ�� -> �Ǹ� Ƚ��
+    // 아이템 타입 -> 판매 횟수
     private Dictionary<string, int> sellCounts = new Dictionary<string, int>();
 
     public int GetSellCount(string itemType)
@@ -122,57 +122,57 @@ public class InventorySelectionManager : MonoBehaviour
             sellCounts[itemType] = 1;
     }
 
-    //�տ� ���
+    //손에 들기
     public void OnSlotClicked()
     {
         if (SelectedSlot != null)
         {
             InventoryItem item = SelectedSlot.GetComponent<Slot>().GetItem();
-            Sprite sprite = item.GetItemImage(); // InventoryItem���� ������ �̹���
+            Sprite sprite = item.GetItemImage(); // InventoryItem에서 가져온 이미지
             if (item != null && !item.GetIsNull())
             {
-                DebugText.text = $"���õ� ������: {item.GetItemType()}";
-                //�������� ��������Ʈ�� �ؽ�ó�� ��ȯ�ؼ� ��Ƽ���� ����
+                DebugText.text = $"선택된 아이템: {item.GetItemType()}";
+                //아이템의 스프라이트를 텍스처로 변환해서 머티리얼에 적용
                 if (sprite != null)
                 {
                     Handpos.SetActive(true);
                     Material mat = Handpos.GetComponent<MeshRenderer>().material;
                     mat.mainTexture = sprite.texture;
-                    // �ʿ��ϴٸ� mat.color = Color.white; �� �߰�
+                    // 필요하다면 mat.color = Color.white; 등 추가
                 }
-                // 3. �����ۿ� �̹����� ������ �⺻ ��Ƽ�����
+                // 3. 아이템에 이미지가 없으면 기본 머티리얼로
                 else
                 {
-                    // �⺻ ��Ƽ����� �����ϰų�, ��Ȱ��ȭ ��
+                    // 기본 머티리얼로 변경하거나, 비활성화 등
                 }
             }
             else
             {
-                DebugText.text = "���õ� ���Կ� �������� �����ϴ�.";
-                // �������� ������ Handpos�� ���
+                DebugText.text = "선택된 슬롯에 아이템이 없습니다.";
+                // 아이템이 없으니 Handpos를 비움
                 Handpos.SetActive(false);
             }
         }
         else
         {
-            Debug.Log("���õ� ������ �����ϴ�.");
+            Debug.Log("선택된 슬롯이 없습니다.");
         }
     }
 
-    //���մ�/���۴뿡 ������ ����
+    //조합대/제작대에 아이템 전달
     public void GetInventoryItemData()
     {
         InventoryData data = new InventoryData(inventoryManager);
 
-        // �����ۺ� �� ���� ����� ��ųʸ�
+        // 아이템별 총 개수 집계용 딕셔너리
         Dictionary<string, int> totalItemCounts = new Dictionary<string, int>();
 
         foreach (var inven in data.inventories)
         {
-            string invenName = inven.Key; // ��: "HotBar", "PlayerInventory"
+            string invenName = inven.Key; // 예: "HotBar", "PlayerInventory"
             foreach (var item in inven.Value)
             {
-                // �������� null�� �ƴϰ�, amount�� 1 �̻��� ���� ����
+                // 아이템이 null이 아니고, amount가 1 이상일 때만 집계
                 if (!string.IsNullOrEmpty(item.name) && item.amount > 0)
                 {
                     if (totalItemCounts.ContainsKey(item.name))
@@ -183,12 +183,12 @@ public class InventorySelectionManager : MonoBehaviour
             }
         }
 
-        // ���� ��� ���
+        // 최종 결과 출력
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("==== �κ��丮 ������ ���� ====");
+        sb.AppendLine("==== 인벤토리 아이템 총합 ====");
         foreach (var pair in totalItemCounts)
         {
-            sb.AppendLine($"{pair.Key}: {pair.Value}��");
+            sb.AppendLine($"{pair.Key}: {pair.Value}개");
         }
         Debug.Log(sb.ToString());
     }
@@ -197,19 +197,19 @@ public class InventorySelectionManager : MonoBehaviour
     {
         if (inventoryController == null)
         {
-            Debug.LogError("InventoryController�� �Ҵ���� �ʾҽ��ϴ�.");
+            Debug.LogError("InventoryController가 할당되지 않았습니다.");
             return;
         }
 
-        // HotBar���� �ش� ������ ���� Ȯ��
+        // HotBar에서 해당 아이템 개수 확인
         int hotBarCount = inventoryController.CountItems("HotBar", itemType);
         int toRemoveFromHotBar = Mathf.Min(hotBarCount, amount);
 
-        // HotBar���� ���� ����
+        // HotBar에서 먼저 삭제
         if (toRemoveFromHotBar > 0)
             inventoryController.RemoveItem("HotBar", itemType, toRemoveFromHotBar);
 
-        // ���� ������ŭ PlayerInventory���� ����
+        // 남은 개수만큼 PlayerInventory에서 삭제
         int remaining = amount - toRemoveFromHotBar;
         if (remaining > 0)
             inventoryController.RemoveItem("PlayerInventory", itemType, remaining);
