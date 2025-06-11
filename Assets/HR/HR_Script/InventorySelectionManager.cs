@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Text;
 
 public class InventorySelectionManager : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class InventorySelectionManager : MonoBehaviour
     public TextMeshProUGUI DebugText; //디버그용 텍스트
     public GameObject Handpos; //손에 들기 위치 오브젝트
 
+    // 인벤토리 매니저 딕셔너리 선언
+    private Dictionary<string, Inventory> inventoryManager = new Dictionary<string, Inventory>();
+
+    // HotBar, PlayerInventory 등 인벤토리 UI 매니저를 에디터에서 할당
+    public InventoryUIManager hotBarUIManager;
+    public InventoryUIManager playerInventoryUIManager;
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -23,6 +32,37 @@ public class InventorySelectionManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        if (hotBarUIManager != null)
+        {
+            inventoryManager["HotBar"] = hotBarUIManager.GetInventory();
+            Debug.Log("HotBar 인벤토리 등록됨");
+        }
+        else
+        {
+            Debug.LogWarning("hotBarUIManager가 할당되지 않았습니다.");
+        }
+        if (playerInventoryUIManager != null)
+        {
+            inventoryManager["PlayerInventory"] = playerInventoryUIManager.GetInventory();
+            Debug.Log("PlayerInventory 인벤토리 등록됨");
+        }
+        else
+        {
+            Debug.LogWarning("playerInventoryUIManager가 할당되지 않았습니다.");
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            // P키로 인벤토리 아이템 데이터 출력
+            GetInventoryItemData();
         }
     }
 
@@ -112,4 +152,39 @@ public class InventorySelectionManager : MonoBehaviour
             Debug.Log("선택된 슬롯이 없습니다.");
         }
     }
+
+    //조합대/제작대에 아이템 전달
+    public void GetInventoryItemData()
+    {
+        InventoryData data = new InventoryData(inventoryManager);
+
+        // 아이템별 총 개수 집계용 딕셔너리
+        Dictionary<string, int> totalItemCounts = new Dictionary<string, int>();
+
+        foreach (var inven in data.inventories)
+        {
+            string invenName = inven.Key; // 예: "HotBar", "PlayerInventory"
+            foreach (var item in inven.Value)
+            {
+                // 아이템이 null이 아니고, amount가 1 이상일 때만 집계
+                if (!string.IsNullOrEmpty(item.name) && item.amount > 0)
+                {
+                    if (totalItemCounts.ContainsKey(item.name))
+                        totalItemCounts[item.name] += item.amount;
+                    else
+                        totalItemCounts[item.name] = item.amount;
+                }
+            }
+        }
+
+        // 최종 결과 출력
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("==== 인벤토리 아이템 총합 ====");
+        foreach (var pair in totalItemCounts)
+        {
+            sb.AppendLine($"{pair.Key}: {pair.Value}개");
+        }
+        Debug.Log(sb.ToString());
+    }
+
 }

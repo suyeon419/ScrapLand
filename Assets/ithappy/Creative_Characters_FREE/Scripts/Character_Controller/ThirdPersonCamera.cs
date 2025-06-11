@@ -18,7 +18,7 @@ namespace Controller
         private Vector3 m_LookPoint;
         private Vector3 m_TargetPos;
 
-        //UI°ü·Ã(Å°ÀÔ·ÂÇÏ½Ã¿À ÀÌ·±°Å)
+        //UIï¿½ï¿½ï¿½ï¿½(Å°ï¿½Ô·ï¿½ï¿½Ï½Ã¿ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½)
         public GameObject machine_ui;
         public GameObject breaker_ui;
         public GameObject blastFurnace_ui;
@@ -36,15 +36,15 @@ namespace Controller
         private void Start()
         {
             Camera = GetComponent<ThirdPersonCamera>();
-            Debug.Log("Start¿¡¼­ ThirdPersonCamera ÄÄÆ÷³ÍÆ® ÇÒ´ç ½Ãµµ");
+            Debug.Log("Startï¿½ï¿½ï¿½ï¿½ ThirdPersonCamera ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ò´ï¿½ ï¿½Ãµï¿½");
             if (Camera == null)
             {
-                Debug.LogError("ThirdPersonCamera ÄÄÆ÷³ÍÆ®¸¦ Ã£Áö ¸øÇß½À´Ï´Ù!");
+                Debug.LogError("ThirdPersonCamera ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½!");
             }
             else
             {
-                Debug.Log("ThirdPersonCamera ÄÄÆ÷³ÍÆ®¸¦ ¼º°øÀûÀ¸·Î Ã£¾Ò½À´Ï´Ù.");
-                Debug.Log("ÇöÀç Camera.enabled »óÅÂ: " + Camera.enabled);
+                Debug.Log("ThirdPersonCamera ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Ò½ï¿½ï¿½Ï´ï¿½.");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ Camera.enabled ï¿½ï¿½ï¿½ï¿½: " + Camera.enabled);
             }
             Maker_ui.SetActive(false);
             Sewing_ui.SetActive(false);
@@ -73,7 +73,7 @@ namespace Controller
 
             var playerPos = (m_Player == null) ? Vector3.zero : m_Player.position;
             m_LookPoint = playerPos + m_Offset * Vector3.up;
-            m_LookPoint += m_Transform.right * 0.3f; // ¶Ç´Â m_Player.right * 0.3f
+            m_LookPoint += m_Transform.right * 0.3f; // ï¿½Ç´ï¿½ m_Player.right * 0.3f
             m_TargetPos = m_LookPoint + rot * dir;
         }
 
@@ -115,18 +115,18 @@ namespace Controller
             Ray ray = new Ray(m_Transform.position, m_Transform.forward);
             RaycastHit hit;
 
-            // µð¹ö±ëÀ» À§ÇØ ·¹ÀÌ ½Ã°¢È­
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½È­
             Debug.DrawRay(m_Transform.position, m_Transform.forward * m_RaycastDistance, Color.red);
 
-            // ItemBox ·¹ÀÌ¾î Á¦¿ÜÇÑ ¸¶½ºÅ© ¼³Á¤
+            // ItemBox ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½
             int layerMask = ~(1 << LayerMask.NameToLayer("ItemBox"));
 
             if (Physics.Raycast(ray, out hit, m_RaycastDistance, layerMask))
             {
-                // Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®ÀÇ ÀÌ¸§°ú ÅÂ±×¸¦ Ãâ·Â
-                Debug.Log($"Á¶ÁØµÈ ¿ÀºêÁ§Æ®: {hit.collider.gameObject.name}, ÅÂ±×: {hit.collider.tag}");
+                // ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Â±×¸ï¿½ ï¿½ï¿½ï¿½
+                Debug.Log($"ï¿½ï¿½ï¿½Øµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®: {hit.collider.gameObject.name}, ï¿½Â±ï¿½: {hit.collider.tag}");
 
-                //¹æÀû±â(machine) UI 
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(machine) UI 
                 if (hit.collider.tag == "machine")
                 {
                     machine_ui.SetActive(true);
@@ -164,7 +164,7 @@ namespace Controller
                         animator.SetTrigger("CloseChest");
 
                         //hr
-                        StorageManager.instance.OpenStorage(); //StorageManagerÀÇ OpenStorage ¸Þ¼Òµå È£Ãâ
+                        StorageManager.instance.OpenStorage(); //StorageManagerï¿½ï¿½ OpenStorage ï¿½Þ¼Òµï¿½ È£ï¿½ï¿½
                         chest_ui.SetActive(false);
                         Camera.enabled = false;
                     }
@@ -191,12 +191,12 @@ namespace Controller
                 {
                     Shop_ui.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Q))
-                    { //ÆÇ¸Å »óÁ¡
+                    { //ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½
                         ShopManager.Instance.ShopModeOn();
                         Camera.enabled = false;
                         Shop_ui.SetActive(false);
                     }
-                    if (Input.GetKeyDown(KeyCode.E)) //±¸¸Å »óÁ¡
+                    if (Input.GetKeyDown(KeyCode.E)) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     {
                         ShopManager.Instance.BuyShopModeOn();
                         Camera.enabled = false;
@@ -218,8 +218,8 @@ namespace Controller
             }
             else
             {
-                Debug.Log("¾Æ¹« ¿ÀºêÁ§Æ®µµ °¨ÁöµÇÁö ¾ÊÀ½");
-                machine_ui.SetActive(false); //¹æÀû±â(machine) UI 
+                Debug.Log("ï¿½Æ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                machine_ui.SetActive(false); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(machine) UI 
                 breaker_ui.SetActive(false);
                 blastFurnace_ui.SetActive(false);
                 compressor_ui.SetActive(false);
@@ -233,7 +233,7 @@ namespace Controller
         
         void ReSetChest()
         {
-            Debug.Log("3ÃÊ ±â´Ù¸²");
+            Debug.Log("3ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½");
         }
     }
        

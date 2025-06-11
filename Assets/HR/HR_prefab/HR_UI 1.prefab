@@ -21056,6 +21056,7 @@ MonoBehaviour:
     originalPrice: 400
     currentPrice: 100
     isPurchased: 0
+    isOnMap: 0
     relatedItem:
       itemType: Grinder
       itemImage: {fileID: 21300000, guid: 5ad982092291a7e41b78487a1b0cd3d7, type: 3}
@@ -21070,6 +21071,7 @@ MonoBehaviour:
       isNull: 0
       itemHappyPoint: 0
       itemPrice: 0
+    priceText: {fileID: 0}
   - machineName: "\uC7AC\uBD09\uD2C0"
     description: "\uC2E4\uACFC \uCC9C\uC73C\uB85C \uC7AC\uBD09\uD560 \uC218 \uC788\uB2E4.
       \uC758\uB958 \uB4F1\uC744 \uC81C\uC791\uD560 \uC218 \uC788\uB2E4."
@@ -21077,6 +21079,7 @@ MonoBehaviour:
     originalPrice: 400
     currentPrice: 100
     isPurchased: 0
+    isOnMap: 0
     relatedItem:
       itemType: SewingMachine
       itemImage: {fileID: 21300000, guid: 3115c512a133e204da0ffc1e89b6c90c, type: 3}
@@ -21091,12 +21094,14 @@ MonoBehaviour:
       isNull: 0
       itemHappyPoint: 0
       itemPrice: 0
+    priceText: {fileID: 0}
   - machineName: "\uBC29\uC801\uAE30"
     description: "\uD398\uD2B8\uBCD1\uC73C\uB85C \uD398\uD2B8 \uC2E4\uC744 \uB9CC\uB4E4\uC5B4\uBCF4\uC790."
     image: {fileID: 21300000, guid: f178a82418f8d0b488536d1e2b2d1ae3, type: 3}
     originalPrice: 400
     currentPrice: 100
     isPurchased: 0
+    isOnMap: 0
     relatedItem:
       itemType: Filature
       itemImage: {fileID: 21300000, guid: f178a82418f8d0b488536d1e2b2d1ae3, type: 3}
@@ -21111,6 +21116,7 @@ MonoBehaviour:
       isNull: 0
       itemHappyPoint: 0
       itemPrice: 0
+    priceText: {fileID: 0}
   - machineName: "\uC555\uCD95\uAE30"
     description: "\uC885\uC774\uB97C \uB123\uC5B4 \uC555\uCD95\uC2DC\uD0AC \uC218
       \uC788\uB2E4. "
@@ -21118,6 +21124,7 @@ MonoBehaviour:
     originalPrice: 500
     currentPrice: 100
     isPurchased: 0
+    isOnMap: 0
     relatedItem:
       itemType: Compressor
       itemImage: {fileID: 21300000, guid: b4f49303f963eb14ba16d6499cd038e5, type: 3}
@@ -21132,6 +21139,7 @@ MonoBehaviour:
       isNull: 0
       itemHappyPoint: 0
       itemPrice: 0
+    priceText: {fileID: 0}
   - machineName: "\uC6A9\uAD11\uB85C"
     description: "\uBB34\uC5C7\uC774\uB4E0 \uB179\uC5EC\uBC84\uB9B0\uB2E4. \uB179\uC778
       \uC720\uB9AC \uB4F1\uC744 \uC81C\uC791\uD560 \uC218 \uC788\uB2E4."
@@ -21139,6 +21147,7 @@ MonoBehaviour:
     originalPrice: 500
     currentPrice: 100
     isPurchased: 0
+    isOnMap: 0
     relatedItem:
       itemType: BlastFurnace
       itemImage: {fileID: 21300000, guid: 60f71edda42631748b769c2a059b6d87, type: 3}
@@ -21153,6 +21162,7 @@ MonoBehaviour:
       isNull: 0
       itemHappyPoint: 0
       itemPrice: 0
+    priceText: {fileID: 0}
   machinePriceText: {fileID: 4880388217105789024}
   playerInventory:
     inventoryName: 
@@ -21240,6 +21250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c606eed59d80c4e92636f186e32663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DebugText: {fileID: 0}
+  Handpos: {fileID: 0}
 --- !u!114 &7136442662670424380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21257,6 +21269,7 @@ MonoBehaviour:
   Inventory_Cloth: {fileID: 2454799777830874630}
   HotBar: {fileID: 4242821658416453955}
   Inven_Background: {fileID: 227348441896539781}
+  StorageClose: {fileID: 0}
   Storage1: {fileID: 4670606226541756922}
 --- !u!1 &5443386809058359825
 GameObject:
@@ -25130,7 +25143,6 @@ GameObject:
   - component: {fileID: 5776782953688962860}
   - component: {fileID: 6572991117811627262}
   - component: {fileID: 4242156879252839348}
-  - component: {fileID: 5273690645098198572}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -25251,18 +25263,6 @@ MonoBehaviour:
           m_StringArgument: HotBar
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5273690645098198572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6329780436199660929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e85d1bd1929a9e43b784a544f55f438, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6331837662657424479
 GameObject:
   m_ObjectHideFlags: 0
