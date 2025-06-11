@@ -2272,6 +2272,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8488902756323203313, guid: 6e7f6f011ea457d4c9835706030b381e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488902756323203313, guid: 6e7f6f011ea457d4c9835706030b381e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488902756323203313, guid: 6e7f6f011ea457d4c9835706030b381e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 775660477}
+    - target: {fileID: 8488902756323203313, guid: 6e7f6f011ea457d4c9835706030b381e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488902756323203313, guid: 6e7f6f011ea457d4c9835706030b381e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSensOrigin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488902756323203313, guid: 6e7f6f011ea457d4c9835706030b381e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager_ScrapLand, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488902756323203313, guid: 6e7f6f011ea457d4c9835706030b381e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2548,6 +2576,34 @@ PrefabInstance:
     - target: {fileID: 5659581287880244635, guid: cead6bf387a227b4a80db7b619c89600, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501582662763483154, guid: cead6bf387a227b4a80db7b619c89600, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501582662763483154, guid: cead6bf387a227b4a80db7b619c89600, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501582662763483154, guid: cead6bf387a227b4a80db7b619c89600, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 775660477}
+    - target: {fileID: 6501582662763483154, guid: cead6bf387a227b4a80db7b619c89600, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501582662763483154, guid: cead6bf387a227b4a80db7b619c89600, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSensOrigin
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501582662763483154, guid: cead6bf387a227b4a80db7b619c89600, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager_ScrapLand, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501582662763483154, guid: cead6bf387a227b4a80db7b619c89600, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7271439284138226010, guid: cead6bf387a227b4a80db7b619c89600, type: 3}
       propertyPath: m_AnchorMax.x
