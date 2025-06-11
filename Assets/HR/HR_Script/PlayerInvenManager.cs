@@ -59,7 +59,6 @@ public class PlayerInvenManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.Tab)) //Tab키로 인벤 열고 닫기
         {
             if (!InvenMode) //==InvenMode false

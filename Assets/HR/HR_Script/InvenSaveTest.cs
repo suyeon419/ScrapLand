@@ -2,64 +2,110 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using InventorySystem;
+using UnityEngine.UI;
 
 public class InvenSaveTest : MonoBehaviour
 {
-/*    [Header("========[ Inventory Setup ]========")]
-    [SerializeField]
-    public List<InventoryInitializer> initializeInventory = new List<InventoryInitializer>();
+    /*    [Header("========[ Inventory Setup ]========")]
+        [SerializeField]
+        public List<InventoryInitializer> initializeInventory = new List<InventoryInitializer>();
 
-    public Dictionary<string, Inventory> inventories;
-    public string saveFileName = "player_inventory.dat";*/
+        public Dictionary<string, Inventory> inventories;
+        public string saveFileName = "player_inventory.dat";*/
 
-    void Awake()
+    public Button saveBtn;
+    public Button loadBtn;
+
+    public void SaveAllInventories()
     {
-        /*        inventories = new Dictionary<string, Inventory>();
-
-                foreach (var initializer in initializeInventory)
-                {
-                    string id = initializer.GetInventoryName();
-                    Inventory inventory = initializer.GetInventoryRef();
-
-                    if (!string.IsNullOrEmpty(id) && inventory != null)
-                    {
-                        inventories[id] = inventory;
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Invalid InventoryInitializer: missing name or reference.");
-                    }
-                }*/
-/*        foreach (var pair in InventoryController.instance.GetInventoryManager())
+        // 1. 모든 인벤토리의 saveInventory를 true로 설정
+        foreach (var pair in InventoryController.instance.GetInventoryManager())
         {
-            Debug.Log($"[SaveInventory] Key: '{pair.Key}', Inventory: {pair.Value}");
-        }*/
+            pair.Value.SetSave(true);
+        }
+
+        // 2. 저장
+        InventorySaveSystem.SaveInventory(
+            InventoryController.instance.GetInventoryManager(),
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+        );
+
+        // 3. 다시 false로 돌려놓기
+        foreach (var pair in InventoryController.instance.GetInventoryManager())
+        {
+            pair.Value.SetSave(false);
+        }
     }
 
-    //Dictionary<string, Inventory> inventoryManager = new Dictionary<string, Inventory>();
-    //InventoryUIManager["PlayerInven"] = HotBar;
-
-
-
-    public void EndDay()
+    public void SaveAllInventoriesToCustomFile(string customFileName)
     {
-        /*        if (inventories == null)
-                {
-                    Debug.LogError("Inventories is null. Cannot save!");
-                    return;
-                }
+        // 저장할 때만 saveInventory를 true로
+        foreach (var pair in InventoryController.instance.GetInventoryManager())
+            pair.Value.SetSave(true);
 
-                // 인벤토리 저장
-                InventorySaveSystem.SaveInventory(inventories, saveFileName);
+        InventorySaveSystem.SaveInventory(
+            InventoryController.instance.GetInventoryManager(),
+            customFileName // 예: "manual_save.dat"
+        );
 
-                Debug.Log("Inventory saved at the end of the day.");*/
-        /*        foreach (var kvp in inventories)
-                {
-                    kvp.Value.SetSave(true); // 하루가 끝날 때만 저장 활성화
-                }
-
-                Debug.Log("Inventory marked for save at the end of the day.");*/
-        string filePath = System.IO.Path.Combine(Application.persistentDataPath);
-        InventorySaveSystem.SaveInventory(InventoryController.instance.GetInventoryManager(), filePath);
+        foreach (var pair in InventoryController.instance.GetInventoryManager())
+            pair.Value.SetSave(false);
     }
+
+    public void LoadAllInventories()
+    {
+        /*        // 1. 모든 인벤토리의 saveInventory를 true로 설정
+                foreach (var pair in InventoryController.instance.GetInventoryManager())
+                {
+                    pair.Value.SetSave(true);
+                }
+
+                // 2. 불러오기
+                InventoryController.instance.LoadSave();
+
+                // 3. 다시 false로 돌려놓기
+                foreach (var pair in InventoryController.instance.GetInventoryManager())
+                {
+                    pair.Value.SetSave(false);
+                }*/
+
+        InventoryController.instance.LoadSave();
+
+    }
+
+/*    public void LoadAllInventoriesFromCustomFile(string customFileName)
+    {
+        InventoryData loadedData = InventorySaveSystem.LoadItem(customFileName);
+        if (loadedData != null)
+        {
+            // 기존 인벤토리 초기화
+            foreach (var pair in InventoryController.instance.GetInventoryManager())
+                pair.Value.Clear();
+
+            // 불러온 데이터로 인벤토리 복원
+            foreach (var pair in loadedData.inventories)
+            {
+                if (pair.Key == null) continue;
+                if (!InventoryController.instance.GetInventoryManager().ContainsKey(pair.Key)) continue;
+
+                Inventory inventory = InventoryController.instance.GetInventoryManager()[pair.Key];
+                foreach (var item in pair.Value)
+                {
+                    if (item.name != null)
+                    {
+                        InventoryItem copyItem = InventoryController.instance.GetItems().Find(x => x.GetItemType() == item.name);
+                        if (copyItem != null)
+                        {
+                            InventoryItem newItem = new InventoryItem(copyItem, item.amount);
+                            inventory.AddItemPos(item.position, newItem);
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("저장된 인벤토리 데이터가 없습니다.");
+        }
+    }*/
 }

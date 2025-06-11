@@ -44,14 +44,14 @@ namespace Controller
         {
             Move(Time.deltaTime);
             CheckAimTarget();
-            if(PlayerInvenManager.instance.InvenMode == true)
+/*            if(PlayerInvenManager.instance.InvenMode == true)
             {
                 Camera.enabled = false;
             }
             else
             {
                 Camera.enabled = true;
-            }
+            }*/
         }
 
         public override void SetInput(in Vector2 delta, float scroll)

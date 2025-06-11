@@ -109,7 +109,7 @@ namespace InventorySystem
         /// </summary>
         private void Start()
         {
-            LoadSave();
+            //LoadSave();
         }
 
         /// <summary>
@@ -534,7 +534,7 @@ namespace InventorySystem
         /// <summary>
         /// Loads saved file on <see cref="Start"/> based on the name of the scene. Adds any saved items back into their respective inventories 
         /// </summary>
-        private void LoadSave()
+        public void LoadSave()
         {
             InventorySaveSystem.Create(SceneManager.GetActiveScene().name);
             if (InventorySaveSystem.LoadItem(SceneManager.GetActiveScene().name) != null)
@@ -554,7 +554,8 @@ namespace InventorySystem
                     if (!inventory.GetSaveInventory())
                     {
                         continue;
-                    }
+                    }//주석처리???
+
                     List<ItemData> items = pair.Value;
                     foreach (ItemData item in items)
                     {
@@ -776,33 +777,5 @@ namespace InventorySystem
             InventorySaveSystem.SaveInventory(inventoryManager, SceneManager.GetActiveScene().name);
         }
 
-        /*//HH: AddItemToHotBarOrPlayerInventory 메서드 추가
-        public void AddItemToHotBarOrPlayerInventory(string itemType, int amount = 1)
-        {
-            string hotBarName = "HotBar";
-            string playerInventoryName = "PlayerInventory";
-
-            // 1. 핫바가 가득 찼는지 확인
-            bool isHotBarFull = InventoryFull(hotBarName, itemType);
-
-            if (!isHotBarFull)
-            {
-                // 핫바에 공간이 있으면 핫바에 추가
-                AddItem(hotBarName, itemType, amount);
-            }
-            else
-            {
-                // 핫바가 가득 찼고, PlayerInventory가 활성화된 경우
-                if (PlayerInvenManager.instance.IsBagOn)
-                {
-                    AddItem(playerInventoryName, itemType, amount);
-                }
-                else
-                {
-                    // PlayerInventory가 비활성화 상태라면 원하는 동작(예: 무시, 대기 등) 추가
-                    Debug.Log("PlayerInventory가 비활성화 상태입니다.");
-                }
-            }
-        }*/
     }
 }

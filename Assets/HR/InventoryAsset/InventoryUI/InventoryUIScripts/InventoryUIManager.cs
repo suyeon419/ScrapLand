@@ -203,9 +203,6 @@ namespace InventorySystem
             selectedSlots.Clear();
         }
 
-
-
-
         public void Awake()
         {
             rectTransform = GetComponent<RectTransform>();

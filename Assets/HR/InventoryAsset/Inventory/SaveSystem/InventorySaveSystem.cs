@@ -60,6 +60,24 @@ namespace InventorySystem
                 File.Delete(path);
             }
         }
+
+        //HH
+        public static void SaveInventoryToJson(Dictionary<string, Inventory> inventoryManager, string fileName)
+        {
+            // 1. InventoryData 객체 생성
+            InventoryData inventoryData = new InventoryData(inventoryManager);
+
+            // 2. JSON 문자열로 변환
+            string json = JsonUtility.ToJson(inventoryData, true);
+
+            // 3. Assets 폴더 경로 생성
+            string path = Path.Combine(Application.dataPath, fileName + ".json");
+
+            // 4. 파일로 저장
+            File.WriteAllText(path, json);
+
+            Debug.Log($"인벤토리 데이터가 JSON으로 저장되었습니다: {path}");
+        }
     }
 }
 
