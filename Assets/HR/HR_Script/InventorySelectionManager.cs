@@ -21,7 +21,7 @@ public class InventorySelectionManager : MonoBehaviour
     // HotBar, PlayerInventory 등 인벤토리 UI 매니저를 에디터에서 할당
     public InventoryUIManager hotBarUIManager;
     public InventoryUIManager playerInventoryUIManager;
-
+    public InventoryController inventoryController; // 인벤토리 컨트롤러
 
     private void Awake()
     {
@@ -57,14 +57,22 @@ public class InventorySelectionManager : MonoBehaviour
         }
 
         Handpos.SetActive(false); // 시작 시 손에 들기 오브젝트 비활성화
+
+        
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        /*        if (Input.GetKeyDown(KeyCode.P))
+                {
+                    // P키로 인벤토리 아이템 데이터 출력
+                    GetInventoryItemData();
+                }*/
+
+        if (Input.GetKeyDown(KeyCode.O))
         {
-            // P키로 인벤토리 아이템 데이터 출력
-            GetInventoryItemData();
+            //RemoveItemFromAllInventories("Hat", 3);
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("SewingMachine");
         }
     }
 
@@ -185,4 +193,25 @@ public class InventorySelectionManager : MonoBehaviour
         Debug.Log(sb.ToString());
     }
 
+    public void RemoveItemFromAllInventories(string itemType, int amount)
+    {
+        if (inventoryController == null)
+        {
+            Debug.LogError("InventoryController가 할당되지 않았습니다.");
+            return;
+        }
+
+        // HotBar에서 해당 아이템 개수 확인
+        int hotBarCount = inventoryController.CountItems("HotBar", itemType);
+        int toRemoveFromHotBar = Mathf.Min(hotBarCount, amount);
+
+        // HotBar에서 먼저 삭제
+        if (toRemoveFromHotBar > 0)
+            inventoryController.RemoveItem("HotBar", itemType, toRemoveFromHotBar);
+
+        // 남은 개수만큼 PlayerInventory에서 삭제
+        int remaining = amount - toRemoveFromHotBar;
+        if (remaining > 0)
+            inventoryController.RemoveItem("PlayerInventory", itemType, remaining);
+    }
 }
