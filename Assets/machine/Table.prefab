@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3991425769671292350}
   - component: {fileID: 4163889441480546431}
   - component: {fileID: 6279737903771301381}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Table
   m_TagString: Maker
   m_Icon: {fileID: 0}
@@ -169,6 +169,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hatchet2
       objectReference: {fileID: 0}
+    - target: {fileID: 6688590525685599682, guid: 65e952c9b83db734eb12b9746342d824, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -239,6 +243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScrewDriverBlue
       objectReference: {fileID: 0}
+    - target: {fileID: 667695867050324368, guid: c36ccc69b1373a7499271ab12d1c5795, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -260,6 +268,10 @@ PrefabInstance:
     - target: {fileID: 6175472454394282540, guid: 7c84ec7fc361f7d4cbe6b06be010b561, type: 3}
       propertyPath: m_Name
       value: SledgeHammer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175472454394282540, guid: 7c84ec7fc361f7d4cbe6b06be010b561, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6843360195030145174, guid: 7c84ec7fc361f7d4cbe6b06be010b561, type: 3}
       propertyPath: m_LocalScale.x
@@ -327,6 +339,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4953444211952901489}
     m_Modifications:
+    - target: {fileID: 1377211989709458663, guid: 59acd335cbd226f44ade069d962cfb82, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3997027115961862880, guid: 59acd335cbd226f44ade069d962cfb82, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -378,6 +394,14 @@ PrefabInstance:
     - target: {fileID: 4337980536727441498, guid: 59acd335cbd226f44ade069d962cfb82, type: 3}
       propertyPath: m_Name
       value: ToolboxRed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4337980536727441498, guid: 59acd335cbd226f44ade069d962cfb82, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971902320458703412, guid: 59acd335cbd226f44ade069d962cfb82, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

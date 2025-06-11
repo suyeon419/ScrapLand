@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3972266853791683486}
   - component: {fileID: 5860614928089310890}
   - component: {fileID: 6887645757397876253}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7306517438904437708}
   - component: {fileID: 32992666254631191}
   - component: {fileID: 8238458376933949779}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AlertOrange.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 9013812653437958832}
   - component: {fileID: 7870365149986452648}
   - component: {fileID: 8046022640373220105}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane_2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 8841200218706676851}
   - component: {fileID: 1793433865698906305}
   - component: {fileID: 2738019164058454196}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rotate_Obj_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 5333908452579961295}
   - component: {fileID: 8468196595113376881}
   - component: {fileID: 4020977239730897753}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pc.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 1251994225046482183}
   - component: {fileID: 431495560427632727}
   - component: {fileID: -6022723612806841659}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: compressor
   m_TagString: compressor
   m_Icon: {fileID: 0}
@@ -583,7 +583,7 @@ GameObject:
   - component: {fileID: 4476522868429026461}
   - component: {fileID: 6447377167576553510}
   - component: {fileID: 1039308232467770136}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AlertOrange.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,7 +666,7 @@ GameObject:
   - component: {fileID: 2648519983220218732}
   - component: {fileID: 8815585672975364698}
   - component: {fileID: 4837366723275485780}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AlertOrange.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -749,7 +749,7 @@ GameObject:
   - component: {fileID: 4191104909583301735}
   - component: {fileID: 6364523355934435392}
   - component: {fileID: 8585602458518769141}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AlertOrange.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3575448211328047722}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8379533599486800497}
   - component: {fileID: 8521412597587310679}
   - component: {fileID: 5440165368497698160}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder_Material.002_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5636699366968121391}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 5832205368327325657}
   - component: {fileID: 6227056425629960968}
   - component: {fileID: 8386335245426251299}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube.078_Material.001_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 802376366188410333}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sketchfab_model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 3037330117563320517}
   - component: {fileID: 8220870983271509609}
   - component: {fileID: 8255427945104451149}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder.001_Material_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +354,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8704383159140169838}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube.078
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 3703505966273648263}
   - component: {fileID: 3181963537801890521}
   - component: {fileID: 1038310741863751354}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blast Furnace
   m_TagString: BlastFurnace
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8863924665427806054}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 6518903252256217622}
   - component: {fileID: 1486165112145104941}
   - component: {fileID: 5057796925255551803}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder.009_Material_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1186308587424000081}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: d64f2a4887764813890c0183832717cb.fbx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,7 +630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4697849510332069314}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 5469344501262774775}
   - component: {fileID: 7002262534866035548}
   - component: {fileID: 8484035754130768280}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder.013_Material_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4852711100547847827}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RootNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -782,7 +782,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9021204568411488012}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +816,7 @@ GameObject:
   - component: {fileID: 8308709284634285556}
   - component: {fileID: 6695652426072051585}
   - component: {fileID: 826374266143873515}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane_Material.002_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

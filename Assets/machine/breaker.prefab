@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3127858090127753440}
   - component: {fileID: 904261544969597994}
   - component: {fileID: 6399082463213761513}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: breaker
   m_TagString: breaker
   m_Icon: {fileID: 0}
