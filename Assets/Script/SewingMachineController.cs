@@ -106,7 +106,9 @@ public class SewingMachineController : MonoBehaviour
         // 초기 버튼 상태 체크
         UpdateButtonStates();
         UpdateUI();
+
     }
+
 
     void Update()
     {

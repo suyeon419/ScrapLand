@@ -11,17 +11,17 @@ public class InventorySelectionManager : MonoBehaviour
     public static GameObject SelectedSlot { get; private set; }
     public static InventoryUIManager SelectedInventoryUI { get; private set; }
 
-    // ¼Õ¿¡ µé±â
-    public TextMeshProUGUI DebugText; //µğ¹ö±×¿ë ÅØ½ºÆ®
-    public GameObject Handpos; //¼Õ¿¡ µé±â À§Ä¡ ¿ÀºêÁ§Æ®
+    // ì†ì— ë“¤ê¸°
+    public TextMeshProUGUI DebugText; //ë””ë²„ê·¸ìš© í…ìŠ¤íŠ¸
+    public GameObject Handpos; //ì†ì— ë“¤ê¸° ìœ„ì¹˜ ì˜¤ë¸Œì íŠ¸
 
-    // ÀÎº¥Åä¸® ¸Å´ÏÀú µñ¼Å³Ê¸® ¼±¾ğ
+    // ì¸ë²¤í† ë¦¬ ë§¤ë‹ˆì € ë”•ì…”ë„ˆë¦¬ ì„ ì–¸
     private Dictionary<string, Inventory> inventoryManager = new Dictionary<string, Inventory>();
 
-    // HotBar, PlayerInventory µî ÀÎº¥Åä¸® UI ¸Å´ÏÀú¸¦ ¿¡µğÅÍ¿¡¼­ ÇÒ´ç
+    // HotBar, PlayerInventory ë“± ì¸ë²¤í† ë¦¬ UI ë§¤ë‹ˆì €ë¥¼ ì—ë””í„°ì—ì„œ í• ë‹¹
     public InventoryUIManager hotBarUIManager;
     public InventoryUIManager playerInventoryUIManager;
-    public InventoryController inventoryController; // ÀÎº¥Åä¸® ÄÁÆ®·Ñ·¯
+    public InventoryController inventoryController; // ì¸ë²¤í† ë¦¬ ì»¨íŠ¸ë¡¤ëŸ¬
 
     private void Awake()
     {
@@ -40,32 +40,32 @@ public class InventorySelectionManager : MonoBehaviour
         if (hotBarUIManager != null)
         {
             inventoryManager["HotBar"] = hotBarUIManager.GetInventory();
-            Debug.Log("HotBar ÀÎº¥Åä¸® µî·ÏµÊ");
+            Debug.Log("HotBar ì¸ë²¤í† ë¦¬ ë“±ë¡ë¨");
         }
         else
         {
-            Debug.LogWarning("hotBarUIManager°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogWarning("hotBarUIManagerê°€ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
         if (playerInventoryUIManager != null)
         {
             inventoryManager["PlayerInventory"] = playerInventoryUIManager.GetInventory();
-            Debug.Log("PlayerInventory ÀÎº¥Åä¸® µî·ÏµÊ");
+            Debug.Log("PlayerInventory ì¸ë²¤í† ë¦¬ ë“±ë¡ë¨");
         }
         else
         {
-            Debug.LogWarning("playerInventoryUIManager°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogWarning("playerInventoryUIManagerê°€ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        Handpos.SetActive(false); // ½ÃÀÛ ½Ã ¼Õ¿¡ µé±â ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
+        Handpos.SetActive(false); // ì‹œì‘ ì‹œ ì†ì— ë“¤ê¸° ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”
 
-        
+
     }
 
     private void Update()
     {
         /*        if (Input.GetKeyDown(KeyCode.P))
                 {
-                    // PÅ°·Î ÀÎº¥Åä¸® ¾ÆÀÌÅÛ µ¥ÀÌÅÍ Ãâ·Â
+                    // Pí‚¤ë¡œ ì¸ë²¤í† ë¦¬ ì•„ì´í…œ ë°ì´í„° ì¶œë ¥
                     GetInventoryItemData();
                 }*/
 
@@ -84,12 +84,12 @@ public class InventorySelectionManager : MonoBehaviour
         InventoryItem item = slot.GetComponent<Slot>().GetItem();
         if (item != null)
         {
-            int price = item.GetItemPrice(); // InventoryItem¿¡¼­ °¡Á®¿Â °¡°İ
-            ShopManager.Instance.ShopText.text = $"{price}ÄÚÀÎ ÀÔ´Ï´Ù. \nÆÇ¸ÅÇÏ½Ã°Ú½À´Ï±î?";
+            int price = item.GetItemPrice(); // InventoryItemì—ì„œ ê°€ì ¸ì˜¨ ê°€ê²©
+            ShopManager.Instance.ShopText.text = $"{price}ì½”ì¸ ì…ë‹ˆë‹¤. \níŒë§¤í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
         }
         else
         {
-            ShopManager.Instance.ShopText.text = $"¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.";
+            ShopManager.Instance.ShopText.text = $"ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.";
         }
 
         Instance.OnSlotClicked();
@@ -102,9 +102,9 @@ public class InventorySelectionManager : MonoBehaviour
     }
 
 
-    //ÇØÇÇÆ÷ÀÎÆ® °ü¸®
+    //í•´í”¼í¬ì¸íŠ¸ ê´€ë¦¬
 
-    // ¾ÆÀÌÅÛ Å¸ÀÔ -> ÆÇ¸Å È½¼ö
+    // ì•„ì´í…œ íƒ€ì… -> íŒë§¤ íšŸìˆ˜
     private Dictionary<string, int> sellCounts = new Dictionary<string, int>();
 
     public int GetSellCount(string itemType)
@@ -122,57 +122,57 @@ public class InventorySelectionManager : MonoBehaviour
             sellCounts[itemType] = 1;
     }
 
-    //¼Õ¿¡ µé±â
+    //ì†ì— ë“¤ê¸°
     public void OnSlotClicked()
     {
         if (SelectedSlot != null)
         {
             InventoryItem item = SelectedSlot.GetComponent<Slot>().GetItem();
-            Sprite sprite = item.GetItemImage(); // InventoryItem¿¡¼­ °¡Á®¿Â ÀÌ¹ÌÁö
+            Sprite sprite = item.GetItemImage(); // InventoryItemì—ì„œ ê°€ì ¸ì˜¨ ì´ë¯¸ì§€
             if (item != null && !item.GetIsNull())
             {
-                DebugText.text = $"¼±ÅÃµÈ ¾ÆÀÌÅÛ: {item.GetItemType()}";
-                //¾ÆÀÌÅÛÀÇ ½ºÇÁ¶óÀÌÆ®¸¦ ÅØ½ºÃ³·Î º¯È¯ÇØ¼­ ¸ÓÆ¼¸®¾ó¿¡ Àû¿ë
+                DebugText.text = $"ì„ íƒëœ ì•„ì´í…œ: {item.GetItemType()}";
+                //ì•„ì´í…œì˜ ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ í…ìŠ¤ì²˜ë¡œ ë³€í™˜í•´ì„œ ë¨¸í‹°ë¦¬ì–¼ì— ì ìš©
                 if (sprite != null)
                 {
                     Handpos.SetActive(true);
                     Material mat = Handpos.GetComponent<MeshRenderer>().material;
                     mat.mainTexture = sprite.texture;
-                    // ÇÊ¿äÇÏ´Ù¸é mat.color = Color.white; µî Ãß°¡
+                    // í•„ìš”í•˜ë‹¤ë©´ mat.color = Color.white; ë“± ì¶”ê°€
                 }
-                // 3. ¾ÆÀÌÅÛ¿¡ ÀÌ¹ÌÁö°¡ ¾øÀ¸¸é ±âº» ¸ÓÆ¼¸®¾ó·Î
+                // 3. ì•„ì´í…œì— ì´ë¯¸ì§€ê°€ ì—†ìœ¼ë©´ ê¸°ë³¸ ë¨¸í‹°ë¦¬ì–¼ë¡œ
                 else
                 {
-                    // ±âº» ¸ÓÆ¼¸®¾ó·Î º¯°æÇÏ°Å³ª, ºñÈ°¼ºÈ­ µî
+                    // ê¸°ë³¸ ë¨¸í‹°ë¦¬ì–¼ë¡œ ë³€ê²½í•˜ê±°ë‚˜, ë¹„í™œì„±í™” ë“±
                 }
             }
             else
             {
-                DebugText.text = "¼±ÅÃµÈ ½½·Ô¿¡ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.";
-                // ¾ÆÀÌÅÛÀÌ ¾øÀ¸´Ï Handpos¸¦ ºñ¿ò
+                DebugText.text = "ì„ íƒëœ ìŠ¬ë¡¯ì— ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.";
+                // ì•„ì´í…œì´ ì—†ìœ¼ë‹ˆ Handposë¥¼ ë¹„ì›€
                 Handpos.SetActive(false);
             }
         }
         else
         {
-            Debug.Log("¼±ÅÃµÈ ½½·ÔÀÌ ¾ø½À´Ï´Ù.");
+            Debug.Log("ì„ íƒëœ ìŠ¬ë¡¯ì´ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 
-    //Á¶ÇÕ´ë/Á¦ÀÛ´ë¿¡ ¾ÆÀÌÅÛ Àü´Ş
+    //ì¡°í•©ëŒ€/ì œì‘ëŒ€ì— ì•„ì´í…œ ì „ë‹¬
     public void GetInventoryItemData()
     {
         InventoryData data = new InventoryData(inventoryManager);
 
-        // ¾ÆÀÌÅÛº° ÃÑ °³¼ö Áı°è¿ë µñ¼Å³Ê¸®
+        // ì•„ì´í…œë³„ ì´ ê°œìˆ˜ ì§‘ê³„ìš© ë”•ì…”ë„ˆë¦¬
         Dictionary<string, int> totalItemCounts = new Dictionary<string, int>();
 
         foreach (var inven in data.inventories)
         {
-            string invenName = inven.Key; // ¿¹: "HotBar", "PlayerInventory"
+            string invenName = inven.Key; // ì˜ˆ: "HotBar", "PlayerInventory"
             foreach (var item in inven.Value)
             {
-                // ¾ÆÀÌÅÛÀÌ nullÀÌ ¾Æ´Ï°í, amount°¡ 1 ÀÌ»óÀÏ ¶§¸¸ Áı°è
+                // ì•„ì´í…œì´ nullì´ ì•„ë‹ˆê³ , amountê°€ 1 ì´ìƒì¼ ë•Œë§Œ ì§‘ê³„
                 if (!string.IsNullOrEmpty(item.name) && item.amount > 0)
                 {
                     if (totalItemCounts.ContainsKey(item.name))
@@ -183,12 +183,12 @@ public class InventorySelectionManager : MonoBehaviour
             }
         }
 
-        // ÃÖÁ¾ °á°ú Ãâ·Â
+        // ìµœì¢… ê²°ê³¼ ì¶œë ¥
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("==== ÀÎº¥Åä¸® ¾ÆÀÌÅÛ ÃÑÇÕ ====");
+        sb.AppendLine("==== ì¸ë²¤í† ë¦¬ ì•„ì´í…œ ì´í•© ====");
         foreach (var pair in totalItemCounts)
         {
-            sb.AppendLine($"{pair.Key}: {pair.Value}°³");
+            sb.AppendLine($"{pair.Key}: {pair.Value}ê°œ");
         }
         Debug.Log(sb.ToString());
     }
@@ -197,19 +197,19 @@ public class InventorySelectionManager : MonoBehaviour
     {
         if (inventoryController == null)
         {
-            Debug.LogError("InventoryController°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("InventoryControllerê°€ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // HotBar¿¡¼­ ÇØ´ç ¾ÆÀÌÅÛ °³¼ö È®ÀÎ
+        // HotBarì—ì„œ í•´ë‹¹ ì•„ì´í…œ ê°œìˆ˜ í™•ì¸
         int hotBarCount = inventoryController.CountItems("HotBar", itemType);
         int toRemoveFromHotBar = Mathf.Min(hotBarCount, amount);
 
-        // HotBar¿¡¼­ ¸ÕÀú »èÁ¦
+        // HotBarì—ì„œ ë¨¼ì € ì‚­ì œ
         if (toRemoveFromHotBar > 0)
             inventoryController.RemoveItem("HotBar", itemType, toRemoveFromHotBar);
 
-        // ³²Àº °³¼ö¸¸Å­ PlayerInventory¿¡¼­ »èÁ¦
+        // ë‚¨ì€ ê°œìˆ˜ë§Œí¼ PlayerInventoryì—ì„œ ì‚­ì œ
         int remaining = amount - toRemoveFromHotBar;
         if (remaining > 0)
             inventoryController.RemoveItem("PlayerInventory", itemType, remaining);

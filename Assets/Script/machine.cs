@@ -88,55 +88,78 @@ namespace Controller
         private int paper_deleteCount = 0; //종이 개수 확인
         private bool compressed_paper = false; //압축종이 완성 여부
 
+        // ■■■■■■■■■■게터세터■■■■■■■■■■■■■■■■■
         // 1. 내구도 관리
-        public int GetMachineDurability() => machine;
-        public void SetMachineDurability(int value) { machine = value; UpdateText(); }
+        //방적기
+        public int GetMachineDurability() => machine; 
+        public void SetMachineDurability(int value) { machine = value; UpdateText(); } 
+        //분쇄기
         public int GetBreakerDurability() => breaker;
         public void SetBreakerDurability(int value) { breaker = value; UpdateText(); }
+        //용광로
         public int GetBlastFurnaceDurability() => blastFurnace;
         public void SetBlastFurnaceDurability(int value) { blastFurnace = value; UpdateText(); }
+        //압축기
         public int GetCompressorDurability() => compressor;
         public void SetCompressorDurability(int value) { compressor = value; UpdateText(); }
 
-        // 2. 방적기 재료 관련
-        public int GetPtDeleteCount() => pt_deleteCount;
+        // 2. 방적기 관련
+        //페트 개수
+        public int GetPtDeleteCount() => pt_deleteCount; 
         public void SetPtDeleteCount(int value) { pt_deleteCount = value; UpdateText(); }
+        //완성 여부
         public bool IsPtThreadCompleted() => ptthread;
         public void SetPtThreadCompletion(bool value) { ptthread = value; UpdateText(); }
 
         // 3. 분쇄기 재료 관련
+        //유리 개수
         public int GetGlassDeleteCount() => glass_deleteCount;
         public void SetGlassDeleteCount(int value) { glass_deleteCount = value; UpdateText(); }
+        //플라스틱 개수
         public int GetPlasticDeleteCount() => plastic_deleteCount;
         public void SetPlasticDeleteCount(int value) { plastic_deleteCount = value; UpdateText(); }
+        //캔 개수
         public int GetCanDeleteCount() => can_deleteCount;
         public void SetCanDeleteCount(int value) { can_deleteCount = value; UpdateText(); }
+        //유리가루 완성 여부
         public bool IsGlassBreakCompleted() => glass_break;
         public void SetGlassBreakCompletion(bool value) { glass_break = value; UpdateText(); }
+        //플라스틱 가루 완성 여부
         public bool IsPlasticBreakCompleted() => plastic_break;
         public void SetPlasticBreakCompletion(bool value) { plastic_break = value; UpdateText(); }
+        //캔 가루 완성 여부
         public bool IsCanBreakCompleted() => can_break;
         public void SetCanBreakCompletion(bool value) { can_break = value; UpdateText(); }
 
         // 4. 용광로 재료 관련
+        //유리가루 개수
         public int GetBGlassDeleteCount() => b_glass_deleteCount;
         public void SetBGlassDeleteCount(int value) { b_glass_deleteCount = value; UpdateText(); }
+        //플라스틱 가루 개수
         public int GetBPlasticDeleteCount() => b_plastic_deleteCount;
         public void SetBPlasticDeleteCount(int value) { b_plastic_deleteCount = value; UpdateText(); }
+        //캔 가루 개수
         public int GetBCanDeleteCount() => b_can_deleteCount;
         public void SetBCanDeleteCount(int value) { b_can_deleteCount = value; UpdateText(); }
+        //녹은 유리 완성 여부
         public bool IsGlassMoltenCompleted() => glass_molten;
         public void SetGlassMoltenCompletion(bool value) { glass_molten = value; UpdateText(); }
+        //녹은 플라스틱 완성 여부
         public bool IsPlasticMoltenCompleted() => plastic_molten;
         public void SetPlasticMoltenCompletion(bool value) { plastic_molten = value; UpdateText(); }
+        //알루미늄 완성 여무
         public bool IsCanMoltenCompleted() => can_molten;
         public void SetCanMoltenCompletion(bool value) { can_molten = value; UpdateText(); }
 
         // 5. 압축기 재료 관련
+        //종이 개수
         public int GetPaperDeleteCount() => paper_deleteCount;
         public void SetPaperDeleteCount(int value) { paper_deleteCount = value; UpdateText(); }
+        //압축 종이 완성 여부
         public bool IsCompressedPaperCompleted() => compressed_paper;
         public void SetCompressedPaperCompletion(bool value) { compressed_paper = value; UpdateText(); }
+
+        //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 
         private void Start()
