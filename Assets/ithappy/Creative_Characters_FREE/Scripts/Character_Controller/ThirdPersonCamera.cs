@@ -133,7 +133,7 @@ namespace Controller
                 {
                     compressor_ui.SetActive(true);
                 }
-                else if (hit.collider.tag == "Trash")
+                else if (hit.collider.tag == "Trash" || hit.collider.tag == "pt" || hit.collider.tag == "glass" || hit.collider.tag == "plastic" || hit.collider.tag == "can" || hit.collider.tag == "paper")
                 {
                     trash_ui.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.E))

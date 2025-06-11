@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6521012334011227284}
   m_Layer: 0
   m_Name: "\uC720\uB9AC\uAC00\uB8E8"
-  m_TagString: Untagged
+  m_TagString: breakglass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

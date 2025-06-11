@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8331487372722850280}
   m_Layer: 0
   m_Name: Prefab_SodaBottle_L_Crushed
-  m_TagString: Trash
+  m_TagString: plastic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

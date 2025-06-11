@@ -47,13 +47,17 @@ namespace Controller
         [Header("breaker")]
         public GameObject B_loading_ui;//빙글빙글 로딩 UI
         public GameObject B_finish_ui; //재료 완성 UI
-        public TextMeshProUGUI breaker_countText; //분쇄기 잔량 UI
+        public TextMeshProUGUI breaker_countText_glass; //분쇄기 잔량 UI
+        public TextMeshProUGUI breaker_countText_plastic; //분쇄기 잔량 UI
+        public TextMeshProUGUI breaker_countText_can; //분쇄기 잔량 UI
 
         //용광로 UI
         [Header("Blast Furnace")]
         public GameObject BF_loading_ui;//빙글빙글 로딩 UI
         public GameObject BF_finish_ui;//재료 완성 UI
-        public TextMeshProUGUI BF_countText; //분쇄기 잔량 UI
+        public TextMeshProUGUI BF_countText_glass; //용광로 잔량 UI
+        public TextMeshProUGUI BF_countText_plastic; //용광로 잔량 UI
+        public TextMeshProUGUI BF_countText_can; //용광로 잔량 UI
 
         //압축기 UI
         [Header("Compressor")]
@@ -171,10 +175,15 @@ namespace Controller
                             GameObject newObj = Instantiate(pt_thread, handPos.transform); //손에 아이템 장착
                             machine--;
                             GameObject Machine = GameObject.FindWithTag("machine");
-                            if (Machine != null)
+                            if(machine == 0)
                             {
-                                Destroy(Machine);
+                                if (Machine != null)
+                                {
+                                    Destroy(Machine);
+                                    machine = 10;
+                                }
                             }
+                            
                         }
                     }
                 }
@@ -253,9 +262,13 @@ namespace Controller
                             breaker--;
                         }
                         GameObject Breaker = GameObject.FindWithTag("breaker");
-                        if (Breaker != null)
+                        if (breaker == 0)
                         {
-                            Destroy(Breaker);
+                            if (Breaker != null)
+                            {
+                                Destroy(Breaker);
+                                breaker = 45;
+                            }
                         }
 
                     }
@@ -335,9 +348,13 @@ namespace Controller
                             blastFurnace--;
                         }
                         GameObject BlastFurnace = GameObject.FindWithTag("BlastFurnace");
-                        if (BlastFurnace != null)
+                        if (blastFurnace == 0)
                         {
-                            Destroy(BlastFurnace);
+                            if (BlastFurnace != null)
+                            {
+                                Destroy(BlastFurnace);
+                                blastFurnace = 15;
+                            }
                         }
                     }
 
@@ -375,9 +392,13 @@ namespace Controller
                             GameObject newObj = Instantiate(compressedPaper, handPos.transform); //손에 아이템 장착
                             compressor--;
                             GameObject Compressor = GameObject.FindWithTag("compressor");
-                            if (Compressor != null)
+                            if (compressor == 0)
                             {
-                                Destroy(Compressor);
+                                if (Compressor != null)
+                                {
+                                    Destroy(Compressor);
+                                    compressor = 15;
+                                }
                             }
                         }
                     }
@@ -390,16 +411,20 @@ namespace Controller
         private void UpdateText()
         {
             //방적기 관련 UI
-            countText.text = $"페트병: {pt_deleteCount}/1"; //페트 개수
+            countText.text = $"{pt_deleteCount}/1"; //페트 개수
 
             //분쇄기 관련 UI
-            breaker_countText.text = $" 유리: {glass_deleteCount}/1 \n 플라스틱: {plastic_deleteCount}/1 \n 캔: {can_deleteCount}/1";
+            breaker_countText_glass.text = $"{glass_deleteCount}/1";
+            breaker_countText_plastic.text = $"{plastic_deleteCount}/1";
+            breaker_countText_can.text = $"{can_deleteCount}/1";
 
             //용광로 관련 UI
-            BF_countText.text = $" 유리 가루: {b_glass_deleteCount}/3 \n 플라스틱 가루: {b_plastic_deleteCount}/3 \n 캔 가루: {b_can_deleteCount}/3";
+            breaker_countText_glass.text = $"{b_glass_deleteCount}/3";
+            breaker_countText_plastic.text = $"{b_plastic_deleteCount}/3";
+            breaker_countText_can.text = $"{b_can_deleteCount}/3";
 
             //방적기 관련 UI
-            C_countText.text = $"종이: {paper_deleteCount}/1"; //페트 개수
+            C_countText.text = $"{paper_deleteCount}/1"; //페트 개수
         }
 
         IEnumerator DelayTime(string item_name) //기계 제작 시간
