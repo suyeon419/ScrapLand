@@ -78,6 +78,9 @@ public class PlayerInvenManager : MonoBehaviour
     
     public void InvenClose() //열려있는 인벤창을 닫음
     {
+        GameManager_ScrapLand.instance.SetSensOrigin();
+        // 마우스 다시 움직일때 쓰세요
+
         InventoryUI.SetActive(false);
         Inventory_Cloth.SetActive(false);
         Inven_Background.SetActive(false);
@@ -89,6 +92,9 @@ public class PlayerInvenManager : MonoBehaviour
 
     public void InvenOpen() //인벤창을 열고 핫바 위치 이동
     {
+        GlobalCanvasManager.instance.StopCamMoving();
+        // 마우스 멈출때 쓰시고
+
         if (IsBagOn) {
             InventoryUI.SetActive(true);
         }

@@ -55,6 +55,8 @@ public class InventorySelectionManager : MonoBehaviour
         {
             Debug.LogWarning("playerInventoryUIManager가 할당되지 않았습니다.");
         }
+
+        Handpos.SetActive(false); // 시작 시 손에 들기 오브젝트 비활성화
     }
 
     private void Update()
@@ -122,15 +124,10 @@ public class InventorySelectionManager : MonoBehaviour
             if (item != null && !item.GetIsNull())
             {
                 DebugText.text = $"선택된 아이템: {item.GetItemType()}";
-
-                // 1. 아이템의 머티리얼이 있다면 바로 적용
-/*                if (item.itemMaterial != null)
-                {
-                    Handpos.GetComponent<MeshRenderer>().material = item.itemMaterial;
-                }*/
-                // 2. 아이템의 스프라이트만 있다면, 텍스처로 변환해서 머티리얼에 적용
+                //아이템의 스프라이트를 텍스처로 변환해서 머티리얼에 적용
                 if (sprite != null)
                 {
+                    Handpos.SetActive(true);
                     Material mat = Handpos.GetComponent<MeshRenderer>().material;
                     mat.mainTexture = sprite.texture;
                     // 필요하다면 mat.color = Color.white; 등 추가
@@ -144,7 +141,8 @@ public class InventorySelectionManager : MonoBehaviour
             else
             {
                 DebugText.text = "선택된 슬롯에 아이템이 없습니다.";
-                // 아이템이 없으니 Handpos를 비우거나 기본 머티리얼로
+                // 아이템이 없으니 Handpos를 비움
+                Handpos.SetActive(false);
             }
         }
         else
