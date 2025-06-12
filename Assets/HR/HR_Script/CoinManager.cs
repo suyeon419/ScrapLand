@@ -11,9 +11,15 @@ using TMPro.Examples;
 
 public class CoinManager : MonoBehaviour
 {
-    public int coin = 1000; //캐릭터의 코인
+    public int _coin = 1000; //캐릭터의 코인
     public int HappyP; //나중에 민하가 만든 해피지구력으로 교체
-    //public List<ItemData> inventory = new List<ItemData>(); 저장 X
+                       //public List<ItemData> inventory = new List<ItemData>(); 저장 X
+
+    public int coin
+    {
+        get => _coin;
+        set => _coin = value;
+    }
 
     public static CoinManager Instance;
 

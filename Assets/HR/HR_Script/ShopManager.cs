@@ -309,10 +309,23 @@ public class MachineData
     [HideInInspector]
     public int currentPrice = 100; // 첫 구매는 100, 이후는 원래 가격
 
-    public bool isPurchased = false;
-    public bool isOnMap = false; // 맵에 배치 여부
+    public bool _isPurchased = false;
+    public bool _isOnMap = false; // 맵에 배치 여부
 
     public ItemInitializer relatedItem;
 
     public TextMeshProUGUI priceText; // UI에 표시할 가격 텍스트
+
+    // isPurchased 프로퍼티 (게터/세터)
+    public bool isPurchased
+    {
+        get { return _isPurchased; }
+        set { _isPurchased = value; }
+    }
+
+    public bool isOnMap
+    {
+        get { return _isOnMap; }
+        set { _isOnMap = value; }
+    }
 }
