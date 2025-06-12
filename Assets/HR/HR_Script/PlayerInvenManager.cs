@@ -115,7 +115,6 @@ public class PlayerInvenManager : MonoBehaviour
         Inventory_Cloth.SetActive(false);
         Inven_Background.SetActive(false);
         HotBar_Background.SetActive(true);
-        HotBar_Bar.anchoredPosition = new Vector2(-350f, -435f);
 
         InvenMode = false;
     }
@@ -132,7 +131,6 @@ public class PlayerInvenManager : MonoBehaviour
         Inventory_Cloth.SetActive(true);
         Inven_Background.SetActive(true);
         HotBar_Background.SetActive(false);
-        HotBar_Bar.anchoredPosition = new Vector2(-350f, -220f);
 
         InvenMode = true;
     }
