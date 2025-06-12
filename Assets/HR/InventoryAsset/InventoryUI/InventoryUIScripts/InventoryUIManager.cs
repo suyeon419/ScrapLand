@@ -1015,5 +1015,37 @@ namespace InventorySystem
             //Tab,
         }
 
+        public void SetClothSprite(Sprite clothImage)
+        {
+            if (clothImage != null)
+            {
+                SlotImage.regular = clothImage;
+                foreach (var slotObj in slots)
+                {
+                    var img = slotObj.GetComponent<Image>();
+                    if (img != null)
+                        img.sprite = SlotImage.regular;
+                }
+                Debug.Log("Cloth sprite 변경");
+            }
+            else
+            {
+                Debug.LogWarning("clothsprite가 설정되지 않았습니다.");
+            }
+        }
+
+        public void ResetRegularSprite(Sprite defaultSprite)
+        {
+            SlotImage.regular = defaultSprite;
+            // 모든 슬롯의 스프라이트만 변경
+            foreach (var slotObj in slots)
+            {
+                var img = slotObj.GetComponent<Image>();
+                if (img != null)
+                    img.sprite = SlotImage.regular;
+            }
+            Debug.Log("regular 스프라이트를 기본값으로 복원");
+        }
+
     }
 }

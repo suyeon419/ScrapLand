@@ -143,6 +143,12 @@ public class PlayerInvenManager : MonoBehaviour
         IsBagOn = true;
     }
 
+    public void BagOff()
+    {
+        InventoryUI.SetActive(false);
+        IsBagOn = false;
+    }
+
     public void ShopeModeOn()
     {
         if (shopManager != null && shopManager.ShopMode)
