@@ -1,3 +1,4 @@
+using InventorySystem;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -30,6 +31,7 @@ public class SaveManager : MonoBehaviour
 
     SaveData saveData = new();
     private string saveFilePath => Application.persistentDataPath + "/savefile.json";
+    private string backupInven = "Inventory_Backup.dat";
 
     private void Awake()
     {
@@ -64,6 +66,12 @@ public class SaveManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(saveFilePath, json);
+
+        // 인벤 관련
+        InventorySaveSystem.SaveInventoryWithBackup(
+            InventoryController.instance.GetInventoryManager(),
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
+            backupInven);
     }
 
 
@@ -93,6 +101,9 @@ public class SaveManager : MonoBehaviour
 
         SoundManager.instance.SetBgmMuteStatus(saveData.isBgmMuted);
 
+        var backupData = InventorySaveSystem.LoadBackup(backupInven);
+        InventorySaveSystem.RestoreInventoryFromBackup(backupData);
+        PlayerInvenManager.instance.InvenClose();
     }
 
     public void ResetGame()
