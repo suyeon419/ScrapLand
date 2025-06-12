@@ -272,7 +272,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     }
     public void SetCoin(int coin)
     {
-        Coin = coin;
+        this.Coin = coin;
     }
     public void SetHappyGage(int value)
     {
@@ -462,7 +462,14 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void ApplyCoinOnLoad()
     {
-        // 병합 후 코인 스크립트와 상호작용할 예정
+        if (CoinManager.Instance != null)
+        {
+            CoinManager.Instance.coin = Coin;
+        }
+        else
+        {
+            Debug.Log("CoinManager.instance가 null입니다.");
+        }
     }
 
 
@@ -471,13 +478,13 @@ public class GameManager_ScrapLand : MonoBehaviour
         Debug.Log("엔딩조건: 모든 제품 제작, 게이지는 이미 검사 후 넘어온 것");
         if (CheckAllProduction())
         {
-            SoundManager.instance.OnAndOffBGM(true);
+            SoundManager.instance.OnAndOffBGM();
             SaveManager.instance.ResetGame();
             SceneManager.LoadScene("HappyEndingScene");
         }
         else
         {
-            SoundManager.instance.OnAndOffBGM(true);
+            SoundManager.instance.OnAndOffBGM();
             SaveManager.instance.ResetGame();
             SceneManager.LoadScene("BadEndingScene");
         }
@@ -495,6 +502,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void SaveGame()
     {
+        PlayerInvenManager.LoadSellCounts();
         SetMachineData();
         SaveManager.instance.SaveGame();
     }
@@ -509,6 +517,7 @@ public class GameManager_ScrapLand : MonoBehaviour
         }
         SaveManager.instance.LoadGame();
         MachineDataSend();
+        PlayerInvenManager.SaveSellCounts();
     }
 
     public void ResetValues()
