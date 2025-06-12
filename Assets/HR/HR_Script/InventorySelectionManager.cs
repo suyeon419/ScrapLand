@@ -128,29 +128,84 @@ public class InventorySelectionManager : MonoBehaviour
         if (SelectedSlot != null)
         {
             InventoryItem item = SelectedSlot.GetComponent<Slot>().GetItem();
-            Sprite sprite = item.GetItemImage(); // InventoryItem에서 가져온 이미지
+            Sprite sprite = item.GetItemImage();
             if (item != null && !item.GetIsNull())
             {
                 DebugText.text = $"선택된 아이템: {item.GetItemType()}";
-                //아이템의 스프라이트를 텍스처로 변환해서 머티리얼에 적용
-                if (sprite != null)
+
+                // 프리팹으로 들고 싶은 아이템 목록
+                string[] prefabItems = {
+                "Bench", "Can pot", "Clock", "Glass Pot", "Mobile", "Old Chest", "Plastic Pot",
+                "T_Can", "T_Clothes", "T_Glass", "T_Paper", "T_Pet", "T_Plastic", "T_Vinyl", "Table"
+            };
+                string itemType = item.GetItemType();
+
+                // 1. Handpos의 부모에 있는 프리팹(형제) 모두 삭제
+                Transform parent = Handpos.transform.parent;
+                if (parent != null)
+                {
+                    List<Transform> toDelete = new List<Transform>();
+                    foreach (Transform child in parent)
+                    {
+                        if (child == Handpos.transform) continue;
+                        if (System.Array.Exists(prefabItems, x => x == child.name))
+                            toDelete.Add(child);
+                    }
+                    foreach (var t in toDelete)
+                        Destroy(t.gameObject);
+                }
+
+                // 2. 프리팹 아이템이면 프리팹을 부모에 인스턴스화
+                if (System.Array.Exists(prefabItems, x => x == itemType))
+                {
+                    Handpos.SetActive(false);
+                    GameObject prefab = Resources.Load<GameObject>($"assets/Prefabs/{itemType}");
+                    if (prefab != null)
+                    {
+                        GameObject go = Instantiate(prefab, Handpos.transform.position, Handpos.transform.rotation, Handpos.transform.parent);
+                        go.name = itemType;
+                        go.transform.localScale = Vector3.one * 0.5f;
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"{itemType} 프리팹을 찾을 수 없습니다. 경로를 확인하세요.");
+                    }
+                }
+                // 3. 그 외에는 기존 방식대로 스프라이트를 머티리얼에 적용
+                else if (sprite != null)
                 {
                     Handpos.SetActive(true);
                     Material mat = Handpos.GetComponent<MeshRenderer>().material;
                     mat.mainTexture = sprite.texture;
-                    // 필요하다면 mat.color = Color.white; 등 추가
                 }
-                // 3. 아이템에 이미지가 없으면 기본 머티리얼로
                 else
                 {
-                    // 기본 머티리얼로 변경하거나, 비활성화 등
+                    Handpos.SetActive(false);
                 }
             }
             else
             {
                 DebugText.text = "선택된 슬롯에 아이템이 없습니다.";
-                // 아이템이 없으니 Handpos를 비움
                 Handpos.SetActive(false);
+
+                // 빈 칸일 때도 프리팹 삭제
+                string[] prefabItems = {
+                "Bench", "Can pot", "Clock", "Glass Pot", "Mobile", "Old Chest", "Plastic Pot",
+                "T_Can", "T_Clothes", "T_Glass", "T_Paper", "T_Pet", "T_Plastic", "T_Vinyl", "Table"};
+
+                Transform parent = Handpos.transform.parent;
+                if (parent != null)
+                {
+                    List<Transform> toDelete = new List<Transform>();
+                    foreach (Transform child in parent)
+                    {
+                        if (child == Handpos.transform) continue;
+                        if (System.Array.Exists(prefabItems, x => x == child.name))
+                            toDelete.Add(child);
+                    }
+                    foreach (var t in toDelete)
+                        Destroy(t.gameObject);
+                }
             }
         }
         else
