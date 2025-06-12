@@ -38,10 +38,21 @@ public class SoundManager : MonoBehaviour
         sfx_player = GameObject.Find("SFX_Player").GetComponent <AudioSource>();
     }
 
-    public void TurnOff_BGM()
+    public void OnAndOffBGM()
     {
-        bgm_player.Stop();
+        bgm_player.mute = !bgm_player.mute;
+
+        SoundSwitchButton toggleButton = FindObjectOfType<SoundSwitchButton>();
+        if (toggleButton != null)
+        {
+            toggleButton.UpdateButtonImage();
+        }
     }
+    public bool GetBgmMuteStatus()
+    {
+        return bgm_player != null && bgm_player.mute;
+    }
+
 
     void ChangeBgmSound(float value)
     {

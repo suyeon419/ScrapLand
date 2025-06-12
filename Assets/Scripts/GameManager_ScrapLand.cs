@@ -66,7 +66,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     private float brightnessValue = 1;
     private float bgmVolume = 0.5f;
     private float sfxVolume = 0.5f;
-    private float sensitivityValue = 1f;
+    private float sensitivityValue = 0.3f;
 
     private int HappyGage = -1;
     private int Coin = 0;
@@ -376,13 +376,13 @@ public class GameManager_ScrapLand : MonoBehaviour
         Debug.Log("엔딩조건: 모든 제품 제작, 게이지는 이미 검사 후 넘어온 것");
         if (CheckAllProduction())
         {
-            SoundManager.instance.TurnOff_BGM();
+            SoundManager.instance.OnAndOffBGM();
             SaveManager.instance.ResetGame();
             SceneManager.LoadScene("HappyEndingScene");
         }
         else
         {
-            SoundManager.instance.TurnOff_BGM();
+            SoundManager.instance.OnAndOffBGM();
             SaveManager.instance.ResetGame();
             SceneManager.LoadScene("BadEndingScene");
         }
