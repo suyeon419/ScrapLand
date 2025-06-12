@@ -148,7 +148,8 @@ public class InventorySelectionManager : MonoBehaviour
                 DebugText.text = $"선택된 아이템: {item.GetItemType()}";
                 string itemType = item.GetItemType();
 
-                //PlacementManager.Instance.SetHeldItem("itemType");
+                PlacementManager.Instance.SetHeldItem("itemType");
+                Debug.Log($"Held item set to: {itemType}");
 
                 if (itemTypeList.Contains(itemType))
                 {
