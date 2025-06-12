@@ -63,11 +63,11 @@ public class InventorySelectionManager : MonoBehaviour
 
     private void Update()
     {
-        /*        if (Input.GetKeyDown(KeyCode.P))
-                {
-                    // P키로 인벤토리 아이템 데이터 출력
-                    GetInventoryItemData();
-                }*/
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            // P키로 인벤토리 아이템 데이터 출력
+            GetInventoryItemData();
+        }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -164,7 +164,7 @@ public class InventorySelectionManager : MonoBehaviour
                     {
                         GameObject go = Instantiate(prefab, Handpos.transform.position, Handpos.transform.rotation, Handpos.transform.parent);
                         go.name = itemType;
-                        go.transform.localScale = Vector3.one * 0.5f;
+                        go.transform.localScale = Vector3.one * 0.5f; // 크기 조정 부분 원래대로 하고 싶으면 *1f
                     }
                     else
                     {
@@ -246,6 +246,21 @@ public class InventorySelectionManager : MonoBehaviour
             sb.AppendLine($"{pair.Key}: {pair.Value}개");
         }
         Debug.Log(sb.ToString());
+    }
+
+    public int GetTotalItemCount(string itemName)
+    {
+        InventoryData data = new InventoryData(inventoryManager);
+        int total = 0;
+        foreach (var inven in data.inventories)
+        {
+            foreach (var item in inven.Value)
+            {
+                if (item.name == itemName)
+                    total += item.amount;
+            }
+        }
+        return total;
     }
 
     public void RemoveItemFromAllInventories(string itemType, int amount)
