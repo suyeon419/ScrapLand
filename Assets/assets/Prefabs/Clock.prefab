@@ -423,6 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Clock
   placeType: 1
+  prefab: {fileID: 154562}
 --- !u!65 &949168985945014836
 BoxCollider:
   m_ObjectHideFlags: 0

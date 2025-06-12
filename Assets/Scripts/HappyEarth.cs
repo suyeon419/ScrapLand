@@ -11,13 +11,16 @@ public class HappyEarth : MonoBehaviour
 
     public static HappyEarth instance;
 
+    void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
         happySlider = transform.Find("realgage").GetComponent<Slider>();
         preview = transform.Find("preview").GetComponent<Slider>();
 
-        instance = this;
         if (happySlider == null || preview == null)
         {
             Debug.LogError("슬라이더가 할당되지 않았습니다!");

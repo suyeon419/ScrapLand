@@ -8,4 +8,5 @@ public class PlaceableItem : MonoBehaviour
 {
     public string itemName;
     public PlaceType placeType;
+    public GameObject prefab;
 }

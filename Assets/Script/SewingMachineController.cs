@@ -15,11 +15,11 @@ public class SewingMachineController : MonoBehaviour
     }
 
     // 재료 개수를 관리할 public 변수(혜리한테 받아오기)
-    public int plasticThread = 0;  // 페트실
-    public int paper = 0;         // 종이
-    public int plastic = 0;        // 녹인 플라스틱
-    public int oldCloth = 0;      // 헌 옷
-    public int vinyl = 0;       //비닐
+    private int plasticThread = 100;// 페트실
+    private int paper; // 종이
+    private int plastic;        // 녹인 플라스틱
+    private int oldCloth;      // 헌 옷
+    private int vinyl;       //비닐
 
     // 제작 상태를 관리할 변수
     private int _capMaking = 0;
@@ -125,6 +125,11 @@ public class SewingMachineController : MonoBehaviour
     private int DollPt = 2;
     private int DollVinyl = 1;
 
+    private void Awake()
+    {
+        UpdateMaterialCounts();        
+    }
+
     void Start()
     {
         // 버튼 클릭 이벤트 설정
@@ -156,15 +161,16 @@ public class SewingMachineController : MonoBehaviour
             oldCloth = InventorySelectionManager.Instance.GetTotalItemCount("T_Clothes");
             plasticThread = InventorySelectionManager.Instance.GetTotalItemCount("T_PlasticThread");
             paper = InventorySelectionManager.Instance.GetTotalItemCount("T_Paper");
-            plastic = InventorySelectionManager.Instance.GetTotalItemCount("T_Plastic");
+            plastic = InventorySelectionManager.Instance.GetTotalItemCount("MeltPla");
             vinyl = InventorySelectionManager.Instance.GetTotalItemCount("T_Vinyl");
         }
     }
 
     void Update()
     {
-        //UpdateUI();
-        //UpdateButtonStates();
+        UpdateMaterialCounts();
+        UpdateUI();
+        UpdateButtonStates();
     }
 
     // UI 업데이트 메서드
@@ -228,9 +234,12 @@ public class SewingMachineController : MonoBehaviour
     {
         if (plasticThread >= CapPt && paper >= CapPaper)
         {
-            plasticThread -= CapPt;
-            paper -= CapPaper;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", CapPt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Paper", CapPaper);
+            
             CapMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Hat");
+
             SewingMachine--;
             Debug.Log("모자 제작 시작! CapMaking: " + CapMaking);
             UpdateUI();
@@ -254,9 +263,12 @@ public class SewingMachineController : MonoBehaviour
     {
         if (plasticThread >= GrovePt && oldCloth >= GloveOldCloth)
         {
-            plasticThread -= GrovePt;
-            oldCloth -= GloveOldCloth;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", GrovePt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", GloveOldCloth);
+
             GroveMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Glove");
+
             SewingMachine--;
             Debug.Log("장갑 제작 시작!");
             UpdateUI();
@@ -276,9 +288,12 @@ public class SewingMachineController : MonoBehaviour
     {
         if (plasticThread >= TopPt && oldCloth >= TopOldCloth)
         {
-            plasticThread -= TopPt;
-            oldCloth -= TopOldCloth;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", TopPt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", TopOldCloth);
+
             TopMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Shirt");
+
             SewingMachine--;
             UpdateUI();
         }
@@ -296,9 +311,12 @@ public class SewingMachineController : MonoBehaviour
     {
         if (plasticThread >= BottomPt && oldCloth >= BottomOldCloth)
         {
-            plasticThread -= BottomPt;
-            oldCloth -= BottomOldCloth;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", BottomPt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", BottomOldCloth);
+
             BottomMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Pants");
+
             SewingMachine--;
             UpdateUI();
         }
@@ -316,9 +334,12 @@ public class SewingMachineController : MonoBehaviour
     {
         if(plastic >= ShoesPlastic && oldCloth >= ShoesOldCloth)
         {
-            plastic -= ShoesPlastic;
-            oldCloth -= ShoesOldCloth;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("MeltPla", ShoesPlastic);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", ShoesOldCloth);
+
             ShoesMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Shoes");
+
             SewingMachine--;
             UpdateUI();
         }
@@ -336,10 +357,13 @@ public class SewingMachineController : MonoBehaviour
     {
         if(oldCloth >= DollOldCloth && plasticThread >= DollPt && vinyl >= DollVinyl)
         {
-            oldCloth -= DollOldCloth;
-            plasticThread -= DollPt;
-            vinyl -= DollVinyl;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", DollOldCloth);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", DollPt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Vinyl", DollVinyl);
+
             DollMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Doll");
+
             SewingMachine--;
             UpdateUI();
         }

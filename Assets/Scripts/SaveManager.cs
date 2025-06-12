@@ -20,6 +20,8 @@ public class SaveData
     public List<ItemUsageData> itemUsageList;
     public List<InteriorOnHouse> Interiors;
     public List<MachineData_save> Machines;
+
+    public bool isBgmMuted;
 }
 
 public class SaveManager : MonoBehaviour
@@ -58,6 +60,8 @@ public class SaveManager : MonoBehaviour
         saveData.Interiors = GameManager_ScrapLand.instance.GetInteriorOnHouses();
         saveData.Machines = GameManager_ScrapLand.instance.GetMachineForSave();
 
+        saveData.isBgmMuted = SoundManager.instance.GetBgmMuteStatus();
+
         string json = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(saveFilePath, json);
     }
@@ -86,6 +90,9 @@ public class SaveManager : MonoBehaviour
         GameManager_ScrapLand.instance.SetItemUsageList(saveData.itemUsageList);
         GameManager_ScrapLand.instance.SetInteriorList(saveData.Interiors);
         GameManager_ScrapLand.instance.SetMachineForSave(saveData.Machines);
+
+        SoundManager.instance.SetBgmMuteStatus(saveData.isBgmMuted);
+
     }
 
     public void ResetGame()

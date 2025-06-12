@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Plastic Pot
   placeType: 0
+  prefab: {fileID: 7213121101212326672}
 --- !u!65 &8627770066607080069
 BoxCollider:
   m_ObjectHideFlags: 0
