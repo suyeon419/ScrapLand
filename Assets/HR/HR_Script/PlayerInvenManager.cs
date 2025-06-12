@@ -34,7 +34,6 @@ public class PlayerInvenManager : MonoBehaviour
 
     private const string backupFileName = "manual_backup.dat";
 
-
     private void Awake()
     {
         if (instance == null)
@@ -100,7 +99,7 @@ public class PlayerInvenManager : MonoBehaviour
             InvenClose(); // 인벤토리 닫기
         }
     }
-    
+
     public void Debug_GetItem()
     {
         AddItemToHotBarOrPlayerInventory("T_Paper");
