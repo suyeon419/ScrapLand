@@ -1,5 +1,6 @@
 using GLTF.Schema;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 namespace Controller
@@ -176,8 +177,15 @@ namespace Controller
                     Interior_ui.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.E))
                     {
+                        GameObject hitObj = hit.collider.gameObject;
                         string itemName = hit.collider.gameObject.name.Replace("(Clone)", "").Trim();
+                        Vector3 pos = hitObj.transform.position;
+                        Quaternion rot = hitObj.transform.rotation;
+                        Vector3 rotEuler = rot.eulerAngles;
+
                         PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(itemName);
+
+                        GameManager_ScrapLand.instance.Remove_Interior_AtPosition(pos, rotEuler);
                         Destroy(hit.collider.gameObject);
                     }
                 }
