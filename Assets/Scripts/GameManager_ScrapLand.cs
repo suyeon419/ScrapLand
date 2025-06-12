@@ -35,7 +35,7 @@ public class InteriorOnHouse
     public Vector3 position;
     public Vector3 rotation;
 
-    public InteriorOnHouse(string name,  Vector3 pos, Vector3 rot)
+    public InteriorOnHouse(string name, Vector3 pos, Vector3 rot)
     {
         this.itemName = name;
         this.position = pos;
@@ -46,15 +46,17 @@ public class InteriorOnHouse
 [System.Serializable]
 public class MachineData_save
 {
-    public string machineName;
-    public int hp;
-    public bool activate;
+    public string machineName; // 이름
+    public int hp; // 내구도 
+    public bool activate; // 활성화
+    public bool isPurchased; // 첫구매 유무
 
     public MachineData_save(string name, int hp)
     {
         this.machineName = name;
         this.hp = hp;
         this.activate = false;
+        this.isPurchased = false;
     }
 }
 
@@ -119,7 +121,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     void InitializeItemUsages()
     {
-        itemUsages.Clear(); 
+        itemUsages.Clear();
         itemUsages.Add(new ItemUsageData("Bag"));
         itemUsages.Add(new ItemUsageData("Hat"));
         itemUsages.Add(new ItemUsageData("Glove"));
@@ -301,25 +303,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     {
         machines = m;
     }
-    public void SetMachines(string name, int hp, bool activate)
-    {
-        var machine = GetMachine(name);
-        if(machine != null)
-        {
-            machine.hp = hp;
-            machine.activate = activate;
-        }
-    }
-    public void SetActive(string name, bool active)
-    {
-        var machine = GetMachine(name);
-        if (machine != null)
-        {
-            machine.activate = active;
-        }
-    }
     #endregion
-
 
     #region Get
     public float GetBrightness() { return brightnessValue; }
@@ -342,9 +326,120 @@ public class GameManager_ScrapLand : MonoBehaviour
     }
     public List<InteriorOnHouse> GetInteriorOnHouses() { return Interiors; }
     public List<MachineData_save> GetMachineForSave() { return machines; }
+
+    #endregion
+
+
+    /*Filature 방적기
+    Grinder 분쇄기
+    BlastFurnace 용광로
+    Compressor 압축기
+    SewingMachine 재봉틀
+    */
+    // isPurchased : 혜리, hp : 수연, activate : 혜리
+    void MachineDataSend()
+    {
+        BlockController blockController = FindObjectOfType<BlockController>();
+        if (blockController != null)
+        {
+            blockController.machine = GetMachine("Filature").isPurchased;
+            blockController.breaker = GetMachine("Grinder").isPurchased;
+            blockController.blastFurnace = GetMachine("BlastFurnace").isPurchased;
+            blockController.compressor = GetMachine("Compressor").isPurchased;
+        }
+        SewingMachineController sewing = FindObjectOfType<SewingMachineController>();
+        if (sewing != null)
+        {
+            sewing.SewingMachine = GetMachine("SewingMachine").hp;
+        }
+        Machine machine = FindObjectOfType<Machine>();
+        if (machine != null)
+        {
+            machine.SetMachineDurability(GetMachine("Filature").hp);
+            machine.SetBreakerDurability(GetMachine("Grinder").hp);
+            machine.SetBlastFurnaceDurability(GetMachine("BlastFurnace").hp);
+            machine.SetCompressorDurability(GetMachine("Compressor").hp);
+        }
+
+        if (ShopManager.Instance != null)
+        {
+            List<MachineData> m = ShopManager.Instance.machines;
+            m[0].isPurchased = GetMachine("Grinder").isPurchased;
+            m[1].isPurchased = GetMachine("SewingMachine").isPurchased;
+            m[2].isPurchased = GetMachine("Filature").isPurchased;
+            m[3].isPurchased = GetMachine("Compressor").isPurchased;
+            m[4].isPurchased = GetMachine("BlastFurnace").isPurchased;
+
+            m[0].isOnMap = GetMachine("Grinder").activate;
+            m[1].isOnMap = GetMachine("SewingMachine").activate;
+            m[2].isOnMap = GetMachine("Filature").activate;
+            m[3].isOnMap = GetMachine("Compressor").activate;
+            m[4].isOnMap = GetMachine("BlastFurnace").activate;
+        }
+    }
+
+    #region 기계 데이터 Set, 저장
+    // 리스트로 전달 x, 하나하나 드림
+    public void SetHP_Machines(string name, int hp)
+    {
+        var machine = GetMachine(name);
+        if (machine != null)
+        {
+            machine.hp = hp;
+        }
+    }
+    public void SetActive_Machines(string name, bool active)
+    {
+        var machine = GetMachine(name);
+        if (machine != null)
+        {
+            machine.activate = active;
+        }
+    }
+    public void SetPurchased_Machines(string name, bool active)
+    {
+        var machine = GetMachine(name);
+        if (machine != null)
+        {
+            machine.activate = active;
+        }
+    }
     public MachineData_save GetMachine(string name)
     {
         return machines.FirstOrDefault(m => m.machineName == name);
+    }
+
+    void SetMachineData()
+    {
+        if (ShopManager.Instance != null)
+        {
+            List<MachineData> m = ShopManager.Instance.machines;
+            SetPurchased_Machines("Grinder", m[0].isPurchased);
+            SetPurchased_Machines("SewingMachine", m[1].isPurchased);
+            SetPurchased_Machines("Filature", m[2].isPurchased);
+            SetPurchased_Machines("Compressor", m[3].isPurchased);
+            SetPurchased_Machines("BlastFurnace", m[4].isPurchased);
+
+            SetActive_Machines("Grinder", m[0].isOnMap);
+            SetActive_Machines("SewingMachine", m[1].isOnMap);
+            SetActive_Machines("Filature", m[2].isOnMap);
+            SetActive_Machines("Compressor", m[3].isOnMap);
+            SetActive_Machines("BlastFurnace", m[4].isOnMap);
+        }
+
+        Machine machine = FindObjectOfType<Machine>();
+        if (machine != null)
+        {
+            machine.SetMachineDurability(GetMachine("Filature").hp);
+            machine.SetBreakerDurability(GetMachine("Grinder").hp);
+            machine.SetBlastFurnaceDurability(GetMachine("BlastFurnace").hp);
+            machine.SetCompressorDurability(GetMachine("Compressor").hp);
+        }
+        SewingMachineController sewing = FindObjectOfType<SewingMachineController>();
+        if (sewing != null) 
+        {
+            sewing.SewingMachine = GetMachine("SewingMachine").hp;
+        }
     }
     #endregion
 
@@ -400,6 +495,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void SaveGame()
     {
+        SetMachineData();
         SaveManager.instance.SaveGame();
     }
 
@@ -412,6 +508,7 @@ public class GameManager_ScrapLand : MonoBehaviour
             Interiors.Clear();
         }
         SaveManager.instance.LoadGame();
+        MachineDataSend();
     }
 
     public void ResetValues()
