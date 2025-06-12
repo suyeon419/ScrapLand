@@ -6,10 +6,25 @@ public class PlacementManager : MonoBehaviour
     public Transform playerHand; // 플레이어 손
     public LayerMask floorLayer, wallLayer, ceilingLayer;
     public float placeDistance = 0.5f;
+    public List<PlaceableItem> prefab;
 
     private GameObject heldItem;
     private GameObject previewItem;  // 미리보기 아이템
     private bool isPreviewActive = false;  // 미리보기 아이템 활성화 여부
+
+    private static PlacementManager instance = null;
+    public static PlacementManager Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
     private Dictionary<string, int> itemScores = new Dictionary<string, int>()
     {
         { "Bench", 45 },
@@ -21,6 +36,32 @@ public class PlacementManager : MonoBehaviour
         { "Plastic Pot", 28 },
         { "Table", 52 }
     };
+
+    Dictionary<string, GameObject> itemPrefabs = new Dictionary<string, GameObject>();
+
+    void Awake()
+    {
+        if (null == instance)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+
+            foreach (var entry in prefab)
+            {
+                if (!itemPrefabs.ContainsKey(entry.itemName))
+                {
+                    itemPrefabs.Add(entry.itemName, entry.prefab);
+                }
+            }
+
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+
 
     void Update()
     {
@@ -40,17 +81,25 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    public void SetHeldItem(GameObject item)
+    public void SetHeldItem(string itemName)
     {
-        heldItem = item;
+        if (!itemPrefabs.ContainsKey(itemName))
+        {
+            Debug.Log($"'{itemName}' 프리팹이 존재하지 않습니다.");
+            return;
+        }
+
+        GameObject prefab = itemPrefabs[itemName];
+        heldItem = Instantiate(prefab);
+        heldItem.SetActive(false);  // 원본 heldItem은 숨겨진 채 존재
 
         // 미리보기 아이템을 생성하고 활성화
         if (previewItem == null)
         {
-            previewItem = Instantiate(heldItem, Vector3.zero, Quaternion.identity);
-            previewItem.SetActive(true);  // 미리보기 아이템 활성화
-            isPreviewActive = true;  // 미리보기 활성화
-            SetPreviewItemTransparency(0.3f);  // 미리보기 아이템의 투명도 설정
+            previewItem = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            previewItem.SetActive(true);
+            isPreviewActive = true;
+            SetPreviewItemTransparency(0.3f);
         }
     }
 

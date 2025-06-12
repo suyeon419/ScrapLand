@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Old Chest
   placeType: 0
+  prefab: {fileID: 555133621666883522}
 --- !u!95 &-95895056545327167
 Animator:
   serializedVersion: 5

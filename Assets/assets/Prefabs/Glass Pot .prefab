@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Glass Pot
   placeType: 0
+  prefab: {fileID: 3602038932813446833}
 --- !u!65 &3099196646682342988
 BoxCollider:
   m_ObjectHideFlags: 0
