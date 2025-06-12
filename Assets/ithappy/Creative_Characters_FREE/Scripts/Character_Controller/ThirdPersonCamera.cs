@@ -226,6 +226,7 @@ namespace Controller
                     making_ui.SetActive(false);
                     sewing_ui.SetActive(false);
                     Shop_ui.SetActive(false);
+                    Interior_ui.SetActive(false);
                 }
             }
             else
@@ -240,6 +241,7 @@ namespace Controller
                 making_ui.SetActive(false);
                 sewing_ui.SetActive(false);
                 Shop_ui.SetActive(false);
+                Interior_ui.SetActive(false);
             }
         }
 

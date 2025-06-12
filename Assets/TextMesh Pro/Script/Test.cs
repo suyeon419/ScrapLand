@@ -8,7 +8,7 @@ public class Test : MonoBehaviour
 
     void Update()
     {
-        if (!false)
+        if (!test)
         {
             PlacementManager.Instance.SetHeldItem("Glass Pot");
             test = true;
