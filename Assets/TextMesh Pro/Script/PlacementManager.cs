@@ -61,8 +61,6 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-
-
     void Update()
     {
         if (heldItem == null) return;
@@ -151,7 +149,6 @@ public class PlacementManager : MonoBehaviour
                 }
                 break;
 
-
             case PlaceType.Wall:
                 placePos = Vector3.zero; // placePos를 기본값으로 초기화
 
@@ -218,9 +215,6 @@ public class PlacementManager : MonoBehaviour
                     }
                 }
                 break;
-
-
-
 
             case PlaceType.Ceiling:
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, ceilingLayer))
@@ -292,8 +286,6 @@ public class PlacementManager : MonoBehaviour
         UpdatePlacementInfo(item.itemName, placePos, placeRot);
     }
 
-
-
     void UpdatePlacementInfo(string itemName, Vector3 placePos, Quaternion placeRot)
     {
         if (itemScores.ContainsKey(itemName))
@@ -357,5 +349,4 @@ public class PlacementManager : MonoBehaviour
         GameObject install = Instantiate(prefab, placePos, rotation);
         install.SetActive(true);
     }
-
 }
