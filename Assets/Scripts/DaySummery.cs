@@ -57,7 +57,7 @@ public class DaySummery : MonoBehaviour
         {
             Debug.Log(day + "ÀÏÂ÷: " + happy + "/" + passing_check[day - 1]);
             Debug.Log(happy-passing_check[day-1]);
-            SoundManager.instance.OnAndOffBGM();
+            SoundManager.instance.OnAndOffBGM(true);
             SaveManager.instance.ResetGame();
             SceneManager.LoadScene("BadEndingScene");
         }
