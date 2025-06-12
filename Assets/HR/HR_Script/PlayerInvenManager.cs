@@ -5,6 +5,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using TMPro;
+using System.Text;
 
 [System.Serializable]
 public class PlayerInvenManager : MonoBehaviour
@@ -33,6 +34,37 @@ public class PlayerInvenManager : MonoBehaviour
     public Sprite clothsprite; //옷 장착시 스프라이트
 
     private const string backupFileName = "manual_backup.dat";
+
+    //아이템 해피포인트 지급
+    private static Dictionary<string, int> itemSellCounts = new Dictionary<string, int>();
+
+    [System.Serializable]
+    public class Serialization<TKey, TValue>
+    {
+        [SerializeField]
+        private List<TKey> keys = new List<TKey>();
+        [SerializeField]
+        private List<TValue> values = new List<TValue>();
+
+        public Serialization(Dictionary<TKey, TValue> dict)
+        {
+            foreach (var pair in dict)
+            {
+                keys.Add(pair.Key);
+                values.Add(pair.Value);
+            }
+        }
+
+        public Dictionary<TKey, TValue> ToDictionary()
+        {
+            var dict = new Dictionary<TKey, TValue>();
+            for (int i = 0; i < keys.Count; i++)
+            {
+                dict[keys[i]] = values[i];
+            }
+            return dict;
+        }
+    }
 
     private void Awake()
     {
@@ -211,4 +243,37 @@ public class PlayerInvenManager : MonoBehaviour
         }
     }
 
+    // 아이템별 해피포인트 저장 및 불러오기
+    public static void SaveSellCounts()
+    {
+        string path = Application.persistentDataPath + "/sellCounts.json";
+        string json = JsonUtility.ToJson(new Serialization<string, int>(itemSellCounts));
+        File.WriteAllText(path, json, Encoding.UTF8);
+    }
+
+    public static void LoadSellCounts()
+    {
+        string path = Application.persistentDataPath + "/sellCounts.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path, Encoding.UTF8);
+            var data = JsonUtility.FromJson<Serialization<string, int>>(json);
+            itemSellCounts = data.ToDictionary();
+        }
+    }
+
+    public static int GetSellCount(string itemType)
+    {
+        if (itemSellCounts.TryGetValue(itemType, out int count))
+            return count;
+        return 0;
+    }
+
+    public static void IncrementSellCount(string itemType)
+    {
+        if (itemSellCounts.ContainsKey(itemType))
+            itemSellCounts[itemType]++;
+        else
+            itemSellCounts[itemType] = 1;
+    }
 }
