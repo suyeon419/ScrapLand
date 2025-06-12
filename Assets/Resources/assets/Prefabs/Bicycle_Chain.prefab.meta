@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/assets/Prefabs/Bicycle_Chain.prefab.meta
 guid: d10a1a59060e6f34ea0c077044656bab
+========
+guid: 16ab9fafcb0229a48bb0addf3cf29b55
+>>>>>>>> 9892f2a38363a65fd3f9b03fb38a77690fb522cf:Assets/Resources/assets/Prefabs/Al.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
