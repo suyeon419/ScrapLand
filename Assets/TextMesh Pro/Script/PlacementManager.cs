@@ -240,15 +240,17 @@ public class PlacementManager : MonoBehaviour
         isPreviewActive = false;  // 미리보기 비활성화
 
         // 아이템 배치 정보 업데이트
-        UpdatePlacementInfo(item.itemName);
+        UpdatePlacementInfo(item.itemName, placePos, placeRot);
     }
 
 
 
-    void UpdatePlacementInfo(string itemName)
+    void UpdatePlacementInfo(string itemName, Vector3 placePos, Quaternion placeRot)
     {
         if (itemScores.ContainsKey(itemName))
         {
+            Vector3 rotationEuler = placeRot.eulerAngles;
+            HappyEarth.instance.Install_Interior(itemName, itemScores[itemName], placePos, rotationEuler);
             int score = itemScores[itemName];
             Debug.Log($"{itemName} 배치됨. 점수: {score}");
         }
