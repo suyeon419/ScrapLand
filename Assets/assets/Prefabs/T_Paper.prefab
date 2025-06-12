@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7863612348602061978}
   - component: {fileID: 2246129191195854788}
   m_Layer: 0
-  m_Name: Prefab_Pizzabox
+  m_Name: T_Paper
   m_TagString: paper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

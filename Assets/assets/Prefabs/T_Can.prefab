@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1514262801561921694}
   - component: {fileID: 2995293740252266364}
   m_Layer: 0
-  m_Name: Prefab_SodaCan_Crushed2
+  m_Name: T_Can
   m_TagString: can
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

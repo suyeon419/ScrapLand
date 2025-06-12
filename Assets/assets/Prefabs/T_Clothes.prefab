@@ -1198,7 +1198,7 @@ GameObject:
   - component: {fileID: 7248577334105637322}
   - component: {fileID: 6718377195027596254}
   m_Layer: 0
-  m_Name: Outwear_004
+  m_Name: T_Clothes
   m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

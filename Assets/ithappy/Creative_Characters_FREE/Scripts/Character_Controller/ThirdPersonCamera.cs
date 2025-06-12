@@ -148,7 +148,8 @@ namespace Controller
                     trash_ui.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-                        string itemName = hit.collider.gameObject.name;
+                        string itemName = hit.collider.gameObject.name.Replace("(Clone)", "").Trim();
+                        PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(itemName);
                         Destroy(hit.collider.gameObject);
                     }
                 }
