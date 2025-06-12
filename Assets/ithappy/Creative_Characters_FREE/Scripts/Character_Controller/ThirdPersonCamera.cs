@@ -30,6 +30,7 @@ namespace Controller
         public GameObject Maker_ui;
         public GameObject Sewing_ui;
         public GameObject Shop_ui;
+        public GameObject Interior_ui;
 
         private ThirdPersonCamera Camera;
 
@@ -168,6 +169,16 @@ namespace Controller
                         StorageManager.instance.OpenStorage(); //StorageManager의 OpenStorage 메소드 호출
                         chest_ui.SetActive(false);
                         Camera.enabled = false;
+                    }
+                }
+                else if (hit.collider.tag == "Interior")
+                {
+                    Interior_ui.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        string itemName = hit.collider.gameObject.name.Replace("(Clone)", "").Trim();
+                        PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(itemName);
+                        Destroy(hit.collider.gameObject);
                     }
                 }
                 else if (hit.collider.tag == "Maker")
