@@ -35,6 +35,10 @@ public class CoinManager : MonoBehaviour
         Instance = this;
         coin = 1000;
         //0으로 해두고 저장 시스템 구현 되면 저장된 coin 불러오기
+        if (GameManager_ScrapLand.instance != null)
+        {
+            GameManager_ScrapLand.instance.ApplyCoinOnLoad();
+        }
     }
 
     public void UpdateMoneyText(int coin) 

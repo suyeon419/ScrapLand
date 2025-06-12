@@ -32,7 +32,7 @@ public class DaySummery : MonoBehaviour
     {
         day = GameManager_ScrapLand.instance.GetDayNum();
         happy = HappyEarth.instance.GetHappyGage();
-        coin = 0; // 코인시스템.GetCoin();
+        coin = CoinManager.Instance.coin;
 
         Check_Passing(day, happy);
     }
@@ -70,10 +70,7 @@ public class DaySummery : MonoBehaviour
 
         happyText.text += "\n" + (day + 1) + "일차 시작 : " + (happy - decrease_happy < 0 ? 0 : happy - decrease_happy);
 
-        coinText.text = "";// 코인 시스템 연동 필요
-        // 저장되어잇던 코인 (GameManager_ScrapLand.cs 의 coin 과 코인시스템에 저장된 최종 코인 비교 해서 +- 변화값
-        // 추후 다음날 버튼 누르면 -> SaveGame에서 GameManager에 코인시스템의 코인을 반영
-        // LoagGame에서 코인시스템의 코인을 GameManager의 코인을 반영 ( 이 부분은 코인시스템 코드 보고 해야할듯)
+        coinText.text = (coin - GameManager_ScrapLand.instance.GetCoin() > 0 ? "+" : "") + (coin - GameManager_ScrapLand.instance.GetCoin()) + "coin";
 
         summeryPan.SetActive(true);
     }
@@ -94,6 +91,7 @@ public class DaySummery : MonoBehaviour
                 else happy -= 100;
 
                 game.SetHappyGage(happy);
+                game.SetCoin(coin);
                 game.SetDayNum(++day);
                 game.SaveGame();
                 SceneManager.LoadScene("PlayScene");

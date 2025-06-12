@@ -262,6 +262,15 @@ public class PlayerInvenManager : MonoBehaviour
         }
     }
 
+    public static void ResetSellCounts()
+    {
+        string path = Application.persistentDataPath + "/sellCounts.json";
+        if(File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
+
     public static int GetSellCount(string itemType)
     {
         if (itemSellCounts.TryGetValue(itemType, out int count))

@@ -154,8 +154,32 @@ public class GameManager_ScrapLand : MonoBehaviour
         machines.Add(new MachineData_save("SewingMachine", 5)); // 재봉틀
     }
 
+    /// <summery>
+    /// 현재 저장되어있는 감도로 재 설정 하는 함수.(패널껐을때 불러오려고 만듦)
+    /// </summery>
+    public void SetSensOrigin()
+    {
+        Camera mainCam = Camera.main;
+        if (mainCam != null)
+        {
+            ThirdPersonCamera camera = mainCam.GetComponent<ThirdPersonCamera>();
+            if (camera != null)
+            {
+                camera.SetSensitivity(sensitivityValue);
+            }
+            else
+            {
+                Debug.LogWarning("Main Camera에 ThirdPersonCamera 스크립트가 없습니다.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Main Camera 오브젝트를 찾을 수 없습니다.");
 
+        }
+    }
 
+    #region 인테리어 관련
     public void New_Install_Interior(string itemName, Vector3 pos, Vector3 rot) // 맵에 설치했을 때 불러올 함수
     {
         Interiors.Add(new InteriorOnHouse(itemName, pos, rot));
@@ -186,6 +210,7 @@ public class GameManager_ScrapLand : MonoBehaviour
             return false;
         }
     }
+    #endregion
 
 
     #region Set
@@ -230,30 +255,6 @@ public class GameManager_ScrapLand : MonoBehaviour
             if (camera != null)
             {
                 camera.SetSensitivity(value);
-            }
-            else
-            {
-                Debug.LogWarning("Main Camera에 ThirdPersonCamera 스크립트가 없습니다.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Main Camera 오브젝트를 찾을 수 없습니다.");
-
-        }
-    }
-    /// <summery>
-    /// 현재 저장되어있는 감도로 재 설정 하는 함수.(패널껐을때 불러오려고 만듦)
-    /// </summery>
-    public void SetSensOrigin()
-    {
-        Camera mainCam = Camera.main;
-        if (mainCam != null)
-        {
-            ThirdPersonCamera camera = mainCam.GetComponent<ThirdPersonCamera>();
-            if (camera != null)
-            {
-                camera.SetSensitivity(sensitivityValue);
             }
             else
             {
@@ -329,7 +330,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     #endregion
 
-
+    #region 기계 데이터
     /*Filature 방적기
     Grinder 분쇄기
     BlastFurnace 용광로
@@ -377,9 +378,6 @@ public class GameManager_ScrapLand : MonoBehaviour
             m[4].isOnMap = GetMachine("BlastFurnace").activate;
         }
     }
-
-    #region 기계 데이터 Set, 저장
-    // 리스트로 전달 x, 하나하나 드림
     public void SetHP_Machines(string name, int hp)
     {
         var machine = GetMachine(name);
@@ -443,7 +441,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     }
     #endregion
 
-
+    #region 타 스크립트에 데이터 적용
     public void ApplyHappyEarthGageOnLoad()
     {
         if (HappyEarth.instance != null)
@@ -471,8 +469,9 @@ public class GameManager_ScrapLand : MonoBehaviour
             Debug.Log("CoinManager.instance가 null입니다.");
         }
     }
+    #endregion
 
-
+    #region 엔딩관련
     public void EndingChecking()
     {
         Debug.Log("엔딩조건: 모든 제품 제작, 게이지는 이미 검사 후 넘어온 것");
@@ -499,6 +498,9 @@ public class GameManager_ScrapLand : MonoBehaviour
         }
         return true;
     }
+    #endregion
+
+    #region 저장관련
 
     public void SaveGame()
     {
@@ -524,9 +526,11 @@ public class GameManager_ScrapLand : MonoBehaviour
     {
         SetHappyGage(-1);
         SetDayNum(1);
+        SetCoin(0);
         InitializeItemUsages();
         InitializeMachines();
         Interiors.Clear();
+        PlayerInvenManager.ResetSellCounts();
     }
-
+    #endregion
 }

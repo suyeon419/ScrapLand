@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 [System.Serializable]
@@ -101,9 +102,12 @@ public class SaveManager : MonoBehaviour
 
         SoundManager.instance.SetBgmMuteStatus(saveData.isBgmMuted);
 
-        var backupData = InventorySaveSystem.LoadBackup(backupInven);
-        InventorySaveSystem.RestoreInventoryFromBackup(backupData);
-        PlayerInvenManager.instance.InvenClose();
+        if (GameManager_ScrapLand.instance.GetDayNum() > 0)
+        {
+            var backupData = InventorySaveSystem.LoadBackup(backupInven);
+            InventorySaveSystem.RestoreInventoryFromBackup(backupData);
+            PlayerInvenManager.instance.InvenClose();
+        }
     }
 
     public void ResetGame()
@@ -114,6 +118,12 @@ public class SaveManager : MonoBehaviour
             System.IO.File.Delete(saveFilePath);
             GameManager_ScrapLand.instance.ResetValues();
         }
+        if (System.IO.File.Exists(backupInven))
+        {
+            System.IO.File.Delete(Application.persistentDataPath + backupInven);
+        }
+        PlayerInvenManager.ResetSellCounts();
+        InventorySaveSystem.Reset(SceneManager.GetActiveScene().name);
     }
 }
 
