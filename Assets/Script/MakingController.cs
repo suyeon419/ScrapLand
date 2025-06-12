@@ -7,26 +7,53 @@ using UnityEngine.UI;
 public class MakingController : MonoBehaviour
 {
     //가지고 있는 재료 개수(혜리한테 받아오기)
-    public int can = 0;             //캔
-    public int paper = 0;         // 종이
-    public int glass = 0;       //유리
-    public int plasticBottle = 0; //페트
-    public int vinyl = 0;       //비닐
-    public int plastic = 0;        // 플라스틱
-    public int oldCloth = 0;      // 헌 옷
+    private int can;             //캔
+    private int paper;         // 종이
+    private int glass;       //유리
+    private int plasticBottle; //페트
+    private int vinyl ;       //비닐
+    private int plastic ;        // 플라스틱
+    private int oldCloth;      // 헌 옷
 
-    public int aluminum = 0; // 알루미늄
-    public int compressedPaper = 0; //압축종이
-    public int moltenGlass = 0; //녹은 유리
-    public int plasticThread = 0;  // 페트실
-    public int moltenPlastic = 0; //녹은 플라스틱
+    private int aluminum; // 알루미늄
+    private int compressedPaper; //압축종이
+    private int moltenGlass; //녹은 유리
+    private int plasticThread ;  // 페트실
+    private int moltenPlastic ; //녹은 플라스틱
 
-    public int frame = 0;
-    public int wheel = 0;
-    public int chain = 0;
-    public int handle = 0;
-    public int brake = 0;
-    public int saddle = 0;
+    private int frame ;
+    private int wheel ;
+    private int chain ;
+    private int handle;
+    private int brake ;
+    private int saddle;
+
+    void UpdateMaterialCounts()
+    {
+        if (InventorySelectionManager.Instance != null)
+        {
+            can = InventorySelectionManager.Instance.GetTotalItemCount("T_Can");
+            paper = InventorySelectionManager.Instance.GetTotalItemCount("T_Paper");
+            glass = InventorySelectionManager.Instance.GetTotalItemCount("T_Glass");
+            plasticBottle = InventorySelectionManager.Instance.GetTotalItemCount("T_Pet");
+            vinyl = InventorySelectionManager.Instance.GetTotalItemCount("T_Vinyl");
+            plastic = InventorySelectionManager.Instance.GetTotalItemCount("T_Plastic");
+            oldCloth = InventorySelectionManager.Instance.GetTotalItemCount("T_Clothes");
+
+            aluminum = InventorySelectionManager.Instance.GetTotalItemCount("Al");
+            compressedPaper = InventorySelectionManager.Instance.GetTotalItemCount("PressedPaper");
+            moltenGlass = InventorySelectionManager.Instance.GetTotalItemCount("MeltGlass");
+            plasticThread = InventorySelectionManager.Instance.GetTotalItemCount("PetRope");
+            moltenPlastic = InventorySelectionManager.Instance.GetTotalItemCount("MeltPla");
+
+            frame = InventorySelectionManager.Instance.GetTotalItemCount("Bicycle_Frame");
+            wheel = InventorySelectionManager.Instance.GetTotalItemCount("Bicycle_Wheel");
+            chain = InventorySelectionManager.Instance.GetTotalItemCount("Bicycle_Chain");
+            handle = InventorySelectionManager.Instance.GetTotalItemCount("Bicycle_Handle");
+            brake = InventorySelectionManager.Instance.GetTotalItemCount("Bicycle_Brake");
+            saddle = InventorySelectionManager.Instance.GetTotalItemCount("Bicycle_Saddle");
+        }
+    }
 
     // 내부 변수 선언 (private)
     private int _bagMaking = 0;
@@ -85,7 +112,7 @@ public class MakingController : MonoBehaviour
     public int StorageBoxMaking
     {
         get { return _storageBoxMaking; }
-        set { _storageBoxMaking = value; } // 오타 주의: 실제로는 _storageBoxMaking이 맞습니다.
+        set { _storageBoxMaking = value; } 
     }
     public int MobileMaking
     {
@@ -324,18 +351,11 @@ public class MakingController : MonoBehaviour
     private int BikeSaddle = 1;
     public TextMeshProUGUI bikeMaking;
 
-    /*
-    public void setMaking(string itemName, int itemMaking)
+    
+    private void Awake()
     {
-        P_PotMaiking = GameManager_ScrapLand.instance.GetGount_Produce("Plastic Pot");
+        UpdateMaterialCounts();
     }
-    public void getMaking(string itemName)
-    {
-        GameManager_ScrapLand.instance.SetCount_Produce("Plastic Pot", P_PotMaiking);
-    }
-    */
-
-    // Start is called before the first frame update
     void Start()
     {
         //버튼 클릭 이벤트
@@ -377,6 +397,7 @@ public class MakingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateMaterialCounts();
         UpdateUI();
         UpdateButtonStates();
     }
@@ -528,8 +549,11 @@ public class MakingController : MonoBehaviour
     {
         if(oldCloth >= BagOldCloth)
         {
-            oldCloth -= BagOldCloth;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", BagOldCloth);
+
             BagMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Bag");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -540,13 +564,15 @@ public class MakingController : MonoBehaviour
     {
         if(frame >= BikeFrame && wheel >= BikeWheel && chain >= BikeChain && handle >= BikeHandle && brake >= BikeBrake && saddle >= BikeFrame)
         {
-            frame -= BikeFrame;
-            wheel -= BikeWheel;
-            chain -= BikeChain;
-            handle -= BikeHandle;
-            brake -= BikeBrake;
-            saddle -= BikeSaddle;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("Bicycle_Frame", BikeFrame);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("Bicycle_Wheel", BikeWheel);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("Bicycle_Chain", BikeChain);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("Bicycle_Handle", BikeHandle);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("Bicycle_Brake", BikeBrake);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("Bicycle_Saddle", BikeSaddle);
+
             BikeMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Bicycle");
             UpdateUI();
         }
         UpdateButtonStates();
@@ -558,9 +584,12 @@ public class MakingController : MonoBehaviour
     {
         if(moltenPlastic >= SaddleMoltenPlasic && oldCloth >= SaddleOldCloth)
         {
-            moltenPlastic -= SaddleMoltenPlasic;
-            oldCloth -= SaddleOldCloth;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("MeltPla", SaddleMoltenPlasic);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", SaddleOldCloth);
+
             SaddleMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("BiCycle_Saddle");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -571,9 +600,12 @@ public class MakingController : MonoBehaviour
     {
         if(compressedPaper >= BrakeCompressedPaper && plasticThread >= BrakePt)
         {
-            compressedPaper -= BrakeCompressedPaper;
-            plasticThread -= BrakePt;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PressedPaper", BrakeCompressedPaper);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", BrakePt);
+
             BrakeMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("BiCycle_Brake");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -584,9 +616,12 @@ public class MakingController : MonoBehaviour
     {
         if(moltenPlastic >= HandleMoltenPlastic && compressedPaper >= HandleCompressedPaper)
         {
-            moltenPlastic -= HandleMoltenPlastic;
-            compressedPaper -= HandleCompressedPaper;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("MeltPla", HandleMoltenPlastic);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PressedPaper", HandleCompressedPaper);
+
             HandleMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("BiCycle_Handle");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -597,8 +632,11 @@ public class MakingController : MonoBehaviour
     {
         if(aluminum >= ChainAluminum)
         {
-            aluminum -= ChainAluminum;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("Al", ChainAluminum);
+
             ChainMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("BiCycle_Chain");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -609,9 +647,12 @@ public class MakingController : MonoBehaviour
     {
         if(moltenPlastic >= WheelMoltenPlastic && compressedPaper >= WheelCompressedPaper)
         {
-            moltenPlastic -= WheelMoltenPlastic;
-            compressedPaper -= WheelCompressedPaper;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("MeltPla", WheelMoltenPlastic);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PressedPaper", WheelCompressedPaper);
+
             WheelMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("BiCycle_Wheel");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -622,8 +663,11 @@ public class MakingController : MonoBehaviour
     {
         if(aluminum >= FrameAluminum)
         {
-            aluminum -= FrameAluminum;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("Al", FrameAluminum);
+
             FrameMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("BiCycle_Frame");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -634,10 +678,13 @@ public class MakingController : MonoBehaviour
     {
         if(can >= BoatCan && paper >= BoatPaper && plasticBottle >= BoatPt)
         {
-            can -= BoatCan;
-            paper -= BoatPaper;
-            plasticBottle -= BoatPt;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Can", BoatCan);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Paper", BoatPaper);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", BrakePt);
+
             BoatMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Pet_Boat");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -649,8 +696,11 @@ public class MakingController : MonoBehaviour
     {
         if(moltenGlass >= BowlMoltenGlass)
         {
-            moltenGlass -= BowlMoltenGlass;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("MeltGlass", BowlMoltenGlass);
+
             BowlMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Bowl");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -661,8 +711,11 @@ public class MakingController : MonoBehaviour
     {
         if(can >= CupCan)
         {
-            can -= CupCan;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Can", CupCan);
+
             CupMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Cup");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -673,8 +726,11 @@ public class MakingController : MonoBehaviour
     {
         if(aluminum >= TongsAluminum)
         {
-            aluminum -= TongsAluminum;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("Al", TongsAluminum);
+
             TongsMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Tongs");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -685,8 +741,11 @@ public class MakingController : MonoBehaviour
     {
         if (moltenPlastic >= KeyringMoltenPlastic)
         {
-            moltenPlastic -= KeyringMoltenPlastic;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("MeltPla", KeyringMoltenPlastic);
+
             KeyringMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Keyring");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -698,10 +757,13 @@ public class MakingController : MonoBehaviour
     {
         if(moltenGlass >= ClockMoltenGlass && compressedPaper >= ClockCompressedPaper && can >= ClockCan)
         {
-            moltenGlass -= ClockMoltenGlass;
-            compressedPaper -= ClockCompressedPaper;
-            can -= ClockCan;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("MeltGlass", ClockMoltenGlass);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PressedPaper", ClockCompressedPaper);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Can", ClockCan);
+
             ClockMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Clock");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -714,11 +776,14 @@ public class MakingController : MonoBehaviour
     {
         if(moltenGlass >= MobileMoltenGlass && vinyl >= MobileVinyl && can >= MobileCan && plasticThread >= MobilePtThread)
         {
-            moltenGlass -= MobileMoltenGlass;
-            vinyl -= MobileVinyl;
-            can -= MobileCan;
-            plasticThread -= MobilePtThread;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("MeltGlass", MobileMoltenGlass);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Vinyl", MobileVinyl);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Can", MobileCan);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PerRope", MobilePtThread);
+
             MobileMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Mobile");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -729,9 +794,12 @@ public class MakingController : MonoBehaviour
     {
         if(compressedPaper >= StorageBoxCompressedPaper && can >= StorageBoxCan)
         {
-            compressedPaper -= StorageBoxCompressedPaper;
-            can -= StorageBoxCan;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PressedPaper", StorageBoxCompressedPaper);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Can", StorageBoxCan);
+
             StorageBoxMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Old Chest");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -742,8 +810,11 @@ public class MakingController : MonoBehaviour
     {
         if(compressedPaper >= ChairCompressedPaper)
         {
-            compressedPaper -= ChairCompressedPaper;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PressedPaper", ChairCompressedPaper);
+
             ChairMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Bench");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -754,8 +825,11 @@ public class MakingController : MonoBehaviour
     {
         if(compressedPaper >= TableCompressedPaper)
         {
-            compressedPaper -= TableCompressedPaper;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PressedPaper", TableCompressedPaper);
+
             TableMaking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Table");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -766,8 +840,10 @@ public class MakingController : MonoBehaviour
     {
         if(glass >= PopGlass)
         {
-            glass -= PopGlass;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Glass", PopGlass);
+
             G_PotMaiking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Glass Pot");
             UpdateUI();
         }
         UpdateButtonStates();
@@ -778,8 +854,11 @@ public class MakingController : MonoBehaviour
     {
         if(can >= PotCan)
         {
-            can -= PotCan;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Can", PotCan);
+
             C_PotMaiking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Can Pot");
+
             UpdateUI();
         }
         UpdateButtonStates();
@@ -790,8 +869,11 @@ public class MakingController : MonoBehaviour
     {
         if(plasticBottle >= PotPt)
         {
-            plasticBottle -= PotPt;
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", PotPt);
+
             P_PotMaiking++;
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Plastic Pot");
+
             UpdateUI();
         }
         UpdateButtonStates();

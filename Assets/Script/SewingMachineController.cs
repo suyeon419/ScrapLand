@@ -159,7 +159,7 @@ public class SewingMachineController : MonoBehaviour
         if (InventorySelectionManager.Instance != null)
         {
             oldCloth = InventorySelectionManager.Instance.GetTotalItemCount("T_Clothes");
-            plasticThread = InventorySelectionManager.Instance.GetTotalItemCount("T_PlasticThread");
+            plasticThread = InventorySelectionManager.Instance.GetTotalItemCount("PetRope");
             paper = InventorySelectionManager.Instance.GetTotalItemCount("T_Paper");
             plastic = InventorySelectionManager.Instance.GetTotalItemCount("MeltPla");
             vinyl = InventorySelectionManager.Instance.GetTotalItemCount("T_Vinyl");

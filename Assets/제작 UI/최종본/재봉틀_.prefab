@@ -370,7 +370,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 149.73914}
+  m_AnchoredPosition: {x: 0, y: -48.948524}
   m_SizeDelta: {x: 0, y: 420}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &5424624241866844514
@@ -500,17 +500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a08e31188c1eea4cb9770c91f8e3adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plasticThread: 10
-  paper: 10
-  plastic: 10
-  oldCloth: 10
-  vinyl: 10
-  CapMaking: 0
-  GroveMaking: 0
-  TopMaking: 0
-  BottomMaking: 0
-  ShoesMaking: 0
-  DollMaking: 0
   capButton: {fileID: 6387833498339222652}
   gloveButton: {fileID: 921089324846770721}
   topButton: {fileID: 3156034423497182930}
@@ -656,8 +645,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6117880884850051374}
   m_HandleRect: {fileID: 3089595332882067602}
   m_Direction: 2
-  m_Value: 0.34896028
-  m_Size: 0.45238096
+  m_Value: 1.2128197
+  m_Size: 0.08352109
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
