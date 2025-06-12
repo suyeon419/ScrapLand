@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Table
   placeType: 0
+  prefab: {fileID: 5614033965639179456}
 --- !u!65 &1423897041688488132
 BoxCollider:
   m_ObjectHideFlags: 0

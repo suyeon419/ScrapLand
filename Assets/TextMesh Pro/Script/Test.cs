@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public GameObject GameObject;
+    bool test = false;
 
-    public PlacementManager PlacementManager;
-
-    // Update is called once per frame
     void Update()
     {
-        PlacementManager.SetHeldItem(GameObject);
+        if (!false)
+        {
+            PlacementManager.Instance.SetHeldItem("Glass Pot");
+            test = true;
+        }
     }
 }

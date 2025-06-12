@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Can Pot
   placeType: 0
+  prefab: {fileID: 2122129589562945415}
 --- !u!65 &7018206036355265596
 BoxCollider:
   m_ObjectHideFlags: 0

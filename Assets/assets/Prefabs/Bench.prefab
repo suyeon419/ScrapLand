@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Bench
   placeType: 0
+  prefab: {fileID: 1339213053153973286}
 --- !u!65 &6250172171382955402
 BoxCollider:
   m_ObjectHideFlags: 0

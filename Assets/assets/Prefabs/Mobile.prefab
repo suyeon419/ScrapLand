@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Mobile
   placeType: 2
+  prefab: {fileID: 5781217012246025523}
 --- !u!65 &1665397720999167047
 BoxCollider:
   m_ObjectHideFlags: 0

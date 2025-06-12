@@ -52,6 +52,17 @@ public class SoundManager : MonoBehaviour
     {
         return bgm_player != null && bgm_player.mute;
     }
+    public void SetBgmMuteStatus(bool isMuted)
+    {
+        if (bgm_player != null)
+        {
+            bgm_player.mute = isMuted;
+
+            SoundSwitchButton toggleButton = FindObjectOfType<SoundSwitchButton>();
+            if (toggleButton != null)
+                toggleButton.UpdateButtonImage();
+        }
+    }
 
 
     void ChangeBgmSound(float value)
