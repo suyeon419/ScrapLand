@@ -70,10 +70,10 @@ public class StorageManager : MonoBehaviour
         //인벤토리 위치 이동
         PlayerInvenManager.InvenOpen();
 
-        InventoryUI.anchoredPosition = new Vector2(-50, 120);
-        Inventory_Cloth.anchoredPosition = new Vector2(300, 0);
-        HotBar.anchoredPosition = new Vector2(-55, -220);
-        Inven_Background.anchoredPosition = new Vector2(-135, 320);
+        InventoryUI.anchoredPosition = new Vector2(-60, 110);
+        Inventory_Cloth.anchoredPosition = new Vector2(395, 0);
+        HotBar.anchoredPosition = new Vector2(-60, -380);
+        Inven_Background.anchoredPosition = new Vector2(-160, 370);
         StorageClose.SetActive(true);
 
         //StorageActive = true;
@@ -83,11 +83,12 @@ public class StorageManager : MonoBehaviour
 
     public void CloseStorage()
     {
-        //인벤토리 위치 이동
+        //인벤토리 원래 위치 이동
         PlayerInvenManager.InvenClose();
-        InventoryUI.anchoredPosition = new Vector2(-350, 120);
+        InventoryUI.anchoredPosition = new Vector2(-455, 100);
         Inventory_Cloth.anchoredPosition = new Vector2(0, 0);
-        Inven_Background.anchoredPosition = new Vector2(-435, 320);
+        HotBar.anchoredPosition = new Vector2(-455, -380);
+        Inven_Background.anchoredPosition = new Vector2(-555, 360);
         StorageClose.SetActive(false);
 
         //StorageActive = false;
