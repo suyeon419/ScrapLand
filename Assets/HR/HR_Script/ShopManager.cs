@@ -23,7 +23,6 @@ public class ShopManager : MonoBehaviour
     public RectTransform HotBar;
     public RectTransform Cloth;
     public GameObject Inven_Xbtn;
-    public GameObject CloseBtn; //pressed -> shopmodeoff()
     public RectTransform Inven_Background;
     public GameObject HotBar_Background;
     public GameObject UI;
@@ -105,10 +104,10 @@ public class ShopManager : MonoBehaviour
 
         //인벤토리 위치 이동
         Inven_Xbtn.SetActive(false);
-        Cloth.anchoredPosition = new Vector2(-400, 0);
-        Inven_Background.anchoredPosition = new Vector2(-955, 360);
-        HotBar.anchoredPosition = new Vector2(-855, -380);
-        InventoryUI.anchoredPosition = new Vector2(-855, 100);
+        Cloth.anchoredPosition = new Vector2(-380, 0);
+        Inven_Background.anchoredPosition = new Vector2(-935, 360);
+        HotBar.anchoredPosition = new Vector2(-835, -380);
+        InventoryUI.anchoredPosition = new Vector2(-835, 100);
 
 /*        PlayerInvenManager.InvenClose();
         InventoryUI.anchoredPosition = new Vector2(-455, 100);
