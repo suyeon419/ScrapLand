@@ -342,4 +342,20 @@ public class PlacementManager : MonoBehaviour
             }
         }
     }
+
+    public void ReLoadItem(string itemName, Vector3 placePos, Vector3 placeRot)
+    {
+        if (!itemPrefabs.ContainsKey(itemName))
+        {
+            Debug.Log($"'{itemName}' 프리팹이 존재하지 않습니다.");
+            return;
+        }
+        Quaternion rotation = Quaternion.Euler(placeRot);
+
+        GameObject prefab = itemPrefabs[itemName];
+
+        GameObject install = Instantiate(prefab, placePos, rotation);
+        install.SetActive(true);
+    }
+
 }

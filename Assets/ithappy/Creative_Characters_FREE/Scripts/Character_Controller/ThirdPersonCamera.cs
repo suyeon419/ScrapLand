@@ -33,6 +33,9 @@ namespace Controller
         public GameObject Shop_ui;
         public GameObject Interior_ui;
 
+        public AudioSource chestAoudi;
+        public AudioSource trashAoudi;
+
         private ThirdPersonCamera Camera;
 
         private void Start()
@@ -150,6 +153,7 @@ namespace Controller
                     trash_ui.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.E))
                     {
+                        trashAoudi.Play();
                         string itemName = hit.collider.gameObject.name.Replace("(Clone)", "").Trim();
                         PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(itemName);
                         Destroy(hit.collider.gameObject);
@@ -163,6 +167,7 @@ namespace Controller
                         Animator animator = hit.collider.gameObject.GetComponent<Animator>();
                         animator.SetTrigger("OpenChest");
                         string itemName = hit.collider.gameObject.name;
+                        chestAoudi.Play();
                         Invoke("ReSetChest", 3f);
                         animator.SetTrigger("CloseChest");
 
