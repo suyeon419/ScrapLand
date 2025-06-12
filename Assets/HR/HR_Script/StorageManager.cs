@@ -8,7 +8,6 @@ public class StorageManager : MonoBehaviour
 {
     public static StorageManager instance { get; private set; }
 
-    public Transform storageUIPos;
     private string storageName = "Storage1";
     private int storageRow = 6;
     private int storageCol = 4;
@@ -60,9 +59,9 @@ public class StorageManager : MonoBehaviour
 
     public void MakeStorage()
     {
-        InventoryController.CreateInventory(storageUIPos, 
+/*        InventoryController.CreateInventory(storageUIPos, 
             storageName, storageRow, storageCol, StorageHighlitable,
-            StorageDraggable, StorageSave, StorageActive);
+            StorageDraggable, StorageSave, StorageActive);*/
     }
 
     public void OpenStorage()

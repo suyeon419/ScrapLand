@@ -36,7 +36,6 @@ public class ShopManager : MonoBehaviour
     public TextMeshProUGUI machineNameText;
     public TextMeshProUGUI machineDescriptionText;
     public Image machineImage;
-    public TextMeshProUGUI moneyText;
     public TextMeshProUGUI FirstP;
 
 
@@ -137,7 +136,6 @@ public class ShopManager : MonoBehaviour
         //판매상점 UI 활성화
         //ShopModeOff();
         BuyShopUI.SetActive(true);
-        moneyText.text = $"{coinManager.coin:N0}";
         ShopMode = false;
         BuyMode = true;
     }
@@ -194,7 +192,8 @@ public class ShopManager : MonoBehaviour
                         }
                         HpCount++;
                         item.SetHPCount_Sell(HpCount);*/
-            int sellCount = InventorySelectionManager.Instance.GetSellCount(itemType);
+            //int sellCount = InventorySelectionManager.Instance.GetSellCount(itemType);
+            int sellCount = PlayerInvenManager.GetSellCount(itemType);
             if (sellCount < 2)
             {
                 CoinManager.Instance.HappyP += (int)item.GetItemHappyPoint();
@@ -204,7 +203,9 @@ public class ShopManager : MonoBehaviour
                 Debug.Log($"아이템 '{itemType}'은 해피포인트 제한 도달");
             }
             CoinManager.Instance.HappyText.text = $"{CoinManager.Instance.HappyP}";
-            InventorySelectionManager.Instance.IncrementSellCount(itemType);
+
+            //판매 횟수 증가
+            PlayerInvenManager.IncrementSellCount(itemType);
 
             coinManager.UpdateMoneyText(coinManager.coin); //UI 업데이트
 
@@ -274,7 +275,6 @@ public class ShopManager : MonoBehaviour
             selectedMachine.isPurchased = true;
 
             coinManager.CoinText.text = $"Coin: {coinManager.coin:N0}";
-            moneyText.text = $"{coinManager.coin:N0}";
             Debug.Log($"{selectedMachine.machineName},{selectedMachine.currentPrice} 구매 성공!");
 
             // 다음부터는 원래 가격으로

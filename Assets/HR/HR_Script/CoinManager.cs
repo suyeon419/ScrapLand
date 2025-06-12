@@ -24,7 +24,7 @@ public class CoinManager : MonoBehaviour
     public static CoinManager Instance;
 
     public TextMeshProUGUI CoinText; //코인 수 나타내는 GUI
-    public TextMeshProUGUI SellShop_CoinText; //아이템 판매 상점
+    //public TextMeshProUGUI SellShop_CoinText; //아이템 판매 상점
     //public TextMeshProUGUI MachineShop_CoinText; //기계 구매 상점
 
     //디버깅용
@@ -40,7 +40,6 @@ public class CoinManager : MonoBehaviour
     public void UpdateMoneyText(int coin) 
     {
         CoinText.text = $"Coin: {coin:N0}"; //천단위 쉼표 표시
-        SellShop_CoinText.text = $"{coin:N0}";
     }
 
     public void OnAddMoney(int amount)
