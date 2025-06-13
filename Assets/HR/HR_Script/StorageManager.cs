@@ -29,6 +29,7 @@ public class StorageManager : MonoBehaviour
 
     public GameObject Storage1;
 
+    public bool isStorageOpen = false; //Storage가 열려있는지 확인하는 변수
 
     private void Awake()
     {
@@ -66,6 +67,8 @@ public class StorageManager : MonoBehaviour
 
     public void OpenStorage()
     {
+        isStorageOpen = true; //Storage가 열렸음을 표시
+
         //인벤토리 위치 이동
         PlayerInvenManager.InvenOpen();
 
@@ -82,12 +85,15 @@ public class StorageManager : MonoBehaviour
 
     public void CloseStorage()
     {
+        isStorageOpen = false; //Storage가 닫혔음을 표시
+
         //인벤토리 원래 위치 이동
         PlayerInvenManager.InvenClose();
         InventoryUI.anchoredPosition = new Vector2(-455, 100);
         Inventory_Cloth.anchoredPosition = new Vector2(0, 0);
         HotBar.anchoredPosition = new Vector2(-455, -380);
         Inven_Background.anchoredPosition = new Vector2(-555, 360);
+
         StorageClose.SetActive(false);
 
         //StorageActive = false;

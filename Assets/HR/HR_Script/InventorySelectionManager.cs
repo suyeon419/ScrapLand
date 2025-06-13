@@ -56,7 +56,7 @@ public class InventorySelectionManager : MonoBehaviour
             Debug.LogWarning("playerInventoryUIManager가 할당되지 않았습니다.");
         }
 
-        Handpos.SetActive(false); // 시작 시 손에 들기 오브젝트 비활성화
+        Handpos.SetActive(true);
 
 
     }
@@ -65,8 +65,7 @@ public class InventorySelectionManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            // P키로 인벤토리 아이템 데이터 출력
-            GetInventoryItemData();
+            RemoveSelectedHotBarItem();
         }
 
         if (Input.GetKeyDown(KeyCode.O))
@@ -148,8 +147,7 @@ public class InventorySelectionManager : MonoBehaviour
                 DebugText.text = $"선택된 아이템: {item.GetItemType()}";
                 string itemType = item.GetItemType();
 
-                PlacementManager.Instance.SetHeldItem("itemType");
-                Debug.Log($"Held item set to: {itemType}");
+                PlacementManager.Instance.SetHeldItem(itemType);
 
                 if (itemTypeList.Contains(itemType))
                 {
@@ -161,29 +159,22 @@ public class InventorySelectionManager : MonoBehaviour
                         go.transform.localPosition = Vector3.zero;
                         go.transform.localRotation = Quaternion.identity;
                         go.transform.localScale = Vector3.one * 0.5f; // 필요시 크기 조정
-                        Handpos.SetActive(true);
                     }
                     else
                     {
                         Debug.LogWarning($"{itemType} 프리팹을 찾을 수 없습니다. 경로를 확인하세요.");
-                        Handpos.SetActive(false);
                     }
                 }
                 else if (sprite != null)
                 {
-                    Handpos.SetActive(true);
                     Material mat = Handpos.GetComponent<MeshRenderer>().material;
                     mat.mainTexture = sprite.texture;
-                }
-                else
-                {
-                    Handpos.SetActive(false);
                 }
             }
             else
             {
                 DebugText.text = "선택된 슬롯에 아이템이 없습니다.";
-                Handpos.SetActive(false);
+                // PlacementManager.Instance.SetHeldItem(null); // 필요시 주석 해제
             }
         }
         else
@@ -261,5 +252,45 @@ public class InventorySelectionManager : MonoBehaviour
         int remaining = amount - toRemoveFromHotBar;
         if (remaining > 0)
             inventoryController.RemoveItem("PlayerInventory", itemType, remaining);
+    }
+
+    public void RemoveSelectedHotBarItem(int amount = 1)
+    {
+        if (SelectedSlot == null || hotBarUIManager == null || inventoryController == null)
+        {
+            Debug.LogWarning("SelectedSlot, hotBarUIManager 또는 inventoryController가 할당되지 않았습니다.");
+            return;
+        }
+
+        // 핫바 슬롯인지 확인
+        // hotBarUIManager의 슬롯 리스트에 포함되어 있는지 체크
+        bool isHotBarSlot = false;
+        int slotIndex = -1;
+        var slots = typeof(InventoryUIManager)
+            .GetField("slots", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .GetValue(hotBarUIManager) as List<GameObject>;
+
+        if (slots != null)
+        {
+            slotIndex = slots.IndexOf(SelectedSlot);
+            isHotBarSlot = slotIndex >= 0;
+        }
+
+        if (!isHotBarSlot)
+        {
+            Debug.Log("선택된 슬롯이 핫바에 속하지 않습니다.");
+            return;
+        }
+
+        InventoryItem item = SelectedSlot.GetComponent<Slot>().GetItem();
+        if (item != null && !item.GetIsNull())
+        {
+            inventoryController.RemoveItemPos("HotBar", slotIndex, amount);
+            Debug.Log($"핫바 {slotIndex}번 슬롯의 아이템 {amount}개 삭제 완료");
+        }
+        else
+        {
+            Debug.Log("선택된 슬롯에 아이템이 없습니다.");
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine.UI;
 using TMPro;
 using System.Text;
+using Controller;
 
 [System.Serializable]
 public class PlayerInvenManager : MonoBehaviour
@@ -37,6 +38,7 @@ public class PlayerInvenManager : MonoBehaviour
 
     //아이템 해피포인트 지급
     private static Dictionary<string, int> itemSellCounts = new Dictionary<string, int>();
+
 
     [System.Serializable]
     public class Serialization<TKey, TValue>
@@ -101,8 +103,15 @@ public class PlayerInvenManager : MonoBehaviour
             }
             else
             {
-                InvenClose();
-                Debug.Log("인벤토리 닫힘!");
+                if (StorageManager.instance.isStorageOpen)
+                {
+                    StorageManager.instance.CloseStorage(); // 인벤토리 닫기 전에 스토리지 닫기
+                }
+                else
+                {
+                    InvenClose();
+                    Debug.Log("인벤토리 닫힘!");
+                }
             }
         }
 
@@ -139,15 +148,14 @@ public class PlayerInvenManager : MonoBehaviour
 
     public void InvenClose() //열려있는 인벤창을 닫음
     {
-        GameManager_ScrapLand.instance.SetSensOrigin();
-        // 마우스 다시 움직일때 쓰세요
-
         InventoryUI.SetActive(false);
         Inventory_Cloth.SetActive(false);
         Inven_Background.SetActive(false);
         HotBar_Background.SetActive(true);
 
         InvenMode = false;
+        GameManager_ScrapLand.instance.SetSensOrigin();
+        // 마우스 다시 움직일때 쓰세요
     }
 
     public void InvenOpen() //인벤창을 열고 핫바 위치 이동
@@ -284,5 +292,17 @@ public class PlayerInvenManager : MonoBehaviour
             itemSellCounts[itemType]++;
         else
             itemSellCounts[itemType] = 1;
+    }
+
+    public static void ClearSellCounts() //몰라
+    {
+        itemSellCounts.Clear();
+        SaveSellCounts(); // 초기화 후 저장
+    }
+
+    public void CheckInvenSpace()
+    {
+        //인벤토리 빈 공간 검사
+        Inventory inv = InventoryController.instance.GetInventory("HotBar");
     }
 }

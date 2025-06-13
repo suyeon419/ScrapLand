@@ -1,4 +1,5 @@
 using GLTF.Schema;
+using InventorySystem;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -37,6 +38,11 @@ namespace Controller
         public AudioSource trashAoudi;
 
         private ThirdPersonCamera Camera;
+
+        //인벤토리 꽉 찼는지 검사
+        //bool isHotBarFull = InventoryController.instance.InventoryFull("HotBar", itemType);
+        //bool isPlayerInventoryFull = InventoryController.instance.InventoryFull("PlayerInventory", itemType);
+
 
         private void Start()
         {
@@ -155,6 +161,9 @@ namespace Controller
                     {
                         trashAoudi.Play();
                         string itemName = hit.collider.gameObject.name.Replace("(Clone)", "").Trim();
+
+                        //인벤토리가 꽉 차면 아이템 추가 불가, UI 변경
+
                         PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(itemName);
                         Destroy(hit.collider.gameObject);
                     }
@@ -174,7 +183,7 @@ namespace Controller
                         //hr
                         StorageManager.instance.OpenStorage(); //StorageManager의 OpenStorage 메소드 호출
                         chest_ui.SetActive(false);
-                        Camera.enabled = false;
+                        GlobalCanvasManager.instance.StopCamMoving();
                     }
                 }
                 else if (hit.collider.tag == "Interior")
