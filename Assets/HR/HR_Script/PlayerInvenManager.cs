@@ -25,7 +25,7 @@ public class PlayerInvenManager : MonoBehaviour
     public Button CloseBtn;
 
     public bool InvenMode; //인벤이 켜져 있는 상황
-    private bool IsBagOn = false;
+    public bool IsBagOn = false; //내부 인벤 확장
 
     private ShopManager shopManager;
 
@@ -115,8 +115,6 @@ public class PlayerInvenManager : MonoBehaviour
             }
         }
 
-        CloseBtn.onClick.AddListener(() => InvenClose()); //X 버튼을 눌러 인벤 닫기
-
         if (Input.GetKeyDown(KeyCode.I)) //Esc키로 인벤 닫기
         {
             AddItemToHotBarOrPlayerInventory("Old Chest");
@@ -148,6 +146,11 @@ public class PlayerInvenManager : MonoBehaviour
 
     public void InvenClose() //열려있는 인벤창을 닫음
     {
+        if( StorageManager.instance.isStorageOpen)
+        {
+            StorageManager.instance.CloseStorage(); // 인벤토리 닫기 전에 스토리지 닫기
+        }
+
         InventoryUI.SetActive(false);
         Inventory_Cloth.SetActive(false);
         Inven_Background.SetActive(false);
@@ -298,10 +301,5 @@ public class PlayerInvenManager : MonoBehaviour
     {
         itemSellCounts.Clear();
         SaveSellCounts(); // 초기화 후 저장
-    }
-
-    public void CheckInvenSpace()
-    {
-        
     }
 }

@@ -8,13 +8,13 @@ public class StorageManager : MonoBehaviour
 {
     public static StorageManager instance { get; private set; }
 
-    private string storageName = "Storage1";
+/*    private string storageName = "Storage1";
     private int storageRow = 6;
     private int storageCol = 4;
     bool StorageHighlitable = true;
     bool StorageDraggable = true;
     bool StorageSave = false;
-    bool StorageActive = false;
+    bool StorageActive = false;*/
 
     private InventoryController InventoryController;
     private PlayerInvenManager PlayerInvenManager;
@@ -25,7 +25,6 @@ public class StorageManager : MonoBehaviour
     public RectTransform Inventory_Cloth;
     public RectTransform HotBar;
     public RectTransform Inven_Background;
-    public GameObject StorageClose;
 
     public GameObject Storage1;
 
@@ -71,12 +70,10 @@ public class StorageManager : MonoBehaviour
 
         //인벤토리 위치 이동
         PlayerInvenManager.InvenOpen();
-
         InventoryUI.anchoredPosition = new Vector2(-60, 110);
         Inventory_Cloth.anchoredPosition = new Vector2(395, 0);
         HotBar.anchoredPosition = new Vector2(-60, -380);
         Inven_Background.anchoredPosition = new Vector2(-160, 370);
-        StorageClose.SetActive(true);
 
         //StorageActive = true;
         Storage1.SetActive(true);
@@ -93,8 +90,6 @@ public class StorageManager : MonoBehaviour
         Inventory_Cloth.anchoredPosition = new Vector2(0, 0);
         HotBar.anchoredPosition = new Vector2(-455, -380);
         Inven_Background.anchoredPosition = new Vector2(-555, 360);
-
-        StorageClose.SetActive(false);
 
         //StorageActive = false;
         Storage1.SetActive(false);

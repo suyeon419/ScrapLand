@@ -1,4 +1,3 @@
-   
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -14,6 +13,8 @@ namespace InventorySystem
     [System.Serializable]
     public class Inventory
     {
+        public static Inventory instance;
+
         private Dictionary<string, List<int>> itemPositions;//Holds all positions of a given itemType in the list
 
         private List<InventoryItem> inventoryList;//Holds all inventory items in a list
@@ -490,7 +491,8 @@ namespace InventorySystem
         /// <summary>
         /// takes a string(itemType) as input. Checks whether or not the inventory has room for a item
         /// </summary>
-        public bool Full(string item)
+        /// 원래 코드
+/*        public bool Full(string item)
         {
             string empty = "Empty";
             if (item == null)
@@ -518,6 +520,37 @@ namespace InventorySystem
 
             }
             return true;
+        }*/
+
+        public bool Full(string item)
+        {
+            string empty = "Empty";
+            if (item == null)
+            {
+                return true;
+            }
+            // "Empty" 키가 없으면 빈 슬롯이 없는 것으로 간주
+            if (!itemPositions.ContainsKey(empty) || itemPositions[empty].Count == 0)
+            {
+                // 빈 슬롯이 없음
+                // 만약 해당 아이템이 인벤토리에 없으면 true(가득 참)
+                if (!itemPositions.ContainsKey(item))
+                {
+                    return true;
+                }
+                List<int> itemPos = itemPositions[item];
+                foreach (int pos in itemPos)
+                {
+                    InventoryItem curItem = inventoryList[pos];
+                    if (curItem.GetAmount() < curItem.GetItemStackAmount())
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            // "Empty" 키가 있고, 빈 슬롯이 하나라도 있으면 false(가득 차지 않음)
+            return false;
         }
 
         /// <summary>
@@ -672,13 +705,40 @@ namespace InventorySystem
             return null;
         }
 
+        /*        public bool HasEmptySlot()
+                {
+                    foreach (var item in inventoryList)
+                    {
+                        if (item == null || item.GetIsNull())
+                            return true;
+                    }
+                    return false;
+                }*/
+
         public bool HasEmptySlot()
         {
+            if (inventoryList == null)
+            {
+                Debug.LogError("[HasEmptySlot] inventoryList가 null입니다!");
+                return false;
+            }
+
+            int idx = 0;
             foreach (var item in inventoryList)
             {
-                if (item == null || item.GetIsNull())
+                if (item == null)
+                {
+                    Debug.Log($"[HasEmptySlot] 슬롯 {idx}: null (빈 슬롯)");
                     return true;
+                }
+                if (item.GetIsNull())
+                {
+                    Debug.Log($"[HasEmptySlot] 슬롯 {idx}: GetIsNull() == true (빈 슬롯)");
+                    return true;
+                }
+                idx++;
             }
+            Debug.Log("[HasEmptySlot] 모든 슬롯이 가득 참");
             return false;
         }
 

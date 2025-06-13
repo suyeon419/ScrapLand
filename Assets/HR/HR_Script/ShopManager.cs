@@ -109,12 +109,6 @@ public class ShopManager : MonoBehaviour
         HotBar.anchoredPosition = new Vector2(-835, -380);
         InventoryUI.anchoredPosition = new Vector2(-835, 100);
 
-/*        PlayerInvenManager.InvenClose();
-        InventoryUI.anchoredPosition = new Vector2(-455, 100);
-        Inventory_Cloth.anchoredPosition = new Vector2(0, 0);
-        HotBar.anchoredPosition = new Vector2(-455, -380);
-        Inven_Background.anchoredPosition = new Vector2(-555, 360);*/
-
         //상점 UI 활성화
         //buyModeOff();
         ShopUI.SetActive(true);
@@ -131,7 +125,6 @@ public class ShopManager : MonoBehaviour
         HotBar.gameObject.SetActive(false);
         HotBar_Background.SetActive(false);
 
-
         //판매상점 UI 활성화
         //ShopModeOff();
         BuyShopUI.SetActive(true);
@@ -142,11 +135,11 @@ public class ShopManager : MonoBehaviour
     public void ShopModeOff()
     {
         //인벤 원래 위치로 이동 코드
-        Inven_Xbtn.SetActive(true);
+        InventoryUI.anchoredPosition = new Vector2(-455, 100);
         Cloth.anchoredPosition = new Vector2(0, 0);
+        HotBar.anchoredPosition = new Vector2(-455, -380);
         Inven_Background.anchoredPosition = new Vector2(-555, 360);
-        InventoryUI.anchoredPosition = new Vector2(-455, -100);
-        InvenManager.HotBar_Bar.anchoredPosition = new Vector2(-455, -380);
+        Inven_Xbtn.SetActive(true);
 
         InvenManager.InvenClose(); //상점을 닫고 핫바 상태로 전환
         ShopUI.SetActive(false);

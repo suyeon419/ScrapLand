@@ -2,7 +2,7 @@ using GLTF.Schema;
 using InventorySystem;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+using UnityEngine.UI;
 
 namespace Controller
 {
@@ -33,6 +33,8 @@ namespace Controller
         public GameObject Sewing_ui;
         public GameObject Shop_ui;
         public GameObject Interior_ui;
+        public Sprite InvenFull_ui;
+        private Sprite trashSprite;
 
         public AudioSource chestAoudi;
         public AudioSource trashAoudi;
@@ -62,14 +64,6 @@ namespace Controller
         {
             Move(Time.deltaTime);
             CheckAimTarget();
-            //if (PlayerInvenManager.instance.InvenMode == true)
-            //{
-            //    Camera.enabled = false;
-            //}
-            //else
-            //{
-            //    Camera.enabled = true;
-            //}
         }
 
         public override void SetInput(in Vector2 delta, float scroll)
@@ -154,15 +148,34 @@ namespace Controller
                 else if (hit.collider.tag == "Trash" || hit.collider.tag == "pt" || hit.collider.tag == "glass" || hit.collider.tag == "plastic" || hit.collider.tag == "can" || hit.collider.tag == "paper")
                 {
                     trash_ui.SetActive(true);
-                    if (Input.GetKeyDown(KeyCode.E))
+
+                    // trash_ui의 Image 컴포넌트 가져오기
+                    UnityEngine.UI.Image trashImage = trash_ui.GetComponent<UnityEngine.UI.Image>();
+
+                    // 최초 한 번만 기본 이미지 저장
+                    if (trashSprite == null && trashImage != null)
+                        trashSprite = trashImage.sprite;
+
+                    if (!InventorySelectionManager.Instance.CheckInvenFull())
                     {
-                        trashAoudi.Play();
-                        string itemName = hit.collider.gameObject.name.Replace("(Clone)", "").Trim();
+                        // 인벤토리에 공간이 있을 때 기본 이미지로 복원
+                        if (trashImage != null && trashSprite != null)
+                            trashImage.sprite = trashSprite;
 
-                        //인벤토리가 꽉 차면 아이템 추가 불가, UI 변경
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            trashAoudi.Play();
+                            string itemName = hit.collider.gameObject.name.Replace("(Clone)", "").Trim();
 
-                        PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(itemName);
-                        Destroy(hit.collider.gameObject);
+                            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(itemName);
+                            Destroy(hit.collider.gameObject);
+                        }
+                    }
+                    else
+                    {
+                        // 인벤토리가 가득 찼을 때 InvenFull_ui로 변경
+                        if (trashImage != null && InvenFull_ui != null)
+                            trashImage.sprite = InvenFull_ui;
                     }
                 }
                 else if (hit.collider.tag == "OldChest")

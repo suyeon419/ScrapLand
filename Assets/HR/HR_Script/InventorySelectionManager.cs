@@ -73,7 +73,11 @@ public class InventorySelectionManager : MonoBehaviour
             //RemoveItemFromAllInventories("Hat", 3);
             //InventoryController.instance.AddItemPos("HotBar", "Hat", 5);
             //AddItemToSelectedSlot("Hat");
-            Debug.Log(CheckInvenFull());
+            //Debug.Log(CheckInvenFull());
+            bool hasHotBarEmpty = InventoryController.instance.GetInventory("HotBar").HasEmptySlot();
+            bool hasPlayerInventoryEmpty = InventoryController.instance.GetInventory("PlayerInventory").HasEmptySlot();
+            Debug.Log($"핫바 빈 슬롯: {hasHotBarEmpty}, 플레이어 인벤토리 빈 슬롯: {hasPlayerInventoryEmpty}");
+
         }
     }
 
@@ -326,9 +330,10 @@ public class InventorySelectionManager : MonoBehaviour
     {
         bool isHotBarFull = !InventoryController.instance.GetInventory("HotBar").HasEmptySlot();
         bool isPlayerInventoryFull = !InventoryController.instance.GetInventory("PlayerInventory").HasEmptySlot();
-        bool isPlayerInventoryActive = InventoryController.instance.checkEnabled("PlayerInventory");
 
-        if (isPlayerInventoryActive)
+        Debug.Log($"핫바 가득 찼는지: {isHotBarFull}, 플레이어 인벤토리 가득 찼는지: {isPlayerInventoryFull}, 플레이어 인벤토리 활성화 여부: {PlayerInvenManager.instance.IsBagOn}");
+
+        if (PlayerInvenManager.instance.IsBagOn)
         {
             // PlayerInventory가 활성화되어 있으면 둘 다 가득 찼을 때만 true
             return isHotBarFull && isPlayerInventoryFull;
