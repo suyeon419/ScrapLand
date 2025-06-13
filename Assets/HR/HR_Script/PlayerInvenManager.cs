@@ -302,7 +302,6 @@ public class PlayerInvenManager : MonoBehaviour
 
     public void CheckInvenSpace()
     {
-        //인벤토리 빈 공간 검사
-        Inventory inv = InventoryController.instance.GetInventory("HotBar");
+        
     }
 }
