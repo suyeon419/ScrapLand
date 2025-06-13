@@ -60,7 +60,6 @@ public class MachineData_save
     }
 }
 
-
 public class GameManager_ScrapLand : MonoBehaviour
 {
     public static GameManager_ScrapLand instance;
@@ -79,6 +78,8 @@ public class GameManager_ScrapLand : MonoBehaviour
     private List<InteriorOnHouse> Interiors = new List<InteriorOnHouse>();
     private List<MachineData_save> machines = new List<MachineData_save>();
 
+    private Dictionary<string, bool> Completed = new Dictionary<string, bool>();
+
     void Awake()
     {
         if (instance == null)
@@ -87,6 +88,7 @@ public class GameManager_ScrapLand : MonoBehaviour
             DontDestroyOnLoad(instance.gameObject);
             InitializeItemUsages();
             InitializeMachines();
+            InitializeCompleted();
         }
         else
         {
@@ -153,6 +155,19 @@ public class GameManager_ScrapLand : MonoBehaviour
         machines.Add(new MachineData_save("BlastFurnace", 15)); // ¿ë±¤·Î
         machines.Add(new MachineData_save("Compressor", 10)); // ¾ÐÃà±â
         machines.Add(new MachineData_save("SewingMachine", 5)); // ÀçºÀÆ²
+    }
+
+    void InitializeCompleted()
+    {
+        Completed.Clear();
+        Completed.Add("ptthread", false);
+        Completed.Add("glass_break", false);
+        Completed.Add("plastic_break", false);
+        Completed.Add("can_break", false);
+        Completed.Add("glass_molten", false);
+        Completed.Add("plastic_molten", false);
+        Completed.Add("can_molten", false);
+        Completed.Add("compressed_paper", false);
     }
 
     /// <summery>
@@ -305,6 +320,10 @@ public class GameManager_ScrapLand : MonoBehaviour
     {
         machines = m;
     }
+    public void SetCompletedForSave(Dictionary<string, bool> com)
+    {
+        Completed = com;
+    }
     #endregion
 
     #region Get
@@ -328,6 +347,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     }
     public List<InteriorOnHouse> GetInteriorOnHouses() { return Interiors; }
     public List<MachineData_save> GetMachineForSave() { return machines; }
+    public Dictionary<string, bool> GetCompletedForSave() { return Completed; }
 
     #endregion
 
@@ -361,6 +381,15 @@ public class GameManager_ScrapLand : MonoBehaviour
             machine.SetBreakerDurability(GetMachine("Grinder").hp);
             machine.SetBlastFurnaceDurability(GetMachine("BlastFurnace").hp);
             machine.SetCompressorDurability(GetMachine("Compressor").hp);
+
+            machine.SetPtThreadCompletion(Completed["ptthread"]);
+            machine.SetGlassBreakCompletion(Completed["glass_break"]);
+            machine.SetPlasticBreakCompletion(Completed["plastic_break"]);
+            machine.SetCanBreakCompletion(Completed["can_break"]);
+            machine.SetGlassMoltenCompletion(Completed["glass_molten"]);
+            machine.SetPlasticMoltenCompletion(Completed["plastic_molten"]);
+            machine.SetCanMoltenCompletion(Completed["can_molten"]);
+            machine.SetCompressedPaperCompletion(Completed["compressed_paper"]);
         }
 
         if (ShopManager.Instance != null)
@@ -429,14 +458,25 @@ public class GameManager_ScrapLand : MonoBehaviour
         Machine machine = FindObjectOfType<Machine>();
         if (machine != null)
         {
-            machine.SetMachineDurability(GetMachine("Filature").hp);
-            machine.SetBreakerDurability(GetMachine("Grinder").hp);
-            machine.SetBlastFurnaceDurability(GetMachine("BlastFurnace").hp);
-            machine.SetCompressorDurability(GetMachine("Compressor").hp);
+            SetHP_Machines("Filature", machine.GetMachineDurability());
+            SetHP_Machines("Grinder", machine.GetBreakerDurability());
+            SetHP_Machines("BlastFurnace", machine.GetBlastFurnaceDurability());
+            SetHP_Machines("Compressor", machine.GetCompressorDurability());
+
+            Completed["ptthread"] = machine.IsPtThreadCompleted();
+            Completed["glass_break"] = machine.IsGlassBreakCompleted();
+            Completed["plastic_break"] = machine.IsPlasticBreakCompleted();
+            Completed["can_break"] = machine.IsCanBreakCompleted();
+            Completed["glass_molten"] = machine.IsGlassMoltenCompleted();
+            Completed["plastic_molten"] = machine.IsPlasticMoltenCompleted();
+            Completed["can_molten"] = machine.IsCanMoltenCompleted();
+            Completed["compressed_paper"] = machine.IsCompressedPaperCompleted();
+
         }
         SewingMachineController sewing = FindObjectOfType<SewingMachineController>();
-        if (sewing != null) 
+        if (sewing != null)
         {
+            SetHP_Machines("SewingMachine", sewing.SewingMachine);
             sewing.SewingMachine = GetMachine("SewingMachine").hp;
         }
     }
@@ -505,22 +545,23 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void SaveGame()
     {
-        PlayerInvenManager.LoadSellCounts();
+        PlayerInvenManager.SaveSellCounts();
         SetMachineData();
         SaveManager.instance.SaveGame();
     }
 
     public void LoadGame()
     {
-        if (itemUsages == null || machines == null || itemUsages.Count == 0 || machines.Count == 0)
+        if (itemUsages == null || machines == null || itemUsages.Count == 0 || machines.Count == 0 || Completed.Count == 0 || Completed == null)
         {
             InitializeMachines();
             InitializeItemUsages();
+            InitializeCompleted();
             Interiors.Clear();
         }
         SaveManager.instance.LoadGame();
         MachineDataSend();
-        PlayerInvenManager.SaveSellCounts();
+        PlayerInvenManager.LoadSellCounts();
     }
 
     public void ResetValues()
@@ -530,6 +571,7 @@ public class GameManager_ScrapLand : MonoBehaviour
         SetCoin(0);
         InitializeItemUsages();
         InitializeMachines();
+        InitializeCompleted();
         Interiors.Clear();
         PlayerInvenManager.ResetSellCounts();
     }
