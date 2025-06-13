@@ -72,6 +72,7 @@ public class DaySummery : MonoBehaviour
 
         coinText.text = (coin - GameManager_ScrapLand.instance.GetCoin() > 0 ? "+" : "") + (coin - GameManager_ScrapLand.instance.GetCoin()) + "coin";
 
+        SoundManager.instance.PlayBGM("Summery");
         summeryPan.SetActive(true);
     }
 
@@ -94,6 +95,7 @@ public class DaySummery : MonoBehaviour
                 game.SetCoin(coin);
                 game.SetDayNum(++day);
                 game.SaveGame();
+                SoundManager.instance.PlayBGM("Main");
                 SceneManager.LoadScene("PlayScene");
             }
         }
