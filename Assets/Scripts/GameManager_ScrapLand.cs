@@ -110,8 +110,12 @@ public class GameManager_ScrapLand : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SoundManager.instance.PlayBGM("Main");
-        SetSettings();
-        LoadGame();
+
+        if (SceneManager.GetActiveScene().name.Equals("PlayScene"))
+        {
+            SetSettings();
+            LoadGame();
+        }
     }
 
     void SetSettings()
@@ -515,7 +519,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     #region 엔딩관련
     public void EndingChecking()
     {
-        Debug.Log("엔딩조건: 모든 제품 제작, 게이지는 이미 검사 후 넘어온 것");
+        //Debug.Log("엔딩조건: 모든 제품 제작, 게이지는 이미 검사 후 넘어온 것");
         if (CheckAllProduction())
         {
             SoundManager.instance.OnAndOffBGM(true);
@@ -561,7 +565,16 @@ public class GameManager_ScrapLand : MonoBehaviour
         }
         SaveManager.instance.LoadGame();
         MachineDataSend();
+        ReLoadInterior();
         PlayerInvenManager.LoadSellCounts();
+    }
+
+    void ReLoadInterior()
+    {
+        foreach (var interior in Interiors)
+        {
+            PlacementManager.Instance.ReLoadItem(interior.itemName, interior.position, interior.rotation);
+        }
     }
 
     public void ResetValues()
