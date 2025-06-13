@@ -71,7 +71,8 @@ public class InventorySelectionManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             //RemoveItemFromAllInventories("Hat", 3);
-            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("SewingMachine");
+            //InventoryController.instance.AddItemPos("HotBar", "Hat", 5);
+            AddItemToSelectedSlot("Hat");
         }
     }
 
@@ -292,5 +293,31 @@ public class InventorySelectionManager : MonoBehaviour
         {
             Debug.Log("선택된 슬롯에 아이템이 없습니다.");
         }
+    }
+
+    //현재 선택한 슬롯에 아이템 추가
+    public void AddItemToSelectedSlot(string item)
+    {
+        // 핫바 슬롯 리스트 가져오기 (private 필드 접근)
+        var slots = typeof(InventoryUIManager)
+            .GetField("slots", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .GetValue(hotBarUIManager) as List<GameObject>;
+
+        int slotIndex = -1;
+        if (slots != null && SelectedSlot != null)
+        {
+            slotIndex = slots.IndexOf(SelectedSlot);
+        }
+
+        if (slotIndex >= 0)
+        {
+            InventoryController.instance.AddItemPos("HotBar", item, slotIndex, 1);
+        }
+        else
+        {
+            Debug.LogWarning("선택된 슬롯이 핫바에 없거나 슬롯 인덱스를 찾을 수 없습니다.");
+        }
+
+        OnSlotClicked(); // 슬롯 클릭 이벤트 호출하여 아이템 정보 업데이트
     }
 }
