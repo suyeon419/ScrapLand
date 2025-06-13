@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 public class HappyEarth : MonoBehaviour
 {
     private Slider happySlider;
     private Slider preview;
+
+    public RectTransform marker;
 
     public static HappyEarth instance;
 
@@ -73,5 +76,19 @@ public class HappyEarth : MonoBehaviour
         {
             preview.value += value;
         }
+    }
+
+    public void UpdateMarkerPosition(float targetValue)
+    {
+        float min = happySlider.minValue;
+        float max = happySlider.maxValue;
+        float normalized = (targetValue - min) / (max - min);
+
+        RectTransform sliderRect = happySlider.GetComponent<RectTransform>();
+        float width = sliderRect.rect.width;
+        Vector2 pos = marker.anchoredPosition;
+        pos.x = normalized * width;
+        marker.anchoredPosition = pos;
+        //Debug.Log("¸¶Ä¿ : " + width + " " + pos + " " + normalized);
     }
 }

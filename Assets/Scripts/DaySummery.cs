@@ -37,6 +37,11 @@ public class DaySummery : MonoBehaviour
         Check_Passing(day, happy);
     }
 
+    public int GetPassingHappyEarth(int day)
+    {
+        return passing_check[day - 1];
+    }
+
 
     private void Check_Passing(int day, int happy)
     {

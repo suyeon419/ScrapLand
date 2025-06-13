@@ -80,6 +80,8 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     private Dictionary<string, bool> Completed = new Dictionary<string, bool>();
 
+    private int[] passing_check = { 0, 50, 100, 200, 400, 650, 900 };
+
     void Awake()
     {
         if (instance == null)
@@ -230,8 +232,14 @@ public class GameManager_ScrapLand : MonoBehaviour
             return false;
         }
     }
+    void ReLoadInterior()
+    {
+        foreach (var interior in Interiors)
+        {
+            PlacementManager.Instance.ReLoadItem(interior.itemName, interior.position, interior.rotation);
+        }
+    }
     #endregion
-
 
     #region Set
     public void SetBrightness(float value)
@@ -496,6 +504,23 @@ public class GameManager_ScrapLand : MonoBehaviour
                 HappyGage = 0;
             }
             HappyEarth.instance.setRealGage(HappyGage);
+            if (Day_NUM == 1)
+                HappyEarth.instance.UpdateMarkerPosition(0);
+            else
+            {
+
+                float markerValue = passing_check[GetDayNum() - 1];
+                //Debug.Log("마크값: " + markerValue);
+                if (!float.IsNaN(markerValue) && !float.IsInfinity(markerValue))
+                {
+                    HappyEarth.instance.UpdateMarkerPosition(markerValue);
+                }
+                else
+                {
+                    Debug.LogWarning("markerValue가 유효하지 않습니다: " + markerValue);
+                }
+
+            }
         }
         else
         {
@@ -569,13 +594,6 @@ public class GameManager_ScrapLand : MonoBehaviour
         PlayerInvenManager.LoadSellCounts();
     }
 
-    void ReLoadInterior()
-    {
-        foreach (var interior in Interiors)
-        {
-            PlacementManager.Instance.ReLoadItem(interior.itemName, interior.position, interior.rotation);
-        }
-    }
 
     public void ResetValues()
     {
