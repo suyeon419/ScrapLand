@@ -24,6 +24,8 @@ public class SaveData
     public List<MachineData_save> Machines;
 
     public bool isBgmMuted;
+
+    public Dictionary<string, bool> Completed;
 }
 
 public class SaveManager : MonoBehaviour
@@ -65,6 +67,8 @@ public class SaveManager : MonoBehaviour
 
         saveData.isBgmMuted = SoundManager.instance.GetBgmMuteStatus();
 
+        saveData.Completed = GameManager_ScrapLand.instance.GetCompletedForSave();
+
         string json = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(saveFilePath, json);
 
@@ -101,6 +105,8 @@ public class SaveManager : MonoBehaviour
         GameManager_ScrapLand.instance.SetMachineForSave(saveData.Machines);
 
         SoundManager.instance.SetBgmMuteStatus(saveData.isBgmMuted);
+
+        GameManager_ScrapLand.instance.SetCompletedForSave(saveData.Completed);
 
         if (GameManager_ScrapLand.instance.GetDayNum() > 0)
         {
