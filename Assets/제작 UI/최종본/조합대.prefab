@@ -1662,45 +1662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfed474cc957b0d488a0832d1d10880e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  can: 50
-  paper: 50
-  glass: 50
-  plasticBottle: 50
-  vinyl: 50
-  plastic: 50
-  oldCloth: 50
-  aluminum: 50
-  compressedPaper: 50
-  moltenGlass: 50
-  plasticThread: 50
-  moltenPlastic: 50
-  frame: 1
-  wheel: 1
-  chain: 1
-  handle: 1
-  brake: 1
-  saddle: 1
-  BagMaking: 0
-  P_PotMaiking: 0
-  G_PotMaiking: 0
-  C_PotMaiking: 0
-  TableMaking: 0
-  ChairMaking: 0
-  StorageBoxMaking: 0
-  MobileMaking: 0
-  ClockMaking: 0
-  KeyringMaking: 0
-  TongsMaking: 0
-  CupMaking: 0
-  BowlMaking: 0
-  BoatMaking: 0
-  FrameMaking: 0
-  WheelMaking: 0
-  ChainMaking: 0
-  HandleMaking: 0
-  BrakeMaking: 0
-  SaddleMaking: 0
-  BikeMaking: 0
   bagButton: {fileID: 1565863879120704736}
   p_potButton: {fileID: 5740961726773517703}
   g_potButton: {fileID: 1363615511637281567}
@@ -21295,7 +21256,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5053530591250701827}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.12596264
+  m_Size: 0.12666667
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
