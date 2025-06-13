@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Threading;
 using UnityEditor;
+using static UnityEditor.Progress;
 
 
 namespace Controller
@@ -243,8 +244,8 @@ namespace Controller
                         if(ptthread == true && handPos != null && handPos.transform.childCount == 0) //손이 비었을때만
                         {
                             finish_ui.SetActive(false); //완성UI 비활성화
-                            ptthread = false; //미완성으로 변경
-                            GameObject newObj = Instantiate(pt_thread, handPos.transform); //손에 아이템 장착
+                            ptthread = false; //미완성으로 변경                            
+                            InventorySelectionManager.Instance.AddItemToSelectedSlot("PetRope");
                             machine--;
                             GameObject Machine = GameObject.FindWithTag("machine");
                             if(machine == 0)
@@ -319,21 +320,21 @@ namespace Controller
                         {
                             B_finish_ui.SetActive(false); //완성UI 비활성화
                             glass_break = false;
-                            GameObject newObj = Instantiate(breakGlass, handPos.transform); //손에 아이템 장착
+                            InventorySelectionManager.Instance.AddItemToSelectedSlot("Glass_Powder");
                             breaker--;
                         }
                         else if (plastic_break == true && handPos != null && handPos.transform.childCount == 0)
                         {
                             B_finish_ui.SetActive(false); //완성UI 비활성화
                             plastic_break = false;
-                            GameObject newObj = Instantiate(breakPlastic, handPos.transform); //손에 아이템 장착
+                            InventorySelectionManager.Instance.AddItemToSelectedSlot("Plastic_Powder");
                             breaker--;
                         }
                         else if (can_break == true && handPos != null && handPos.transform.childCount == 0)
                         {
                             B_finish_ui.SetActive(false); //완성UI 비활성화
                             can_break = false;
-                            GameObject newObj = Instantiate(breakCan, handPos.transform); //손에 아이템 장착
+                            InventorySelectionManager.Instance.AddItemToSelectedSlot("Can_Powder");
                             breaker--;
                         }
                         GameObject Breaker = GameObject.FindWithTag("breaker");
@@ -408,21 +409,21 @@ namespace Controller
                         {
                             BF_finish_ui.SetActive(false); //완성UI 비활성화
                             glass_molten = false;
-                            GameObject newObj = Instantiate(moltenGlass, handPos.transform); //손에 아이템 장착
+                            InventorySelectionManager.Instance.AddItemToSelectedSlot("MeltGlass");
                             blastFurnace--;
                         }
                         else if (plastic_molten == true && handPos != null && handPos.transform.childCount == 0)
                         {
                             BF_finish_ui.SetActive(false); //완성UI 비활성화
                             plastic_break = false;
-                            GameObject newObj = Instantiate(moltenPlastic, handPos.transform); //손에 아이템 장착
+                            InventorySelectionManager.Instance.AddItemToSelectedSlot("MeltPla");
                             blastFurnace--;
                         }
                         else if (can_molten == true && handPos != null && handPos.transform.childCount == 0)
                         {
                             BF_finish_ui.SetActive(false); //완성UI 비활성화
                             can_molten = false;
-                            GameObject newObj = Instantiate(aluminum, handPos.transform); //손에 아이템 장착
+                            InventorySelectionManager.Instance.AddItemToSelectedSlot("Al");
                             blastFurnace--;
                         }
                         GameObject BlastFurnace = GameObject.FindWithTag("BlastFurnace");
@@ -469,7 +470,7 @@ namespace Controller
                         {
                             C_finish_ui.SetActive(false); //완성UI 비활성화
                             compressed_paper = false; //미완성으로 변경
-                            GameObject newObj = Instantiate(compressedPaper, handPos.transform); //손에 아이템 장착
+                            InventorySelectionManager.Instance.AddItemToSelectedSlot("PressedPaper");
                             compressor--;
                             GameObject Compressor = GameObject.FindWithTag("compressor");
                             if (compressor == 0)
