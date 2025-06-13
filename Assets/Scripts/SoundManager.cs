@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
     public Slider bgm_slider;
     public Slider sfx_slider;
 
+    public AudioClip[] bgm_clips;
     public AudioClip[] audio_clips;
     public static SoundManager instance;
 
@@ -43,12 +44,15 @@ public class SoundManager : MonoBehaviour
         if (!isEnd)
         {
             bgm_player.mute = !bgm_player.mute;
-
-            SoundSwitchButton toggleButton = FindObjectOfType<SoundSwitchButton>();
-            if (toggleButton != null)
-            {
-                toggleButton.UpdateButtonImage();
-            }
+        }
+        else
+        {
+            bgm_player.mute = true;
+        }
+        SoundSwitchButton toggleButton = FindObjectOfType<SoundSwitchButton>();
+        if (toggleButton != null)
+        {
+            toggleButton.UpdateButtonImage();
         }
     }
     public bool GetBgmMuteStatus()
@@ -76,6 +80,27 @@ public class SoundManager : MonoBehaviour
     void ChangeSfxSound(float value)
     {
         GameManager_ScrapLand.instance?.SetSfxVolume(value);
+    }
+
+    public void PlayBGM(string type)
+    {
+        int index = 0;
+
+        switch (type)
+        {
+            case "Main": index = 0; break;
+            case "Summery": index = 1; break;
+            //case "HappyEnd": index = 2; break;
+            //case "BadEnd": index = 3; break;
+        }
+
+        AudioClip selectedClip = bgm_clips[index];
+
+        if (bgm_player.clip != selectedClip)
+        {
+            bgm_player.clip = selectedClip;
+            bgm_player.Play();
+        }
     }
 
 
