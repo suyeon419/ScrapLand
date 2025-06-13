@@ -1,4 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class BlockController : MonoBehaviour
 {
@@ -15,10 +21,12 @@ public class BlockController : MonoBehaviour
             if (_machine != value)
             {
                 _machine = value;
+                Debug.Log($"머신 상태 변경: {_machine}");
+                UpdateAllUI();
             }
         }
     }
-    
+
     public bool blastFurnace
     {
         get => _blastFurnace;
@@ -27,6 +35,8 @@ public class BlockController : MonoBehaviour
             if (_blastFurnace != value)
             {
                 _blastFurnace = value;
+                Debug.Log($"용광로 상태 변경: {_blastFurnace}");
+                UpdateAllUI();
             }
         }
     }
@@ -38,6 +48,8 @@ public class BlockController : MonoBehaviour
             if (_breaker != value)
             {
                 _breaker = value;
+                Debug.Log($"브레이커 상태 변경: {_breaker}");
+                UpdateAllUI();
             }
         }
     }
@@ -49,6 +61,8 @@ public class BlockController : MonoBehaviour
             if (_compressor != value)
             {
                 _compressor = value;
+                Debug.Log($"압축기 상태 변경: {_compressor}");
+                UpdateAllUI();
             }
         }
     }
@@ -60,91 +74,135 @@ public class BlockController : MonoBehaviour
     private GameObject[] _mc_block;
     private GameObject[] _bc_block;
 
-    void Start()
+    private void OnEnable()
     {
-        _m_block = GameObject.FindGameObjectsWithTag("m_block");
-        _b_block = GameObject.FindGameObjectsWithTag("b_block");
-        _c_block = GameObject.FindGameObjectsWithTag("c_block");
-        _mb_block = GameObject.FindGameObjectsWithTag("mb_block");
-        _mc_block = GameObject.FindGameObjectsWithTag("mc_block");
-        _bc_block = GameObject.FindGameObjectsWithTag("bc_block");
-        UpdateAllUI();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void UpdateAllUI()
+    private void OnDisable()
     {
-        if (_m_block == null) return;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
-        bool MB = _machine && _blastFurnace && _breaker;
-        bool MC = _machine && _compressor;
-        bool BC = _blastFurnace && _breaker && _compressor;
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"씬 로드 완료: {scene.name}");
+        StartCoroutine(DelayedUIUpdate());
+    }
 
-        // m_block: machine이 켜지면 비활성화
-        foreach (var ui in _m_block)
-        {
-            if (ui != null)
-            {
-                ui.SetActive(!_machine);
-            }
-        }
-
-        // b_block: blastFurnace가 켜지면 비활성화
-        foreach (var ui in _b_block)
-        {
-            if (ui != null)
-            {
-                ui.SetActive(!_blastFurnace);
-            }
-        }
-
-        // c_block: compressor가 켜지면 비활성화
-        foreach (var ui in _c_block)
-        {
-            if (ui != null)
-            {
-                ui.SetActive(!_compressor);
-            }
-        }
-
-        // mb_block: machine과 blastFurnace가 모두 켜져야 활성화
-        foreach (var ui in _mb_block)
-        {
-            if (ui != null)
-            {
-                ui.SetActive(!MB);
-            }
-        }
-
-        // mc_block: machine과 compressor가 모두 켜져야 활성화
-        foreach (var ui in _mc_block)
-        {
-            if (ui != null)
-            {
-                ui.SetActive(!MC);
-            }
-        }
-
-        // bc_block: blastFurnace와 compressor가 모두 켜져야 활성화
-        foreach (var ui in _bc_block)
-        {
-            if (ui != null)
-            {
-                ui.SetActive(!BC);
-            }
-        }
+    IEnumerator DelayedUIUpdate()
+    {
+        yield return new WaitForEndOfFrame();
+        Debug.Log("### UI 지연 갱신 시작 ###");
+        CacheUIElements();
+        UpdateAllUI();
     }
 
     private void OnValidate()
     {
-        if (Application.isPlaying)
+#if UNITY_EDITOR
+        if (!Application.isPlaying) return;
+        UpdateAllUI();
+#endif
+    }
+
+    private GameObject[] FindObjectsWithTagIncludingInactive(string tag)
+    {
+        List<GameObject> result = new List<GameObject>();
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (GameObject obj in allObjects)
         {
-            UpdateAllUI();
+            if (obj.CompareTag(tag) && obj.scene.IsValid())
+            {
+                result.Add(obj);
+            }
+        }
+        Debug.Log($"{tag} 찾은 개수: {result.Count}");
+        return result.ToArray();
+    }
+
+    private void CacheUIElements()
+    {
+        Debug.Log("UI 요소 탐색 시작 ==================");
+        _m_block = FindObjectsWithTagIncludingInactive("m_block");
+        _b_block = FindObjectsWithTagIncludingInactive("b_block");
+        _c_block = FindObjectsWithTagIncludingInactive("c_block");
+        _mb_block = FindObjectsWithTagIncludingInactive("mb_block");
+        _mc_block = FindObjectsWithTagIncludingInactive("mc_block");
+        _bc_block = FindObjectsWithTagIncludingInactive("bc_block");
+        Debug.Log("UI 요소 탐색 종료 ==================");
+    }
+
+    private void UpdateAllUI()
+    {
+        Debug.Log($"UI 갱신 호출 | 머신:{_machine} 용광로:{_blastFurnace} 브레이커:{_breaker} 압축기:{_compressor}");
+
+        if (_m_block == null || _m_block.Length == 0)
+        {
+            Debug.LogError("m_block 요소를 찾을 수 없습니다!");
+            return;
+        }
+
+        // 조건식은 의도대로 사용하세요.
+        bool MB = _machine && _blastFurnace && _breaker;
+        bool MC = _machine && _compressor;
+        bool BC = _blastFurnace && _breaker && _compressor;
+
+        Debug.Log($"조건 계산 -> MB:{MB} MC:{MC} BC:{BC}");
+
+        Debug.Log("단일 블록 처리 시작");
+        SetUIState(_m_block, !_machine, "m_block");
+        SetUIState(_b_block, !_blastFurnace, "b_block");
+        SetUIState(_c_block, !_compressor, "c_block");
+
+        Debug.Log("조합 블록 처리 시작");
+        SetUIState(_mb_block, !MB, "mb_block");
+        SetUIState(_mc_block, !MC, "mc_block");
+        SetUIState(_bc_block, !BC, "bc_block");
+    }
+
+    private void SetUIState(GameObject[] uiArray, bool state, string logName)
+    {
+        if (uiArray == null)
+        {
+            Debug.LogError($"{logName} 배열이 null입니다!");
+            return;
+        }
+
+        foreach (var ui in uiArray)
+        {
+            if (ui == null)
+            {
+                Debug.LogWarning($"{logName} 배열에 null 오브젝트 포함!");
+                continue;
+            }
+
+            if (ui.activeSelf != state)
+            {
+                Debug.Log($"{logName} [{ui.name}] 상태 변경: {ui.activeSelf} -> {state}");
+                ui.SetActive(state);
+            }
+            else
+            {
+                Debug.Log($"{logName} [{ui.name}] 상태 유지: {state}");
+            }
         }
     }
 
-    [ContextMenu("머신 상태 토글")]
-    public void ToggleMachine()
+    [ContextMenu("UI 요소 재탐색")]
+    public void RefreshUI()
     {
-        machine = !machine;
+        CacheUIElements();
+        UpdateAllUI();
+    }
+
+    [ContextMenu("머신 상태 토글")]
+    public void ToggleMachine() => machine = !machine;
+
+    [ContextMenu("강제 UI 갱신")]
+    public void ForceUIUpdate()
+    {
+        CacheUIElements();
+        UpdateAllUI();
     }
 }

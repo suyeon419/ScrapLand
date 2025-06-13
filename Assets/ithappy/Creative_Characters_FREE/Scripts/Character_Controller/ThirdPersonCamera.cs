@@ -47,16 +47,16 @@ namespace Controller
         private void Start()
         {
             Camera = GetComponent<ThirdPersonCamera>();
-            Debug.Log("Start에서 ThirdPersonCamera 컴포넌트 할당 시도");
-            if (Camera == null)
-            {
-                Debug.LogError("ThirdPersonCamera 컴포넌트를 찾지 못했습니다!");
-            }
-            else
-            {
-                Debug.Log("ThirdPersonCamera 컴포넌트를 성공적으로 찾았습니다.");
-                Debug.Log("현재 Camera.enabled 상태: " + Camera.enabled);
-            }
+            //Debug.Log("Start에서 ThirdPersonCamera 컴포넌트 할당 시도");
+            //if (Camera == null)
+            //{
+            //    Debug.LogError("ThirdPersonCamera 컴포넌트를 찾지 못했습니다!");
+            //}
+            //else
+            //{
+            //    Debug.Log("ThirdPersonCamera 컴포넌트를 성공적으로 찾았습니다.");
+            //    Debug.Log("현재 Camera.enabled 상태: " + Camera.enabled);
+            //}
             Maker_ui.SetActive(false);
             Sewing_ui.SetActive(false);
         }
@@ -127,7 +127,7 @@ namespace Controller
             RaycastHit hit;
 
             // 디버깅을 위해 레이 시각화
-            Debug.DrawRay(m_Transform.position, m_Transform.forward * m_RaycastDistance, Color.red);
+            //Debug.DrawRay(m_Transform.position, m_Transform.forward * m_RaycastDistance, Color.red);
 
             // ItemBox 레이어 제외한 마스크 설정
             int layerMask = ~(1 << LayerMask.NameToLayer("ItemBox"));
@@ -269,7 +269,7 @@ namespace Controller
 
         void ReSetChest()
         {
-            Debug.Log("3초 기다림");
+            //Debug.Log("3초 기다림");
         }
     }
 
