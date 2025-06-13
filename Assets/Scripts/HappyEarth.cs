@@ -51,19 +51,7 @@ public class HappyEarth : MonoBehaviour
         preview.value += value;
     }
 
-    public void GageUp_Install(string name)
-    {
-        if (name.Equals("Bench"))
-        {
-            Install_Interior(name, 10, new Vector3(0,0,0), new Vector3(0,0,0));
-        }
-        else if(name.Equals("Can Pot"))
-        {
-            Install_Interior(name, 20, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-        }
-    }
-
-    private void PlusGageBySale(string name, int value) // 판매 조건검사는 불필요, 검사 후 넘어올 것
+    public void PlusGageBySale(int value) // 판매 조건검사는 불필요, 검사 후 넘어올 것
     {
         preview.value += value;
     }
