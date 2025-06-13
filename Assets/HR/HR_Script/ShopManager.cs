@@ -187,7 +187,7 @@ public class ShopManager : MonoBehaviour
             if (sellCount < 2)
             {
                 CoinManager.Instance.HappyP += (int)item.GetItemHappyPoint();
-                //HappyEarth.instance.PlusGageBySale((int)item.GetItemHappyPoint());
+                HappyEarth.instance.PlusGageBySale((int)item.GetItemHappyPoint());
             }
             else
             {
