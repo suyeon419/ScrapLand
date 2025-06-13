@@ -223,7 +223,8 @@ namespace Controller
                         if (heldTag == "pt") //손에 pt를 들고 있을 때
                         {
                             Destroy(child.gameObject); //오브젝트 삭제
-                            
+                            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
+
                             pt_deleteCount++; //몇 개 넣었는지 카운트
                             UpdateText(); //UI 변경
 
@@ -268,6 +269,7 @@ namespace Controller
                         if (heldTag == "glass") //유리를 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
+                            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
 
                             glass_deleteCount++; //유리 +1
                             UpdateText(); //UI 반영
@@ -281,6 +283,7 @@ namespace Controller
                         else if (heldTag == "plastic") //플라스틱을 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
+                            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
 
                             plastic_deleteCount++; //플라스틱 +1
                             UpdateText(); //UI 반영
@@ -294,6 +297,7 @@ namespace Controller
                         else if (heldTag == "can") //캔을 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
+                            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
 
                             can_deleteCount++; //캔 +1
                             UpdateText(); //UI 반영
@@ -354,6 +358,7 @@ namespace Controller
                         if (heldTag == "breakglass") //간 유리를 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
+                            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
 
                             b_glass_deleteCount++; //간 유리 +1
                             UpdateText(); //UI 반영
@@ -367,6 +372,7 @@ namespace Controller
                         else if (heldTag == "breakplastic") //간 플라스틱을 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
+                            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
 
                             b_plastic_deleteCount++; //간 플라스틱 +1
                             UpdateText(); //UI 반영
@@ -380,6 +386,7 @@ namespace Controller
                         else if (heldTag == "breakcan") //간 캔을 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
+                            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
 
                             b_can_deleteCount++; //간 캔 +1
                             UpdateText(); //UI 반영
@@ -440,6 +447,7 @@ namespace Controller
                         if (heldTag == "paper") //손에 종이를 들고 있을 때
                         {
                             Destroy(child.gameObject); //오브젝트 삭제
+                            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
 
                             paper_deleteCount++; //몇 개 넣었는지 카운트
                             UpdateText(); //UI 변경
@@ -456,7 +464,8 @@ namespace Controller
                     else
                     {
                         Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 없음]");
-                        if (ptthread == true && handPos != null && handPos.transform.childCount == 0) //손이 비었을때만
+                        Debug.Log($"ptthread 상태: {compressed_paper}, handPos null 여부: {handPos == null}, 자식 개수: {handPos?.transform.childCount ?? 0}#########################################");
+                        if (compressed_paper == true && handPos != null && handPos.transform.childCount == 0) //손이 비었을때만
                         {
                             C_finish_ui.SetActive(false); //완성UI 비활성화
                             compressed_paper = false; //미완성으로 변경
