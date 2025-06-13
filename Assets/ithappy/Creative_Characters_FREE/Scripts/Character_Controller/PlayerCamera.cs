@@ -49,7 +49,7 @@ namespace Controller
         {
             m_SensitivityX = sensitivity * 0.1f;
             m_SensitivityY = sensitivity * 0.1f;
-            Debug.Log("감도설정 : "+ sensitivity);
+            //Debug.Log("감도설정 : "+ sensitivity);
         }
         public void SetPlayer(Transform player) {
             m_Player = player;

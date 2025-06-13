@@ -44,16 +44,16 @@ namespace Controller
         private void Start()
         {
             Camera = GetComponent<ThirdPersonCamera>();
-            Debug.Log("Start에서 ThirdPersonCamera 컴포넌트 할당 시도");
-            if (Camera == null)
-            {
-                Debug.LogError("ThirdPersonCamera 컴포넌트를 찾지 못했습니다!");
-            }
-            else
-            {
-                Debug.Log("ThirdPersonCamera 컴포넌트를 성공적으로 찾았습니다.");
-                Debug.Log("현재 Camera.enabled 상태: " + Camera.enabled);
-            }
+            //Debug.Log("Start에서 ThirdPersonCamera 컴포넌트 할당 시도");
+            //if (Camera == null)
+            //{
+            //    Debug.LogError("ThirdPersonCamera 컴포넌트를 찾지 못했습니다!");
+            //}
+            //else
+            //{
+            //    Debug.Log("ThirdPersonCamera 컴포넌트를 성공적으로 찾았습니다.");
+            //    Debug.Log("현재 Camera.enabled 상태: " + Camera.enabled);
+            //}
             Maker_ui.SetActive(false);
             Sewing_ui.SetActive(false);
         }
@@ -124,7 +124,7 @@ namespace Controller
             RaycastHit hit;
 
             // 디버깅을 위해 레이 시각화
-            Debug.DrawRay(m_Transform.position, m_Transform.forward * m_RaycastDistance, Color.red);
+            //Debug.DrawRay(m_Transform.position, m_Transform.forward * m_RaycastDistance, Color.red);
 
             // ItemBox 레이어 제외한 마스크 설정
             int layerMask = ~(1 << LayerMask.NameToLayer("ItemBox"));
@@ -132,7 +132,7 @@ namespace Controller
             if (Physics.Raycast(ray, out hit, m_RaycastDistance, layerMask))
             {
                 // 충돌한 오브젝트의 이름과 태그를 출력
-                Debug.Log($"조준된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag}");
+                //Debug.Log($"조준된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag}");
 
                 //방적기(machine) UI  
                 if (hit.collider.tag == "machine")
@@ -250,7 +250,7 @@ namespace Controller
             }
             else
             {
-                Debug.Log("아무 오브젝트도 감지되지 않음");
+                //Debug.Log("아무 오브젝트도 감지되지 않음");
                 machine_ui.SetActive(false); //방적기(machine) UI 
                 breaker_ui.SetActive(false);
                 blastFurnace_ui.SetActive(false);
@@ -266,7 +266,7 @@ namespace Controller
 
         void ReSetChest()
         {
-            Debug.Log("3초 기다림");
+            //Debug.Log("3초 기다림");
         }
     }
 
