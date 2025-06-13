@@ -135,7 +135,7 @@ namespace Controller
             if (Physics.Raycast(ray, out hit, m_RaycastDistance, layerMask))
             {
                 // 충돌한 오브젝트의 이름과 태그를 출력
-                Debug.Log($"조준된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag}");
+                //Debug.Log($"조준된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag}");
 
                 //방적기(machine) UI  
                 if (hit.collider.tag == "machine")
@@ -253,7 +253,7 @@ namespace Controller
             }
             else
             {
-                Debug.Log("아무 오브젝트도 감지되지 않음");
+                //Debug.Log("아무 오브젝트도 감지되지 않음");
                 machine_ui.SetActive(false); //방적기(machine) UI 
                 breaker_ui.SetActive(false);
                 blastFurnace_ui.SetActive(false);

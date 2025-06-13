@@ -105,6 +105,7 @@ namespace Seagull.Bar_02.SceneProps {
             } if (!prefab) {
                 return;
             } if (!prefab.GetComponent<FenceData>()) {
+                
                 Debug.LogWarning("Prefab is not a Fence, please attach FenceData to the Prefab to make it a Fence. This script won't do anything before the fix");
                 return;
             } if (endCapPrefab && !endCapPrefab.GetComponent<FenceData>()) {

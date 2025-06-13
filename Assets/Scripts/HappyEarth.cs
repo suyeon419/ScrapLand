@@ -67,6 +67,7 @@ public class HappyEarth : MonoBehaviour
 
     public void Install_Interior(string name, int value, Vector3 pos, Vector3 rot)
     {
+        Debug.Log("인테리어 : "+name+" "+value+""+pos+" "+rot);
         GameManager_ScrapLand.instance.New_Install_Interior(name, pos, rot);
         if (GameManager_ScrapLand.instance.IsHappyGageAvailable_install(name))
         {
