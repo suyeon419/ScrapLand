@@ -88,6 +88,7 @@ public class GameManager_ScrapLand : MonoBehaviour
             DontDestroyOnLoad(instance.gameObject);
             InitializeItemUsages();
             InitializeMachines();
+            InitializeCompleted();
         }
         else
         {
@@ -473,7 +474,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
         }
         SewingMachineController sewing = FindObjectOfType<SewingMachineController>();
-        if (sewing != null) 
+        if (sewing != null)
         {
             SetHP_Machines("SewingMachine", sewing.SewingMachine);
             sewing.SewingMachine = GetMachine("SewingMachine").hp;
@@ -544,22 +545,23 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void SaveGame()
     {
-        PlayerInvenManager.LoadSellCounts();
+        PlayerInvenManager.SaveSellCounts();
         SetMachineData();
         SaveManager.instance.SaveGame();
     }
 
     public void LoadGame()
     {
-        if (itemUsages == null || machines == null || itemUsages.Count == 0 || machines.Count == 0)
+        if (itemUsages == null || machines == null || itemUsages.Count == 0 || machines.Count == 0 || Completed.Count == 0 || Completed == null)
         {
             InitializeMachines();
             InitializeItemUsages();
+            InitializeCompleted();
             Interiors.Clear();
         }
         SaveManager.instance.LoadGame();
         MachineDataSend();
-        PlayerInvenManager.SaveSellCounts();
+        PlayerInvenManager.LoadSellCounts();
     }
 
     public void ResetValues()
@@ -569,6 +571,7 @@ public class GameManager_ScrapLand : MonoBehaviour
         SetCoin(0);
         InitializeItemUsages();
         InitializeMachines();
+        InitializeCompleted();
         Interiors.Clear();
         PlayerInvenManager.ResetSellCounts();
     }
