@@ -1,6 +1,7 @@
 using InventorySystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -24,6 +25,8 @@ public class SaveData
     public List<MachineData_save> Machines;
 
     public bool isBgmMuted;
+
+    public List<bool> Completed;
 }
 
 public class SaveManager : MonoBehaviour
@@ -65,6 +68,8 @@ public class SaveManager : MonoBehaviour
 
         saveData.isBgmMuted = SoundManager.instance.GetBgmMuteStatus();
 
+        saveData.Completed = GameManager_ScrapLand.instance.GetCompletedForSave().Values.ToList();
+
         string json = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(saveFilePath, json);
 
@@ -101,6 +106,17 @@ public class SaveManager : MonoBehaviour
         GameManager_ScrapLand.instance.SetMachineForSave(saveData.Machines);
 
         SoundManager.instance.SetBgmMuteStatus(saveData.isBgmMuted);
+
+        var completedDict = GameManager_ScrapLand.instance.GetCompletedForSave();
+        if (saveData.Completed != null && saveData.Completed.Count == completedDict.Count)
+        {
+            var keys = completedDict.Keys.ToList();
+            for (int i = 0; i < keys.Count; i++)
+            {
+                completedDict[keys[i]] = saveData.Completed[i];
+            }
+            GameManager_ScrapLand.instance.SetCompletedForSave(completedDict);
+        }
 
         if (GameManager_ScrapLand.instance.GetDayNum() > 0)
         {
