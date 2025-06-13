@@ -94,8 +94,13 @@ public class SoundManager : MonoBehaviour
             //case "BadEnd": index = 3; break;
         }
 
-        bgm_player.clip = bgm_clips[index];
-        bgm_player.Play();
+        AudioClip selectedClip = bgm_clips[index];
+
+        if (bgm_player.clip != selectedClip)
+        {
+            bgm_player.clip = selectedClip;
+            bgm_player.Play();
+        }
     }
 
 

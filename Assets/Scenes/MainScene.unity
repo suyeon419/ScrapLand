@@ -1937,7 +1937,7 @@ PrefabInstance:
       objectReference: {fileID: 2634931121072265112}
     - target: {fileID: 5735770728284034591, guid: f9bf30b412feeae47a3037508b0d04e9, type: 3}
       propertyPath: bgm_clips.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5735770728284034591, guid: f9bf30b412feeae47a3037508b0d04e9, type: 3}
       propertyPath: bgm_clips.Array.data[0]

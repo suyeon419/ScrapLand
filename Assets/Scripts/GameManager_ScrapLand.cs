@@ -107,6 +107,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        SoundManager.instance.PlayBGM("Main");
         SetSettings();
         LoadGame();
     }
