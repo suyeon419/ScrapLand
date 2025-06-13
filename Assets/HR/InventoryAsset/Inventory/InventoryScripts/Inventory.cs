@@ -672,5 +672,15 @@ namespace InventorySystem
             return null;
         }
 
+        public bool HasEmptySlot()
+        {
+            foreach (var item in inventoryList)
+            {
+                if (item == null || item.GetIsNull())
+                    return true;
+            }
+            return false;
+        }
+
     }
 }

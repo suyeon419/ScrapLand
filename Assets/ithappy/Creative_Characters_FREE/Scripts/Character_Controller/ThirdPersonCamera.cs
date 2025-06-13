@@ -40,9 +40,6 @@ namespace Controller
         private ThirdPersonCamera Camera;
 
         //인벤토리 꽉 찼는지 검사
-        //bool isHotBarFull = InventoryController.instance.InventoryFull("HotBar", itemType);
-        //bool isPlayerInventoryFull = InventoryController.instance.InventoryFull("PlayerInventory", itemType);
-
 
         private void Start()
         {

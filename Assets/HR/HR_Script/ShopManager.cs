@@ -182,20 +182,12 @@ public class ShopManager : MonoBehaviour
 
             coinManager.coin += price; //플레이어 코인에 추가
 
-            //해피 지구력 적용
-            /*            int HpCount = item.GetHPCount_Sell();
-                        int Hp = ((int)item.GetItemHappyPoint()); //다 정수라 상관없음
-                        if (HpCount < 3)
-                        {
-                            CoinManager.Instance.HappyP += Hp;
-                        }
-                        HpCount++;
-                        item.SetHPCount_Sell(HpCount);*/
-            //int sellCount = InventorySelectionManager.Instance.GetSellCount(itemType);
+            //해피 지구력 적용;
             int sellCount = PlayerInvenManager.GetSellCount(itemType);
             if (sellCount < 2)
             {
                 CoinManager.Instance.HappyP += (int)item.GetItemHappyPoint();
+                //HappyEarth.instance.PlusGageBySale((int)item.GetItemHappyPoint());
             }
             else
             {
