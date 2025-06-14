@@ -17,6 +17,8 @@ public class DayCycleManager : MonoBehaviour
     public float sunMaxAngle = 175f;  // 해가 하늘 가장 높이 있을 때 각도
     public float sunTilt = 0f;        // 해 궤적의 Y축 기울기 (동→서 방향)
 
+    public RectTransform needleTransform;
+
     void Start()
     {
         if (blendedSkyboxMaterial == null)
@@ -62,6 +64,13 @@ public class DayCycleManager : MonoBehaviour
 
         // 해가 지면 아래에 있으면 꺼주기
         sunLight.enabled = sunAngle > 0f;
+
+        if (needleTransform != null)
+        {
+            float angle = 360f * t;
+            needleTransform.localRotation = Quaternion.Euler(0f, 0f, -angle);
+        }
+
 
         if (currentTime >= totalDayDuration)
             EndDay();
