@@ -121,7 +121,8 @@ public class SaveManager : MonoBehaviour
             GameManager_ScrapLand.instance.SetCompletedForSave(completedDict);
         }
 
-        if (GameManager_ScrapLand.instance.GetDayNum() > 1 && SceneManager.GetActiveScene().Equals("PlayScene"))
+        Debug.Log((GameManager_ScrapLand.instance.GetDayNum() + "///" + SceneManager.GetActiveScene().name + SceneManager.GetActiveScene().Equals("PlayScene")));
+        if (GameManager_ScrapLand.instance.GetDayNum() > 1 && SceneManager.GetActiveScene().name.Equals("PlayScene"))
         {
             Debug.Log("인벤 데이터 복원합니다~ ##################");
             var backupData = InventorySaveSystem.LoadBackup(backupInven);

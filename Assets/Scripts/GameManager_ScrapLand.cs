@@ -115,11 +115,13 @@ public class GameManager_ScrapLand : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name.Equals("PlayScene"))
         {
+            Debug.Log("플레이씬에서 온로드");
             SetSettings();
             LoadGame();
         }
         else
         {
+            Debug.Log("플레이씬 XXXXXXXX 온로드");
             SaveManager.instance.LoadGame();
         }
     }
