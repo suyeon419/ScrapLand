@@ -14,8 +14,6 @@ public class MapPortal : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-
-            Debug.Log("캐릭터 집 이동");
             CharacterController controller = player.GetComponent<CharacterController>();
 
             Vector3 pos = homePos.position;
@@ -24,8 +22,6 @@ public class MapPortal : MonoBehaviour
             player.transform.position = pos;
             controller.enabled = true;
             Camera.transform.position = pos;
-            
-            Debug.Log("캐릭터 집 이동 완료");
         }
     }
 }

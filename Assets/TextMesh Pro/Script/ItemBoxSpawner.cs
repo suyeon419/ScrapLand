@@ -4,11 +4,11 @@ using UnityEngine.AI;
 
 public class ItemBoxSpawner : MonoBehaviour
 {
-    public List<SpawnItem> spawnItems; // 이 콜라이더 안에서 스폰할 아이템들
+    public List<SpawnItem> spawnItems; 
     public int spawnCount = 10;
-    public float minDistance = 2f; // 아이템들 간 거리 제한
-    public float raycastHeight = 5f; // 위에서 Raycast 쏠 높이
-    public float navMeshRadius = 5f; // NavMesh 근처 허용 반경
+    public float minDistance = 2f; 
+    public float raycastHeight = 5f; 
+    public float navMeshRadius = 5f; 
 
     private Collider myCollider;
     private List<Vector3> spawnPositions = new List<Vector3>();
@@ -57,8 +57,6 @@ public class ItemBoxSpawner : MonoBehaviour
             GameObject selectedPrefab = SelectRandomPrefab();
             Instantiate(selectedPrefab, pos, selectedPrefab.transform.rotation); 
         }
-
-        Debug.Log($"{gameObject.name} 에서 {spawnPositions.Count}/{spawnCount}개 아이템 생성 완료.");
     }
 
     Vector3 GetRandomPoint(Collider col)
@@ -72,7 +70,6 @@ public class ItemBoxSpawner : MonoBehaviour
             Random.Range(min.z, max.z)
         );
 
-        // 아래로 Raycast를 쏴서 바닥 위치를 정확히 찾음
         if (Physics.Raycast(randomPoint, Vector3.down, out RaycastHit hit, raycastHeight * 2f))
         {
             if (col.bounds.Contains(hit.point))

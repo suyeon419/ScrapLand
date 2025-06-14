@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 public class PlacementManager : MonoBehaviour
 {
-    public Transform playerHand; // 플레이어 손
+    public Transform playerHand; 
     public LayerMask floorLayer, wallLayer, ceilingLayer;
     public float placeDistance = 0.5f;
     public List<PlaceableItem> prefab;
 
     private GameObject heldItem;
-    private GameObject previewItem;  // 미리보기 아이템
-    private bool isPreviewActive = false;  // 미리보기 아이템 활성화 여부
+    private GameObject previewItem;  
+    private bool isPreviewActive = false; 
 
     private static PlacementManager instance = null;
     public static PlacementManager Instance
@@ -77,7 +77,6 @@ public class PlacementManager : MonoBehaviour
 
         HandleRotation();
 
-        // 미리보기 아이템이 활성화되어 있으면 위치 업데이트
         if (isPreviewActive)
         {
             UpdatePreviewItem();
@@ -99,9 +98,8 @@ public class PlacementManager : MonoBehaviour
 
         GameObject prefab = itemPrefabs[itemName];
         heldItem = Instantiate(prefab);
-        heldItem.SetActive(false);  // 원본 heldItem은 숨겨진 채 존재
+        heldItem.SetActive(false);  
 
-        // 미리보기 아이템을 생성하고 활성화
         if (previewItem == null)
         {
             previewItem = Instantiate(prefab, Vector3.zero, Quaternion.identity);
@@ -130,10 +128,8 @@ public class PlacementManager : MonoBehaviour
         Quaternion placeRot = heldItem.transform.rotation;
         RaycastHit hit;
 
-        previewItem.transform.rotation = placeRot;  // 미리보기 아이템에 즉시 회전 적용
-        Debug.DrawRay(playerHand.position, playerHand.forward * placeDistance, Color.blue, 0.1f); // 레이 시각화 (색상 조절)
+        previewItem.transform.rotation = placeRot;  
 
-        // 배치할 위치를 결정하는 로직 (미리보기 아이템 위치 설정)
         switch (item.placeType)
         {
             case PlaceType.Floor:
@@ -141,17 +137,17 @@ public class PlacementManager : MonoBehaviour
                 {
                     if (item.name == "Old Chest")
                     {
-                        placePos = hit.point + new Vector3(0, 0.5f, 0); // 바닥에서 조금 더 위로 배치
+                        placePos = hit.point + new Vector3(0, 0.5f, 0); 
                     }
 
                     else
                     {
-                        placePos = hit.point + new Vector3(0, 0, 0); // 바닥에서 조금 더 위로 배치
+                        placePos = hit.point + new Vector3(0, 0, 0); 
                     }
 
                     if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
                     {
-                        placePos = playerHand.position + playerHand.forward * 0.5f; // 최소 거리 0.5로 설정
+                        placePos = playerHand.position + playerHand.forward * 0.5f; 
                     }
                 }
                 else
@@ -163,56 +159,49 @@ public class PlacementManager : MonoBehaviour
             case PlaceType.Wall:
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, wallLayer))
                 {
-                    // 플레이어로부터 벽까지의 거리가 너무 가까우면 배치하지 않음
-                    float minDistanceToWall = 0.6f; // 이 값은 벽에 얼마나 가까이 붙을 수 있는지 결정 (조절 가능)
+                    float minDistanceToWall = 0.6f; 
                     if (hit.distance < minDistanceToWall)
                     {
-                        // 거리가 너무 가까우면 미리보기 아이템을 비활성화하고 함수 종료
                         if (previewItem != null)
                         {
                             previewItem.SetActive(false);
                         }
-                        return; // 더 이상 진행하지 않고 함수 종료
+                        return; 
                     }
 
-                    Vector3 wallNormal = hit.normal;  // 벽의 법선 벡터 (벽면으로부터 바깥쪽을 향하는 방향)
-                                                      // hit.point에서 벽의 법선 방향으로 0.07f (아이템이 벽에서 띄워질 거리) 떨어진 위치
+                    Vector3 wallNormal = hit.normal;  
+                                                      
                     placePos = hit.point + wallNormal * 0.07f;
 
-                    // 시계의 '앞면'(파란색 Z축)이 벽의 법선 반대 방향(-wallNormal, 즉 플레이어 쪽)을 바라보도록 회전
-                    // '위쪽'(초록색 Y축)은 월드 공간의 위쪽(Vector3.up)을 향하도록 설정
                     placeRot = Quaternion.LookRotation(-wallNormal, Vector3.up);
 
-                    // 시계 모델의 기본 방향이 뒤집혀 있는 경우 (유니티 모델의 기본 Z축 방향에 따라 다름)
-                    // Y축으로 180도 추가 회전하여 시계면이 플레이어를 정확히 바라보게 함
                     placeRot *= Quaternion.Euler(0, 180, 0);
 
-                    // 벽에 레이가 성공적으로 닿았고, 거리가 적절하므로 미리보기 활성화 및 위치/회전 즉시 적용
                     if (previewItem != null)
                     {
-                        previewItem.SetActive(true); // 미리보기 활성화
-                        previewItem.transform.position = placePos; // 계산된 벽 위치로 설정
-                        previewItem.transform.rotation = placeRot; // 계산된 벽 회전으로 설정
+                        previewItem.SetActive(true); 
+                        previewItem.transform.position = placePos; 
+                        previewItem.transform.rotation = placeRot; 
                     }
                 }
-                else // 벽에 레이가 쏘이지 않으면 미리보기 아이템을 비활성화
+                else 
                 {
                     if (previewItem != null)
                     {
                         previewItem.SetActive(false);
                     }
-                    return; // 더 이상 진행하지 않고 함수 종료
+                    return; 
                 }
-                break; // Wall 케이스 종료
+                break; 
 
             case PlaceType.Ceiling:
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, ceilingLayer))
                 {
-                    placePos = hit.point + new Vector3(0, -1.8f, 0);  // 천장에서 조금 더 위로
-                                                                      // 플레이어와 너무 가까운지 체크하여 최소 거리 설정
+                    placePos = hit.point + new Vector3(0, -1.8f, 0); 
+                                                                      
                     if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
                     {
-                        placePos = playerHand.position + playerHand.forward * 0.5f; // 최소 거리 0.5로 설정
+                        placePos = playerHand.position + playerHand.forward * 0.5f; 
                     }
                 }
                 else
@@ -223,11 +212,9 @@ public class PlacementManager : MonoBehaviour
                 return;
         }
 
-        // 미리보기 아이템을 설정된 위치와 회전으로 이동
         previewItem.transform.position = placePos;
         previewItem.transform.rotation = placeRot;
 
-        // 미리보기 아이템의 콜라이더를 비활성화하여 플레이어와 충돌하지 않게 함
         Collider previewCollider = previewItem.GetComponent<Collider>();
         if (previewCollider != null)
         {
@@ -237,83 +224,70 @@ public class PlacementManager : MonoBehaviour
 
     void TryPlaceItem()
     {
-        if (previewItem == null) return; // 미리보기 아이템이 없으면 배치 시도 안 함
+        if (previewItem == null) return; 
 
         PlaceableItem item = heldItem.GetComponent<PlaceableItem>();
-        if (item == null) return; // 들고 있는 아이템이 PlaceableItem이 아니면 배치 시도 안 함
+        if (item == null) return; 
 
-        Vector3 finalPlacePos = Vector3.zero; // 최종 배치될 위치
-        Quaternion finalPlaceRot = Quaternion.identity; // 최종 배치될 회전
+        Vector3 finalPlacePos = Vector3.zero; 
+        Quaternion finalPlaceRot = Quaternion.identity; 
 
-        // 미리보기 아이템이 활성화되어 있지 않으면 (즉, 유효한 배치 위치가 없으면) 배치하지 않음
         if (!previewItem.activeSelf)
         {
-            Debug.Log("미리보기 아이템이 비활성화 상태이므로 배치할 수 없습니다. 유효한 위치를 찾아주세요.");
-            return; // 배치할 수 없으므로 함수 종료
+            return;
         }
 
-        // 아이템 타입에 따라 최종 배치 위치와 회전을 결정
         switch (item.placeType)
         {
-            case PlaceType.Wall: // 벽 아이템인 경우
+            case PlaceType.Wall: 
                 RaycastHit hit;
-                // 배치 시점에 다시 한번 레이캐스트를 쏴서 현재 유효한 벽 위치를 찾음
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, wallLayer))
                 {
-                    // 벽에 너무 가까운지 다시 한번 검사 (UpdatePreviewItem과 동일)
                     float minDistanceToWall = 0.6f;
                     if (hit.distance < minDistanceToWall)
                     {
                         Debug.Log("벽에 너무 가까워서 배치할 수 없습니다.");
-                        return; // 너무 가까우면 배치하지 않고 함수 종료
+                        return; 
                     }
 
                     Vector3 wallNormal = hit.normal;
-                    finalPlacePos = hit.point + wallNormal * 0.07f; // 벽에서 약간 떨어진 위치
-                    finalPlaceRot = Quaternion.LookRotation(-wallNormal, Vector3.up); // 벽 법선에 맞춰 회전
-                    finalPlaceRot *= Quaternion.Euler(0, 180, 0); // 180도 추가 회전
+                    finalPlacePos = hit.point + wallNormal * 0.07f;
+                    finalPlaceRot = Quaternion.LookRotation(-wallNormal, Vector3.up); 
+                    finalPlaceRot *= Quaternion.Euler(0, 180, 0); 
                 }
-                else // 벽에 레이가 닿지 않으면 배치 불가능
+                else
                 {
-                    Debug.Log("벽이 감지되지 않아 벽 아이템을 배치할 수 없습니다.");
-                    return; // 벽이 없으면 배치하지 않고 함수 종료
+                    return; 
                 }
                 break;
 
-            case PlaceType.Floor: // 바닥 아이템인 경우 (미리보기 위치/회전 사용)
-            case PlaceType.Ceiling: // 천장 아이템인 경우 (미리보기 위치/회전 사용)
-                                    // 미리보기 아이템의 위치와 회전을 그대로 사용합니다.
-                                    // UpdatePreviewItem에서 이미 정확히 계산되었을 것이라고 가정합니다.
+            case PlaceType.Floor: 
+            case PlaceType.Ceiling: 
+                                    
                 finalPlacePos = previewItem.transform.position;
                 finalPlaceRot = previewItem.transform.rotation;
                 break;
 
             default:
-                Debug.LogWarning($"알 수 없는 PlaceType: {item.placeType}. 배치할 수 없습니다.");
                 return;
         }
 
-        // 모든 검사를 통과하고 최종 위치/회전이 결정되면 아이템을 배치
         GameObject placedObject = Instantiate(heldItem, finalPlacePos, finalPlaceRot);
-        placedObject.SetActive(true); // 배치된 아이템 활성화
+        placedObject.SetActive(true); 
 
-        // 배치 후에 콜라이더를 다시 활성화
         Collider placedCollider = placedObject.GetComponent<Collider>();
         if (placedCollider != null)
         {
-            placedCollider.enabled = true; // 배치된 아이템의 콜라이더 활성화
+            placedCollider.enabled = true; 
         }
 
-        // heldItem을 삭제하고 손에 아이템을 들고 있지 않게 처리
-        Destroy(heldItem); // 원본 heldItem은 Destroy
+        Destroy(heldItem); 
         heldItem = null;
 
-        // 미리보기 아이템 삭제
         Destroy(previewItem);
-        previewItem = null; // 미리보기 아이템 초기화
-        isPreviewActive = false; // 미리보기 비활성화
+        previewItem = null; 
+        isPreviewActive = false; 
 
-        // 아이템 배치 정보 업데이트
         UpdatePlacementInfo(item.itemName, finalPlacePos, finalPlaceRot);
     }
 
@@ -333,7 +307,6 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    // 미리보기 아이템의 투명도를 설정하는 함수
     void SetPreviewItemTransparency(float alpha)
     {
         Renderer[] renderers = previewItem.GetComponentsInChildren<Renderer>();
@@ -346,7 +319,6 @@ public class PlacementManager : MonoBehaviour
 
                 foreach (Material material in materials)
                 {
-                    // 현재 사용하는 쉐이더가 투명도를 지원하는지 확인
                     if (material.HasProperty("_Color"))
                     {
                         Color color = material.color;

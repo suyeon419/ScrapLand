@@ -12,12 +12,12 @@ public class SpawnItem
 
 public class NavSpawner : MonoBehaviour
 {
-    public List<SpawnItem> spawnItems; // 아이템과 확률 목록
+    public List<SpawnItem> spawnItems; 
     public int spawnCount = 100;
-    public float spawnRange = 50f; // 센터 기준 반경 내에서 아이템 생성
-    public float minDistance = 2f; // 아이템 떨어져야 할 거리
+    public float spawnRange = 50f; 
+    public float minDistance = 2f; 
     public LayerMask itemBoxLayer;
-    public Transform centerPoint; // 센터 지정
+    public Transform centerPoint; 
 
     private Collider[] itemBoxColliders;
     private List<Vector3> spawnPositions = new List<Vector3>();
