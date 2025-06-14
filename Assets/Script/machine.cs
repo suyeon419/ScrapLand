@@ -172,7 +172,31 @@ namespace Controller
             if (obj != null)
                 machineController = obj.GetComponent<BlockController>();
 
+            UpdateFinish();
             UpdateText();
+        }
+
+        private void UpdateFinish()
+        {
+            if(ptthread)
+            {
+                finish_ui.SetActive(true);
+            }
+
+            if (glass_break || plastic_break || can_break)
+            {
+                B_finish_ui.SetActive(true);
+            }
+
+            if(aluminum || moltenGlass || moltenPlastic)
+            {
+                BF_finish_ui.SetActive(true);
+            }
+
+            if (compressed_paper)
+            {
+                C_finish_ui.SetActive(true); //완성 ui활성화
+            }
         }
 
         private void Update()
@@ -422,6 +446,7 @@ namespace Controller
                 //태그가 compressor일때
                 else if (hit.collider.CompareTag("compressor"))
                 {
+                    Debug.Log($"때린거: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} 들고 있는 거 태그: {heldTag}, 완성 여부: {compressed_paper}");
                     //손이 비어있지 않을때, 압축종이가 만들어지지 않은 상태일때
                     if (handPos != null && handPos.transform.childCount > 0 && compressed_paper == false)
                     {
