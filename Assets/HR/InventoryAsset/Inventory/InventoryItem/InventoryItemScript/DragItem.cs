@@ -274,10 +274,10 @@ namespace InventorySystem
             }
 
             // 추가 코드
-            InventoryController.instance.AddItemPos(
+/*            InventoryController.instance.AddItemPos(
                 CurrentSlot.GetInventoryUI().GetInventoryName(),
                 item,
-                CurrentSlot.GetPosition());
+                CurrentSlot.GetPosition());*/
 
         }
 

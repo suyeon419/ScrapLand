@@ -17,6 +17,28 @@ namespace InventorySystem
         public GameObject previouslyHighlighted;
         //private -> public 변경. shopmanager.cs에서 사용하기 위함
 
+        private static readonly HashSet<string> TrashItems = new HashSet<string>
+        {
+            "T_Can", "T_Paper", "T_Glass", "T_Pet", "T_Viny", "T_Plastic", "T_Clothes"
+        };
+        
+        private static readonly HashSet<string> MaterialItems = new HashSet<string>
+        {
+            "MeltGlass", "Al", "MeltPla", "PetRope", "PressedPaper", "Can_Powder", "Glass_Powder", "Plastic_Powder"
+        };
+        
+        private static readonly HashSet<string> UpcycleItems = new HashSet<string>
+        {
+        "Bag", "Hat", "Glove", "Shirt", "Pants", "Shoes", "Plastic Pot", "Can Pot", "Glass Pot", "Table", "Bench",
+        "Old Chest", "Mobile", "Clock", "Keyring", "Tongs", "Cup", "Bowl", "Doll", "Pet_Boat", "Bicycle_Frame",
+        "Bicycle_Wheel", "Bicycle_Chain", "Bicycle_Handle", "Bicycle_Brake", "Bicycle_Saddle", "Bicycle"
+        };
+
+        private static readonly HashSet<string> MachineItems = new HashSet<string>
+        {
+            "SewingMachine", "Filature", "BlastFurnace", "Grinder", "Compressor"
+        };
+
         // Inventory UI Configuration
         [Header("========[ Inventory UI Setup ]========")]
         [Tooltip("Name of the inventory for identification purposes.")]
@@ -291,6 +313,9 @@ namespace InventorySystem
             InitSlotEnterExitDict();
             BackgroundActivity();
             initializeTestItems();
+
+            // 슬롯 색상 업데이트
+            //UpdateSlotColors();
         }
 
         /// <summary>
@@ -1056,5 +1081,61 @@ namespace InventorySystem
             Debug.Log("regular 스프라이트를 기본값으로 복원");
         }
 
+        // 아이템 이름으로 타입 반환
+        private string GetItemTypeByName(string itemName)
+        {
+            if (MachineItems.Contains(itemName))
+                return "machine";
+            if (TrashItems.Contains(itemName))
+                return "trash";
+            if (MaterialItems.Contains(itemName))
+                return "material";
+            if (UpcycleItems.Contains(itemName))
+                return "upcycle";
+            return "unknown";
+        }
+
+        // 타입에 따라 색상 반환
+        private Color GetSlotColorByType(string itemName)
+        {
+            string type = GetItemTypeByName(itemName);
+            switch (type)
+            {
+                case "trash": return new Color32(0x8D, 0x8D, 0x8D, 0xFF); // 쓰레기: #8D8D8D
+                case "material": return new Color32(0xFF, 0xBA, 0x66, 0xFF); // 재료:   #FFBA66
+                case "upcycle": return new Color32(0x65, 0xE9, 0x69, 0xFF); // 업사이클: #65E969
+                case "machine": return Color.white; // 기계류는 색상 변경 X
+                default: return Color.white;
+            }
+        }
+
+        // 슬롯 색상 적용 함수(기존 UpdateSlotColors 대체)
+        public void UpdateSlotColors()
+        {
+            for (int i = 0; i < slots.Count; i++)
+            {
+                var slotObj = slots[i];
+                var slot = slotObj.GetComponent<Slot>();
+                var item = slot.GetItem();
+
+                // 슬롯 오브젝트에서 Image 컴포넌트 찾기 (자식까지)
+                var img = slotObj.GetComponent<UnityEngine.UI.Image>();
+                if (img == null)
+                    img = slotObj.GetComponentInChildren<UnityEngine.UI.Image>();
+
+                if (item == null || item.GetIsNull())
+                {
+                    img.sprite = SlotImage.regular;
+                    img.color = Color.white;
+                }
+                else
+                {
+                    img.sprite = SlotImage.regular;
+                    img.color = GetSlotColorByType(item.GetItemType());
+                }
+            }
+
+            Debug.Log("슬롯 색상 업데이트 완료");
+        }
     }
 }

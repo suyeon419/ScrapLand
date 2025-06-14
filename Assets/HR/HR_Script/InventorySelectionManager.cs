@@ -397,7 +397,7 @@ public class InventorySelectionManager : MonoBehaviour
         bool isHotBarFull = !InventoryController.instance.GetInventory("HotBar").HasEmptySlot();
         bool isPlayerInventoryFull = !InventoryController.instance.GetInventory("PlayerInventory").HasEmptySlot();
 
-        Debug.Log($"핫바 가득 찼는지: {isHotBarFull}, 플레이어 인벤토리 가득 찼는지: {isPlayerInventoryFull}, 플레이어 인벤토리 활성화 여부: {PlayerInvenManager.instance.IsBagOn}");
+        //Debug.Log($"핫바 가득 찼는지: {isHotBarFull}, 플레이어 인벤토리 가득 찼는지: {isPlayerInventoryFull}, 플레이어 인벤토리 활성화 여부: {PlayerInvenManager.instance.IsBagOn}");
 
         if (PlayerInvenManager.instance.IsBagOn)
         {

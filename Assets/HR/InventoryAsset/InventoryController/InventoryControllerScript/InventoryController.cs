@@ -257,6 +257,10 @@ namespace InventorySystem
             }
             Inventory inventory = inventoryManager[inventoryName];
             inventory.AddItemPos(position, itemType);
+
+            //Color update, hh
+            //InventoryUIManager.instance.UpdateSlotColors();
+
         }
 
 
@@ -273,6 +277,9 @@ namespace InventorySystem
             Inventory inventory = inventoryManager[inventoryName];
             InventoryItem item = new InventoryItem(itemManager[itemType], amount);
             inventory.AddItemPos(position, item);
+
+            //Color update, hh
+            //InventoryUIManager.instance.UpdateSlotColors();
         }
 
         /// <summary>
@@ -287,6 +294,9 @@ namespace InventorySystem
             Inventory inventory = inventoryManager[inventoryName];
             InventoryItem item = new InventoryItem(itemManager[itemType], amount);
             inventory.AddItemAuto(item, amount);
+
+            //Color update, hh
+            //InventoryUIManager.instance.UpdateSlotColors();
         }
 
         /// <summary>
@@ -301,6 +311,8 @@ namespace InventorySystem
             Inventory inventory = inventoryManager[inventoryName];
             inventory.RemoveItemInPosition(position, amount);
 
+            //Color update, hh
+            //InventoryUIManager.instance.UpdateSlotColors();
         }
         public void RemoveItem(string inventoryName,string itemType, int amount)
         {
@@ -310,6 +322,9 @@ namespace InventorySystem
             }
             Inventory inventory = inventoryManager[inventoryName];
             inventory.RemoveItemAuto(itemType, amount);
+
+            //Color update, hh
+            //InventoryUIManager.instance.UpdateSlotColors();
         }
         /// <summary>
         /// Removes the item passed into the function
@@ -328,6 +343,9 @@ namespace InventorySystem
 
             Inventory inventory = inventoryManager[inventoryName];
             inventory.RemoveItemInPosition(item, amount);
+
+            //Color update, hh
+            //InventoryUIManager.instance.UpdateSlotColors();
         }
         /// <summary>
         /// Checks if the given inventory has space for the given itemType. Returns false if space is available 
