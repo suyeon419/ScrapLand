@@ -77,6 +77,7 @@ public class DaySummery : MonoBehaviour
 
         coinText.text = (coin - GameManager_ScrapLand.instance.GetCoin() > 0 ? "+" : "") + (coin - GameManager_ScrapLand.instance.GetCoin()) + "coin";
 
+        UIManager.Instance.CloseAllPanels();
         SoundManager.instance.PlayBGM("Summery");
         summeryPan.SetActive(true);
     }
