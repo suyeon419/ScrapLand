@@ -165,17 +165,7 @@ namespace Controller
 
         private void Start()
         {
-            cameraScript = GetComponent<ThirdPersonCamera>();
-
-            if (cameraScript == null)
-            {
-                Debug.LogError("ThirdPersonCamera 스크립트를 찾을 수 없습니다!");
-            }
-
-            if (handPos == null)
-            {
-                Debug.LogWarning("handPos가 지정되지 않았습니다.");
-            }
+            cameraScript = GetComponent<ThirdPersonCamera>();            
 
             //BlockController를 사용하기 위해
             GameObject obj = GameObject.Find("UIController");
@@ -235,12 +225,10 @@ namespace Controller
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
                             }
 
-                            Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 태그: {heldTag}]");
                         }
                     }
                     else
                     {
-                        Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 없음]");
                         if(ptthread == true && handPos != null && handPos.transform.childCount == 0) //손이 비었을때만
                         {
                             finish_ui.SetActive(false); //완성UI 비활성화
@@ -308,10 +296,6 @@ namespace Controller
                                 item_name = "breakCan"; //만들 아이템: 간 캔
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
                             }
-                        }
-                        else
-                        {
-                            Debug.Log("아무일도 없었다.");
                         }
                     }
                     else
@@ -398,10 +382,6 @@ namespace Controller
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
                             }
                         }
-                        else
-                        {
-                            Debug.Log("아무일도 없었다.");
-                        }
                     }
                     else
                     {
@@ -458,14 +438,10 @@ namespace Controller
                                 item_name = "compressedPaper"; //만들 아이템: 페트실
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
                             }
-
-                            Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 태그: {heldTag}]");
                         }
                     }
                     else
                     {
-                        Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 없음]");
-                        Debug.Log($"ptthread 상태: {compressed_paper}, handPos null 여부: {handPos == null}, 자식 개수: {handPos?.transform.childCount ?? 0}#########################################");
                         if (compressed_paper == true && handPos != null && handPos.transform.childCount == 0) //손이 비었을때만
                         {
                             C_finish_ui.SetActive(false); //완성UI 비활성화
@@ -484,7 +460,6 @@ namespace Controller
                         }
                     }
                 }
-                Debug.Log($"클릭된 오브젝트: {hit.collider.gameObject.name}, 태그: {hit.collider.tag} [손에 있는 오브젝트 태그: {heldTag}]");
 
             }
         }
@@ -521,7 +496,6 @@ namespace Controller
 
                 ptthread = true; //아이템 준비 완료
                 finish_ui.SetActive(true); //완성 ui활성화
-                Debug.Log($"ptthread: {ptthread}");
             }
 
             if(item_name == "breakGlass")

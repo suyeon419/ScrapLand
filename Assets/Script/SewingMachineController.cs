@@ -241,7 +241,6 @@ public class SewingMachineController : MonoBehaviour
             PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Hat");
 
             SewingMachine--;
-            Debug.Log("모자 제작 시작! CapMaking: " + CapMaking);
             UpdateUI();
         }
         UpdateButtonStates();
@@ -270,7 +269,6 @@ public class SewingMachineController : MonoBehaviour
             PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory("Glove");
 
             SewingMachine--;
-            Debug.Log("장갑 제작 시작!");
             UpdateUI();
         }
         UpdateButtonStates();
@@ -377,8 +375,7 @@ public class SewingMachineController : MonoBehaviour
     }
 
     public void SetAllButtonsActive(bool isActive)
-    {
-        Debug.Log("SetAllButtonsActive called: " + isActive);
+    { 
         foreach (Button button in craftingButtons)
         {
             button.interactable = isActive;
