@@ -118,6 +118,10 @@ public class GameManager_ScrapLand : MonoBehaviour
             SetSettings();
             LoadGame();
         }
+        else
+        {
+            SaveManager.instance.LoadGame();
+        }
     }
 
     void SetSettings()
