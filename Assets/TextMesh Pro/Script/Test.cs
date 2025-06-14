@@ -10,7 +10,7 @@ public class Test : MonoBehaviour
     {
         if (!test)
         {
-            PlacementManager.Instance.SetHeldItem("Glass Pot");
+            PlacementManager.Instance.SetHeldItem("Clock");
             test = true;
         }
     }

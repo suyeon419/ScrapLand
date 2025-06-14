@@ -80,8 +80,6 @@ public class NavSpawner : MonoBehaviour
             GameObject selectedPrefab = SelectPrefab();
             Instantiate(selectedPrefab, pos, Quaternion.identity);
         }
-
-        Debug.Log($"아이템 {spawnPositions.Count}/{spawnCount}개 생성 완료.");
     }
 
     bool IsOverlapItemBox(Vector3 position)
