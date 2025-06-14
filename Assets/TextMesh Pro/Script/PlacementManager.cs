@@ -55,13 +55,15 @@ public class PlacementManager : MonoBehaviour
             }
 
         }
+
         else
         {
             Destroy(this.gameObject);
         }
+
         if (playerHand == null)
         {
-            GameObject obj = GameObject.Find("LeftHand");
+            GameObject obj = GameObject.Find("Head");
             if (obj != null)
                 playerHand = obj.transform;
             else
@@ -145,6 +147,9 @@ public class PlacementManager : MonoBehaviour
                     {
                         placePos = hit.point + new Vector3(0, 0, 0); // 바닥에서 조금 더 위로 배치
                     }
+
+                    Debug.DrawRay(playerHand.position, playerHand.forward * placeDistance, Color.red, 2f);
+
                     // 플레이어와 너무 가까운지 체크하여 최소 거리 설정
                     if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
                     {
@@ -158,42 +163,30 @@ public class PlacementManager : MonoBehaviour
                 break;
 
             case PlaceType.Wall:
-                placePos = Vector3.zero; // placePos를 기본값으로 초기화
+                placePos = Vector3.zero;  // placePos를 기본값으로 초기화
 
+                // 벽에만 레이 캐스트를 쏘고, 벽에 충돌한 지점을 가져옵니다
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, wallLayer))
                 {
-                    placePos = hit.point;  // 벽에 설치될 위치
-
-                    // 벽에 맞게 회전, 벽에 배치되지만, 플레이어가 바라보는 방향으로 앞을 유지하도록 설정
+                    // 벽에 설치될 위치 설정
                     Vector3 wallNormal = hit.normal;  // 벽의 법선 벡터
-                    Vector3 playerDirection = playerHand.forward;  // 플레이어의 시선 방향
+                    placePos = hit.point + wallNormal * 0.07f;  // 벽에서 약간 떨어져 배치 (0.07f로 설정)
 
-                    // 플레이어가 바라보는 벽의 '앞'에 배치되도록 설정
-                    if (Vector3.Dot(wallNormal, playerDirection) < 0) // 벽의 법선 방향이 플레이어 방향과 반대일 때
-                    {
-                        placeRot = Quaternion.LookRotation(wallNormal); // 벽의 방향으로 회전 (벽의 앞쪽)
-                    }
-                    else
-                    {
-                        placeRot = Quaternion.LookRotation(-wallNormal); // 벽의 반대 방향으로 회전 (벽의 앞쪽)
-                    }
-
-                    // 벽에 너무 가까워지지 않도록 플레이어의 위치와의 거리를 고려
-                    placePos = hit.point + (wallNormal * 0.07f);  // 벽의 앞쪽에 조금 배치 (0.07f로 설정)
-
-                    // 플레이어와 너무 가까워지지 않도록 0.5f 거리만큼 밀어냄
-                    float distanceToPlayer = Vector3.Distance(placePos, playerHand.position);
-                    if (distanceToPlayer < 0.5f)
+                    // 벽에 너무 가까워지지 않도록 플레이어와의 거리 확인
+                    if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
                     {
                         // 아이템이 플레이어에게 너무 가까워지지 않도록 0.5f 거리만큼 밀어냄
-                        placePos = playerHand.position + playerHand.forward * 0.5f;  // 최소 거리 0.5 설정
+                        placePos = playerHand.position + playerHand.forward * 0.5f;  // 최소 거리 0.5로 설정
                     }
 
-                    // 벽에만 배치되도록 보장 (벽을 벗어나지 않게)
+                    // 벽 표면을 벗어나지 않도록 보장
                     if (Vector3.Distance(placePos, hit.point) > placeDistance)
                     {
-                        placePos = hit.point + (wallNormal * 0.07f);  // 벽의 앞쪽에 정확히 배치
+                        placePos = hit.point + wallNormal * 0.07f;  // 벽에서 약간 떨어져 배치
                     }
+
+                    // 벽에 맞게 회전, 벽의 법선 방향으로 배치
+                    placeRot = Quaternion.LookRotation(wallNormal);  // 벽의 방향으로 회전
 
                     // 미리보기 아이템을 설정된 위치와 회전으로 이동
                     if (previewItem != null)
@@ -214,21 +207,24 @@ public class PlacementManager : MonoBehaviour
                 }
                 else
                 {
-                    // 벽에 레이가 쏘이지 않으면 미리보기 아이템을 비활성화하지 않고, 위치만 갱신
+                    // 벽에 레이가 쏘이지 않으면 미리보기 아이템을 비활성화
                     if (previewItem != null)
                     {
-                        previewItem.SetActive(true);  // 미리보기 아이템을 계속 활성화
-                        previewItem.transform.position = playerHand.position;  // 위치를 플레이어 손 위치로 갱신
-                        previewItem.transform.rotation = playerHand.rotation;  // 회전도 갱신
+                        previewItem.SetActive(false);  // 벽이 아닌 곳에는 미리보기 아이템을 비활성화
                     }
                 }
                 break;
+
+
 
             case PlaceType.Ceiling:
                 if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, ceilingLayer))
                 {
                     placePos = hit.point + new Vector3(0, -1.8f, 0);  // 천장에서 조금 더 위로
                                                                       // 플레이어와 너무 가까운지 체크하여 최소 거리 설정
+
+                    Debug.DrawRay(playerHand.position, playerHand.forward * placeDistance, Color.red, 2f);
+
                     if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
                     {
                         placePos = playerHand.position + playerHand.forward * 0.5f; // 최소 거리 0.5로 설정
