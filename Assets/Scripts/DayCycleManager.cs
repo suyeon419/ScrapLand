@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class DayCycleManager : MonoBehaviour
@@ -16,8 +17,9 @@ public class DayCycleManager : MonoBehaviour
     public float sunMinAngle = -5f;   // 해가 지면 아래에 있을 때 각도
     public float sunMaxAngle = 175f;  // 해가 하늘 가장 높이 있을 때 각도
     public float sunTilt = 0f;        // 해 궤적의 Y축 기울기 (동→서 방향)
-
+    [Header("일차&시간 흐름")]
     public RectTransform needleTransform;
+    public TextMeshProUGUI dayText;
 
     void Start()
     {
@@ -26,6 +28,7 @@ public class DayCycleManager : MonoBehaviour
         if (sunLight == null)
             Debug.LogError("Directional Light가 설정되지 않았습니다!");
         RenderSettings.skybox = blendedSkyboxMaterial;
+        dayText.text = "| "+GameManager_ScrapLand.instance.GetDayNum() + "일차";
     }
 
     void Update()
