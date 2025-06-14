@@ -195,8 +195,12 @@ public class ShopManager : MonoBehaviour
 
             //아이템 삭제
             selectedUI.GetInventory().EraseItemInPosition(slot.GetPosition());
-            selectedUI.ResetHighlight();
-            InventorySelectionManager.ClearSelection(); // 선택 해제
+            //selectedUI.ResetHighlight();
+            //InventorySelectionManager.ClearSelection(); // 선택 해제
+
+            //손에 드는 상태 갱신
+            InventorySelectionManager.SetSelection(selectedSlot, selectedUI);
+
         }
     }
 

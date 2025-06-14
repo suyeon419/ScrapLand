@@ -559,8 +559,17 @@ namespace InventorySystem
         /// </summary>
         public void ResetHighlight()
         {
-            UnHighlight(previouslyHighlighted);
-            previouslyHighlighted = null;
+            /*            UnHighlight(previouslyHighlighted);
+                        previouslyHighlighted = null;*/
+            // 모든 슬롯 하이라이트 해제
+            foreach (var slot in slots)
+            {
+                UnHighlight(slot);
+            }
+            // 선택된 슬롯은 다시 하이라이트
+            if (InventorySelectionManager.SelectedSlot != null)
+                Highlight(InventorySelectionManager.SelectedSlot);
+
         }
 
         /// <summary>

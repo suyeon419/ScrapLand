@@ -152,6 +152,8 @@ namespace InventorySystem
             if (Draggable()) return;
 
             HandleEndDrag(eventData);
+
+
         }
 
         /// <summary>
@@ -159,6 +161,7 @@ namespace InventorySystem
         /// </summary>
         private void HandleEndDrag(PointerEventData eventData)
         {
+
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventData, results);
             bool foundSlot = false;
@@ -194,6 +197,21 @@ namespace InventorySystem
                 InventoryController.instance.AddItemPos(slot.GetInventoryUI().GetInventoryName(), item, slot.GetPosition());
                 slot.GetInventoryUI().UnHighlight(result.gameObject);
                 prevslot.GetComponent<Slot>().GetInventoryUI().ResetHighlight();
+
+                // 드롭된 슬롯이 핫바면 선택 및 손에 들기 상태 갱신
+                if (slot.GetInventoryUI().GetInventoryName() == "HotBar")
+                {
+                    InventorySelectionManager.SetSelection(result.gameObject, slot.GetInventoryUI());
+                }
+
+                // 드래그 시작 슬롯이 핫바일 때만 손에 든 상태 갱신
+                if (CurrentSlot != null && CurrentSlot.GetItem().GetIsNull())
+                {
+                    var ui = CurrentSlot.GetInventoryUI();
+                    if (ui != null && ui.GetInventoryName() == "HotBar")
+                        InventorySelectionManager.SetSelection(CurrentSlot.gameObject, ui);
+                }
+
                 Destroy(gameObject);
             }
             else
