@@ -33,6 +33,7 @@ public class PlayerInvenManager : MonoBehaviour
 
     // ø  ¿Œ∫• ∫Ø∞Ê
     public Sprite clothsprite; //ø  ¿Â¬¯Ω√ Ω∫«¡∂Û¿Ã∆Æ
+    public InventoryUIManager bagInventoryUIManager;
 
     private const string backupFileName = "manual_backup.dat";
 
@@ -115,7 +116,7 @@ public class PlayerInvenManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.I)) //Esc≈∞∑Œ ¿Œ∫• ¥›±‚
+        if (Input.GetKeyDown(KeyCode.I))
         {
             AddItemToHotBarOrPlayerInventory("Old Chest");
         }
@@ -181,6 +182,10 @@ public class PlayerInvenManager : MonoBehaviour
     {
         InventoryUI.SetActive(true);
         IsBagOn = true;
+
+        bagInventoryUIManager.SetDraggable(false);
+        bagInventoryUIManager.SetHighlightable(false);
+
     }
 
     public void BagOff()

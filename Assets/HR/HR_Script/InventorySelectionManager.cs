@@ -58,33 +58,71 @@ public class InventorySelectionManager : MonoBehaviour
 
         Handpos.SetActive(true);
 
+        /*        // 핫바 슬롯 리스트 가져오기
+                var slots = typeof(InventoryUIManager)
+                    .GetField("slots", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    .GetValue(hotBarUIManager) as List<GameObject>;
 
+                if (slots != null && slots.Count > 0 && slots[0] != null)
+                {
+                    SetSelection(slots[0], hotBarUIManager);
+                }
+                else
+                {
+                    Debug.LogWarning("핫바 슬롯이 아직 초기화되지 않았습니다. Start() 이후에 슬롯이 생성될 수 있습니다.");
+                }*/
+        EnsureSelection();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            RemoveSelectedHotBarItem();
+            //RemoveSelectedHotBarItem();
+            AddItemToSelectedSlot("Hat");
         }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            //RemoveItemFromAllInventories("Hat", 3);
+            RemoveItemFromAllInventories("Hat", 3);
             //InventoryController.instance.AddItemPos("HotBar", "Hat", 5);
-            //AddItemToSelectedSlot("Hat");
             //Debug.Log(CheckInvenFull());
-            bool hasHotBarEmpty = InventoryController.instance.GetInventory("HotBar").HasEmptySlot();
+/*            bool hasHotBarEmpty = InventoryController.instance.GetInventory("HotBar").HasEmptySlot();
             bool hasPlayerInventoryEmpty = InventoryController.instance.GetInventory("PlayerInventory").HasEmptySlot();
-            Debug.Log($"핫바 빈 슬롯: {hasHotBarEmpty}, 플레이어 인벤토리 빈 슬롯: {hasPlayerInventoryEmpty}");
+            Debug.Log($"핫바 빈 슬롯: {hasHotBarEmpty}, 플레이어 인벤토리 빈 슬롯: {hasPlayerInventoryEmpty}");*/
 
         }
     }
 
     public static void SetSelection(GameObject slot, InventoryUIManager inventoryUIManager)
     {
+        /*        SelectedSlot = slot;
+                SelectedInventoryUI = inventoryUIManager;*/
+
+        if (slot == null || inventoryUIManager == null)
+        {
+            Debug.LogWarning("SetSelection: slot 또는 inventoryUIManager가 null입니다.");
+            return;
+        }
+
+        // 이전 선택 슬롯 하이라이트 해제
+        if (SelectedSlot != null && SelectedInventoryUI != null && SelectedSlot != slot)
+        {
+            SelectedInventoryUI.UnHighlight(SelectedSlot);
+        }
+
         SelectedSlot = slot;
         SelectedInventoryUI = inventoryUIManager;
+
+        // 새 선택 슬롯 하이라이트
+        SelectedInventoryUI.Highlight(SelectedSlot);
+
+        var slotComponent = slot.GetComponent<Slot>();
+        if (slotComponent == null)
+        {
+            Debug.LogWarning("SetSelection: 선택된 슬롯에 Slot 컴포넌트가 없습니다.");
+            return;
+        }
 
         InventoryItem item = slot.GetComponent<Slot>().GetItem();
         if (item != null)
@@ -130,10 +168,27 @@ public class InventorySelectionManager : MonoBehaviour
     //손에 들기
     public void OnSlotClicked()
     {
+        if (SelectedSlot == null)
+        {
+            Debug.Log("OnSlotClicked: 선택된 슬롯이 없습니다.");
+            return;
+        }
+
+        var slotComponent = SelectedSlot.GetComponent<Slot>();
+        if (slotComponent == null)
+        {
+            Debug.LogWarning("OnSlotClicked: 선택된 슬롯에 Slot 컴포넌트가 없습니다.");
+            return;
+        }
+
+        InventoryItem item = slotComponent.GetItem();
+        Sprite sprite = item != null ? item.GetItemImage() : null;
+
+
         if (SelectedSlot != null)
         {
-            InventoryItem item = SelectedSlot.GetComponent<Slot>().GetItem();
-            Sprite sprite = item.GetItemImage();
+/*            InventoryItem item = SelectedSlot.GetComponent<Slot>().GetItem();
+            Sprite sprite = item.GetItemImage();*/
 
             // 인벤토리의 모든 아이템 타입 목록 동적 생성
             var itemTypeList = new HashSet<string>();
@@ -258,6 +313,12 @@ public class InventorySelectionManager : MonoBehaviour
         int remaining = amount - toRemoveFromHotBar;
         if (remaining > 0)
             inventoryController.RemoveItem("PlayerInventory", itemType, remaining);
+
+
+        // 선택된 슬롯의 상태 갱신
+        if (SelectedSlot != null && SelectedInventoryUI != null)
+            SetSelection(SelectedSlot, SelectedInventoryUI);
+
     }
 
     public void RemoveSelectedHotBarItem(int amount = 1)
@@ -298,6 +359,11 @@ public class InventorySelectionManager : MonoBehaviour
         {
             Debug.Log("선택된 슬롯에 아이템이 없습니다.");
         }
+
+        // 선택된 슬롯의 상태 갱신
+        if (SelectedSlot != null && SelectedInventoryUI != null)
+            SetSelection(SelectedSlot, SelectedInventoryUI);
+
     }
 
     //현재 선택한 슬롯에 아이템 추가
@@ -342,6 +408,26 @@ public class InventorySelectionManager : MonoBehaviour
         {
             // PlayerInventory가 비활성화면 핫바만 검사
             return isHotBarFull;
+        }
+    }
+
+    //핫바 첫 칸 선택
+    public void EnsureSelection()
+    {
+        if (SelectedSlot == null || SelectedInventoryUI == null)
+        {
+            var slots = typeof(InventoryUIManager)
+                .GetField("slots", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(hotBarUIManager) as List<GameObject>;
+
+            if (slots != null && slots.Count > 0 && slots[0] != null && slots[0].GetComponent<Slot>() != null)
+            {
+                SetSelection(slots[0], hotBarUIManager);
+            }
+            else
+            {
+                Debug.LogWarning("EnsureSelection: 핫바 슬롯이 아직 초기화되지 않았거나 Slot 컴포넌트가 없습니다.");
+            }
         }
     }
 }
