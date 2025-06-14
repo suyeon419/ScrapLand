@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class PlacementManager : MonoBehaviour
 {
-    public Transform playerHand; // 플레이어 손
+    public Transform player;
     public LayerMask floorLayer, wallLayer, ceilingLayer;
     public float placeDistance = 0.5f;
     public List<PlaceableItem> prefab;
@@ -58,6 +58,13 @@ public class PlacementManager : MonoBehaviour
         else
         {
             Destroy(this.gameObject);
+        }
+
+        if (player == null)
+        {
+            GameObject playerObj = GameObject.FindWithTag("Player");
+            player = playerObj.transform;
+                Debug.LogWarning("Player 태그를 가진 오브젝트를 찾을 수 없습니다.");
         }
     }
 
@@ -122,11 +129,13 @@ public class PlacementManager : MonoBehaviour
 
         previewItem.transform.rotation = placeRot;  // 미리보기 아이템에 즉시 회전 적용
 
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
         // 배치할 위치를 결정하는 로직 (미리보기 아이템 위치 설정)
         switch (item.placeType)
         {
             case PlaceType.Floor:
-                if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, floorLayer))
+                if (Physics.Raycast(ray, out hit, placeDistance, floorLayer))
                 {
                     if (item.name == "Old Chest")
                     {
@@ -138,9 +147,9 @@ public class PlacementManager : MonoBehaviour
                         placePos = hit.point + new Vector3(0, 0, 0); // 바닥에서 조금 더 위로 배치
                     }
                     // 플레이어와 너무 가까운지 체크하여 최소 거리 설정
-                    if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
+                    if (Vector3.Distance(placePos, player.position) < 0.5f)
                     {
-                        placePos = playerHand.position + playerHand.forward * 0.5f; // 최소 거리 0.5로 설정
+                        placePos = player.position + player.forward * 0.5f; // 최소 거리 0.5로 설정
                     }
                 }
                 else
@@ -152,13 +161,13 @@ public class PlacementManager : MonoBehaviour
             case PlaceType.Wall:
                 placePos = Vector3.zero; // placePos를 기본값으로 초기화
 
-                if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, wallLayer))
+                if (Physics.Raycast(ray, out hit, placeDistance, wallLayer))
                 {
                     placePos = hit.point;  // 벽에 설치될 위치
 
                     // 벽에 맞게 회전, 벽에 배치되지만, 플레이어가 바라보는 방향으로 앞을 유지하도록 설정
                     Vector3 wallNormal = hit.normal;  // 벽의 법선 벡터
-                    Vector3 playerDirection = playerHand.forward;  // 플레이어의 시선 방향
+                    Vector3 playerDirection = player.forward;  // 플레이어의 시선 방향
 
                     // 플레이어가 바라보는 벽의 '앞'에 배치되도록 설정
                     if (Vector3.Dot(wallNormal, playerDirection) < 0) // 벽의 법선 방향이 플레이어 방향과 반대일 때
@@ -174,11 +183,11 @@ public class PlacementManager : MonoBehaviour
                     placePos = hit.point + (wallNormal * 0.07f);  // 벽의 앞쪽에 조금 배치 (0.07f로 설정)
 
                     // 플레이어와 너무 가까워지지 않도록 0.5f 거리만큼 밀어냄
-                    float distanceToPlayer = Vector3.Distance(placePos, playerHand.position);
+                    float distanceToPlayer = Vector3.Distance(placePos, player.position);
                     if (distanceToPlayer < 0.5f)
                     {
                         // 아이템이 플레이어에게 너무 가까워지지 않도록 0.5f 거리만큼 밀어냄
-                        placePos = playerHand.position + playerHand.forward * 0.5f;  // 최소 거리 0.5 설정
+                        placePos = player.position + player.forward * 0.5f;  // 최소 거리 0.5 설정
                     }
 
                     // 벽에만 배치되도록 보장 (벽을 벗어나지 않게)
@@ -196,7 +205,7 @@ public class PlacementManager : MonoBehaviour
 
                         // 미리보기 아이템과 플레이어 간의 충돌을 무시
                         Collider previewItemCollider = previewItem.GetComponent<Collider>();
-                        Collider playerHandCollider = playerHand.GetComponent<Collider>();
+                        Collider playerHandCollider = player.GetComponent<Collider>();
 
                         if (previewItemCollider != null && playerHandCollider != null)
                         {
@@ -210,20 +219,20 @@ public class PlacementManager : MonoBehaviour
                     if (previewItem != null)
                     {
                         previewItem.SetActive(true);  // 미리보기 아이템을 계속 활성화
-                        previewItem.transform.position = playerHand.position;  // 위치를 플레이어 손 위치로 갱신
-                        previewItem.transform.rotation = playerHand.rotation;  // 회전도 갱신
+                        previewItem.transform.position = player.position;  // 위치를 플레이어 손 위치로 갱신
+                        previewItem.transform.rotation = player.rotation;  // 회전도 갱신
                     }
                 }
                 break;
 
             case PlaceType.Ceiling:
-                if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, ceilingLayer))
+                if (Physics.Raycast(ray, out hit, placeDistance, ceilingLayer))
                 {
                     placePos = hit.point + new Vector3(0, -1.8f, 0);  // 천장에서 조금 더 위로
                                                                       // 플레이어와 너무 가까운지 체크하여 최소 거리 설정
-                    if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
+                    if (Vector3.Distance(placePos, player.position) < 0.5f)
                     {
-                        placePos = playerHand.position + playerHand.forward * 0.5f; // 최소 거리 0.5로 설정
+                        placePos = player.position + player.forward * 0.5f; // 최소 거리 0.5로 설정
                     }
                 }
                 else

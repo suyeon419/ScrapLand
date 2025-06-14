@@ -22,6 +22,18 @@ public class NavSpawner : MonoBehaviour
     private Collider[] itemBoxColliders;
     private List<Vector3> spawnPositions = new List<Vector3>();
 
+    void Awake()
+    {
+        if (centerPoint == null)
+        {
+            GameObject obj = GameObject.Find("Map Portal pos");
+            if (obj != null)
+                centerPoint = obj.transform;
+            else
+                Debug.LogWarning("Map Portal pos를 찾을 수 없습니다.");
+        }
+    }
+
     void Start()
     {
         itemBoxColliders = FindObjectsOfType<Collider>();
