@@ -92,7 +92,7 @@ public class GameManager_ScrapLand : MonoBehaviour
             InitializeMachines();
             InitializeCompleted();
         }
-        else
+        else if (instance != this)
         {
             Destroy(this.gameObject);
         }
@@ -578,6 +578,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void SaveGame()
     {
+        Debug.Log("게임매니저에서 저장#############");
         PlayerInvenManager.SaveSellCounts();
         SetMachineData();
         SaveManager.instance.SaveGame();
@@ -585,6 +586,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void LoadGame()
     {
+        Debug.Log("게임매니저에서 로드.###############");
         if (itemUsages == null || machines == null || itemUsages.Count == 0 || machines.Count == 0 || Completed.Count == 0 || Completed == null)
         {
             InitializeMachines();
@@ -601,6 +603,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void ResetValues()
     {
+        Debug.Log("게임매니저에서 리셋#############");
         SetHappyGage(-1);
         SetDayNum(1);
         SetCoin(0);
