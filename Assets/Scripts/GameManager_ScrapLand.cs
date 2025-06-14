@@ -115,13 +115,13 @@ public class GameManager_ScrapLand : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name.Equals("PlayScene"))
         {
-            Debug.Log("플레이씬에서 온로드");
+            //Debug.Log("플레이씬에서 온로드");
             SetSettings();
             LoadGame();
         }
         else
         {
-            Debug.Log("플레이씬 XXXXXXXX 온로드");
+            //Debug.Log("플레이씬 XXXXXXXX 온로드");
             SaveManager.instance.LoadGame();
         }
     }
@@ -580,7 +580,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void SaveGame()
     {
-        Debug.Log("게임매니저에서 저장#############");
+        //Debug.Log("게임매니저에서 저장#############");
         PlayerInvenManager.SaveSellCounts();
         SetMachineData();
         SaveManager.instance.SaveGame();
@@ -588,7 +588,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void LoadGame()
     {
-        Debug.Log("게임매니저에서 로드.###############");
+        //Debug.Log("게임매니저에서 로드.###############");
         if (itemUsages == null || machines == null || itemUsages.Count == 0 || machines.Count == 0 || Completed.Count == 0 || Completed == null)
         {
             InitializeMachines();
@@ -605,7 +605,7 @@ public class GameManager_ScrapLand : MonoBehaviour
 
     public void ResetValues()
     {
-        Debug.Log("게임매니저에서 리셋#############");
+        //Debug.Log("게임매니저에서 리셋#############");
         SetHappyGage(-1);
         SetDayNum(1);
         SetCoin(0);

@@ -55,7 +55,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame()
     {
-        Debug.Log("세이브 시스템에서 저장#############");
+        //Debug.Log("세이브 시스템에서 저장#############");
         saveData.brightnessValue = GameManager_ScrapLand.instance.GetBrightness();
         saveData.bgmVolume = GameManager_ScrapLand.instance.GetBgmVolume();
         saveData.sfxVolume = GameManager_ScrapLand.instance.GetSfxVolume();
@@ -87,12 +87,12 @@ public class SaveManager : MonoBehaviour
     {
         if (!System.IO.File.Exists(saveFilePath))
         {
-            Debug.Log("세이브파일없어서 새로 만듦######");
+            //Debug.Log("세이브파일없어서 새로 만듦######");
             saveData = new SaveData();
             GameManager_ScrapLand.instance.ResetValues();
             return;
         }
-        Debug.Log("세이브 시스템에서 로드#############");
+        //Debug.Log("세이브 시스템에서 로드#############");
         string json = System.IO.File.ReadAllText(saveFilePath);
         saveData = JsonUtility.FromJson<SaveData>(json);
 
@@ -124,7 +124,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log((GameManager_ScrapLand.instance.GetDayNum() + "///" + SceneManager.GetActiveScene().name + SceneManager.GetActiveScene().Equals("PlayScene")));
         if (GameManager_ScrapLand.instance.GetDayNum() > 1 && SceneManager.GetActiveScene().name.Equals("PlayScene"))
         {
-            Debug.Log("인벤 데이터 복원합니다~ ##################");
+            //Debug.Log("인벤 데이터 복원합니다~ ##################");
             var backupData = InventorySaveSystem.LoadBackup(backupInven);
             InventorySaveSystem.RestoreInventoryFromBackup(backupData);
             PlayerInvenManager.instance.InvenClose();
@@ -133,19 +133,25 @@ public class SaveManager : MonoBehaviour
 
     public void ResetGame()
     {
-        Debug.Log("세이브 시스템에서 리셋#############");
+        //Debug.Log("세이브 시스템에서 리셋#############");
         saveData = new SaveData();
         if(System.IO.File.Exists(saveFilePath))
         {
             System.IO.File.Delete(saveFilePath);
             GameManager_ScrapLand.instance.ResetValues();
         }
-        if (System.IO.File.Exists(backupInven))
-        {
-            System.IO.File.Delete(Application.persistentDataPath + backupInven);
-        }
+        ResetBackup();
         PlayerInvenManager.ResetSellCounts();
         InventorySaveSystem.Reset(SceneManager.GetActiveScene().name);
+    }
+
+    void ResetBackup()
+    {
+        string path = Application.persistentDataPath + "/" + backupInven;
+        if (System.IO.File.Exists(path))
+        {
+            System.IO.File.Delete(path);
+        }
     }
 }
 
