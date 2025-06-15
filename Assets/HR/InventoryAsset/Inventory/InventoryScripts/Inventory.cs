@@ -728,17 +728,17 @@ namespace InventorySystem
             {
                 if (item == null)
                 {
-                    Debug.Log($"[HasEmptySlot] ½½·Ô {idx}: null (ºó ½½·Ô)");
+                    //Debug.Log($"[HasEmptySlot] ½½·Ô {idx}: null (ºó ½½·Ô)");
                     return true;
                 }
                 if (item.GetIsNull())
                 {
-                    Debug.Log($"[HasEmptySlot] ½½·Ô {idx}: GetIsNull() == true (ºó ½½·Ô)");
+                    //Debug.Log($"[HasEmptySlot] ½½·Ô {idx}: GetIsNull() == true (ºó ½½·Ô)");
                     return true;
                 }
                 idx++;
             }
-            Debug.Log("[HasEmptySlot] ¸ðµç ½½·ÔÀÌ °¡µæ Âü");
+            //Debug.Log("[HasEmptySlot] ¸ðµç ½½·ÔÀÌ °¡µæ Âü");
             return false;
         }
 

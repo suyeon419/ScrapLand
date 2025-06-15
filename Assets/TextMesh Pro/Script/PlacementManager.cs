@@ -40,6 +40,7 @@ public class PlacementManager : MonoBehaviour
         { "Table", 52 }
     };
 
+
     Dictionary<string, GameObject> itemPrefabs = new Dictionary<string, GameObject>();
 
     void Awake()
