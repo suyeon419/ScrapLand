@@ -3,6 +3,7 @@ using InventorySystem;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace Controller
 {
@@ -40,6 +41,38 @@ namespace Controller
         public AudioSource trashAoudi;
 
         private ThirdPersonCamera Camera;
+
+        #region Portal Zoom Feature
+        private Coroutine _zoomCoroutine;
+
+        public void AnimateZoom(float targetZoom, float duration)
+        {
+            if (_zoomCoroutine != null)
+            {
+                StopCoroutine(_zoomCoroutine);
+            }
+            _zoomCoroutine = StartCoroutine(ZoomCoroutine(targetZoom, duration));
+        }
+
+        private IEnumerator ZoomCoroutine(float targetZoom, float duration)
+        {
+            float startZoom = this.m_Zoom;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float newZoom = Mathf.Lerp(startZoom, targetZoom, elapsedTime / duration);
+
+                this.m_Zoom = newZoom;
+
+                yield return null;
+            }
+
+            this.m_Zoom = targetZoom;
+            _zoomCoroutine = null;
+        }
+        #endregion
 
         //인벤토리 꽉 찼는지 검사
 
