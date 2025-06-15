@@ -251,7 +251,7 @@ public class SewingMachineController : MonoBehaviour
             if (sewingObject != null)
             {
                 Destroy(sewingObject);
-                
+                ShopManager.Instance.machines[1].isOnMap = false;
                 SewingMachine = 5;
             }
         }
