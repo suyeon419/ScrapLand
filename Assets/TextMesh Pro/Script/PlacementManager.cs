@@ -1,18 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Controller;
 
 public class PlacementManager : MonoBehaviour
 {
-    public Transform playerHand; 
     public LayerMask floorLayer, wallLayer, ceilingLayer;
-    public float placeDistance = 0.5f;
+    public float placeDistance = 15f; 
     public List<PlaceableItem> prefab;
+    public Transform playerHand;
 
     private GameObject heldItem;
-    private GameObject previewItem;  
+    private GameObject previewItem;
     private bool isPreviewActive = false;
-    private ThirdPersonCamera thirdPersonCam;
+
+    private Camera mainCamera; 
 
     private static PlacementManager instance = null;
     public static PlacementManager Instance
@@ -54,10 +54,12 @@ public class PlacementManager : MonoBehaviour
                 {
                     itemPrefabs.Add(entry.itemName, entry.prefab);
                 }
+                else
+                {
+                    Debug.LogWarning($"Awake: '{entry.itemName}' 프리팹이 이미 itemPrefabs에 존재합니다.");
+                }
             }
-
         }
-
         else
         {
             Destroy(this.gameObject);
@@ -71,16 +73,22 @@ public class PlacementManager : MonoBehaviour
             else
                 Debug.LogWarning("Map Portal pos를 찾을 수 없습니다.");
         }
-        thirdPersonCam = FindObjectOfType<ThirdPersonCamera>();
-        if (thirdPersonCam == null)
+
+        mainCamera = Camera.main;
+        if (mainCamera == null)
         {
-            Debug.LogError("ThirdPersonCamera를 찾을 수 없");
+            Debug.LogError("메인 카메라 (태그: MainCamera)를 찾을 수 없습니다. 씬에 메인 카메라가 있고 'MainCamera' 태그가 지정되어 있는지 확인하세요.");
         }
     }
 
     void Update()
     {
         if (heldItem == null) return;
+        if (mainCamera == null)
+        {
+            Debug.LogError("메인 카메라가 없습니다. PlacementManager가 작동하지 않습니다.");
+            return;
+        }
 
         HandleRotation();
 
@@ -99,21 +107,30 @@ public class PlacementManager : MonoBehaviour
     {
         if (!itemPrefabs.ContainsKey(itemName))
         {
-            Debug.Log($"'{itemName}' 프리팹이 존재하지 않습니다.");
+            Debug.LogError($"SetHeldItem: '{itemName}'에 해당하는 프리팹이 itemPrefabs 딕셔너리에 없습니다. prefab 리스트에 PlaceableItem이 할당되었는지, itemName이 정확한지 확인하세요.");
             return;
         }
 
-        GameObject prefab = itemPrefabs[itemName];
-        heldItem = Instantiate(prefab);
-        heldItem.SetActive(false);  
+        GameObject prefabToInstantiate = itemPrefabs[itemName];
 
-        if (previewItem == null)
+        if (heldItem != null)
         {
-            previewItem = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-            previewItem.SetActive(true);
-            isPreviewActive = true;
-            SetPreviewItemTransparency(0.3f);
+            Destroy(heldItem);
         }
+        if (previewItem != null)
+        {
+            Destroy(previewItem);
+        }
+
+        heldItem = Instantiate(prefabToInstantiate);
+        heldItem.SetActive(false);
+        Debug.Log($"SetHeldItem: heldItem '{itemName}' 생성 및 비활성화됨.");
+
+        previewItem = Instantiate(prefabToInstantiate, Vector3.zero, Quaternion.identity);
+        previewItem.SetActive(true);
+        isPreviewActive = true;
+        SetPreviewItemTransparency(0.3f);
+        Debug.Log($"SetHeldItem: previewItem '{itemName}' 생성 및 활성화됨.");
     }
 
     void HandleRotation()
@@ -126,7 +143,7 @@ public class PlacementManager : MonoBehaviour
 
     void UpdatePreviewItem()
     {
-        if (previewItem == null || thirdPersonCam == null) return;
+        if (previewItem == null || mainCamera == null) return; // thirdPersonCam 대신 mainCamera 사용
 
         PlaceableItem item = heldItem.GetComponent<PlaceableItem>();
         if (item == null) return;
@@ -135,165 +152,132 @@ public class PlacementManager : MonoBehaviour
         Quaternion placeRot = heldItem.transform.rotation;
         RaycastHit hit;
 
-        previewItem.transform.rotation = placeRot;  
+        previewItem.transform.rotation = placeRot;
+
+        Vector3 rayOrigin = mainCamera.transform.position;
+        Vector3 rayDirection = mainCamera.transform.forward;
+
+        Debug.DrawRay(rayOrigin, rayDirection * placeDistance, Color.yellow); // 미리보기 레이 시각화
 
         switch (item.placeType)
         {
             case PlaceType.Floor:
-                if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, floorLayer))
+                if (Physics.Raycast(rayOrigin, rayDirection, out hit, placeDistance, floorLayer))
                 {
-                    if (item.name == "Old Chest")
+                    if (item.name.Contains("Old Chest")) 
                     {
-                        placePos = hit.point + new Vector3(0, 0.5f, 0); 
+                        placePos = hit.point + new Vector3(0, 0.5f, 0);
                     }
-
                     else
                     {
-                        placePos = hit.point + new Vector3(0, 0, 0); 
+                        placePos = hit.point; 
                     }
 
-                    if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
+                    if (Vector3.Distance(placePos, rayOrigin) < 0.5f)
                     {
-                        placePos = playerHand.position + playerHand.forward * 0.5f; 
+                        placePos = rayOrigin + rayDirection * 0.5f;
                     }
+
+                    if (!previewItem.activeSelf) previewItem.SetActive(true);
+                    previewItem.transform.position = placePos;
+                    previewItem.transform.rotation = placeRot;
                 }
                 else
                 {
+                    if (previewItem.activeSelf) previewItem.SetActive(false); 
                     return;
                 }
                 break;
 
             case PlaceType.Wall:
-                if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, wallLayer))
+                if (Physics.Raycast(rayOrigin, rayDirection, out hit, placeDistance, wallLayer))
                 {
-                    float minDistanceToWall = 0.6f; 
+                    float minDistanceToWall = 0.6f;
                     if (hit.distance < minDistanceToWall)
                     {
-                        if (previewItem != null)
-                        {
-                            previewItem.SetActive(false);
-                        }
-                        return; 
+                        if (previewItem.activeSelf) previewItem.SetActive(false);
+                        return;
                     }
 
-                    Vector3 wallNormal = hit.normal;  
-                                                      
+                    Vector3 wallNormal = hit.normal;
                     placePos = hit.point + wallNormal * 0.07f;
 
-                    placeRot = Quaternion.LookRotation(-wallNormal, Vector3.up);
+                    placeRot = Quaternion.LookRotation(-wallNormal, Vector3.up); 
 
-                    placeRot *= Quaternion.Euler(0, 180, 0);
-
-                    if (previewItem != null)
-                    {
-                        previewItem.SetActive(true); 
-                        previewItem.transform.position = placePos; 
-                        previewItem.transform.rotation = placeRot; 
-                    }
-                }
-                else 
-                {
-                    if (previewItem != null)
-                    {
-                        previewItem.SetActive(false);
-                    }
-                    return; 
-                }
-                break; 
-
-            case PlaceType.Ceiling:
-                if (Physics.Raycast(playerHand.position, Vector3.up, out hit, placeDistance, ceilingLayer))
-                {
-                    placePos = hit.point + new Vector3(0, -1.8f, 0); 
-                                                                      
-                    if (Vector3.Distance(placePos, playerHand.position) < 0.5f)
-                    {
-                        placePos = playerHand.position + playerHand.forward * 0.5f; 
-                    }
+                    if (!previewItem.activeSelf) previewItem.SetActive(true);
+                    previewItem.transform.position = placePos;
+                    previewItem.transform.rotation = placeRot;
                 }
                 else
+                {
+                    if (previewItem.activeSelf) previewItem.SetActive(false);
                     return;
+                }
+                break;
+
+            case PlaceType.Ceiling:
+                if (playerHand == null)
+                {
+                    Debug.LogWarning("playerHand가 할당되지 않아 천장 아이템 미리보기가 불가능합니다.");
+                    return;
+                }
+
+                Debug.DrawRay(playerHand.position, Vector3.up * placeDistance, Color.cyan);
+
+                if (Physics.Raycast(playerHand.position, Vector3.up, out hit, placeDistance, ceilingLayer))
+                {
+                    float forwardOffset = 0.5f;
+                    placePos = hit.point + new Vector3(0, -1.8f, 0); 
+                    placePos += playerHand.forward * forwardOffset;
+
+                    previewItem.transform.position = placePos;
+                    previewItem.transform.rotation = placeRot;
+                }
                 break;
 
             default:
+                if (previewItem.activeSelf) previewItem.SetActive(false); 
                 return;
         }
-
-        previewItem.transform.position = placePos;
-        previewItem.transform.rotation = placeRot;
 
         Collider previewCollider = previewItem.GetComponent<Collider>();
         if (previewCollider != null)
         {
-            previewCollider.enabled = false;  // 콜라이더 비활성화
+            previewCollider.enabled = false; 
         }
     }
 
     void TryPlaceItem()
     {
-        if (previewItem == null) return; 
+        if (previewItem == null) return;
 
         PlaceableItem item = heldItem.GetComponent<PlaceableItem>();
-        if (item == null) return; 
-
-        Vector3 finalPlacePos = Vector3.zero; 
-        Quaternion finalPlaceRot = Quaternion.identity; 
+        if (item == null) return;
 
         if (!previewItem.activeSelf)
         {
+            Debug.Log("미리보기 위치가 유효하지 않아 아이템을 배치할 수 없습니다.");
             return;
         }
 
-        switch (item.placeType)
-        {
-            case PlaceType.Wall: 
-                RaycastHit hit;
-                if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, wallLayer))
-                {
-                    float minDistanceToWall = 0.6f;
-                    if (hit.distance < minDistanceToWall)
-                    {
-                        Debug.Log("벽에 너무 가까워서 배치할 수 없습니다.");
-                        return; 
-                    }
-
-                    Vector3 wallNormal = hit.normal;
-                    finalPlacePos = hit.point + wallNormal * 0.07f;
-                    finalPlaceRot = Quaternion.LookRotation(-wallNormal, Vector3.up); 
-                    finalPlaceRot *= Quaternion.Euler(0, 180, 0); 
-                }
-                else
-                {
-                    return; 
-                }
-                break;
-
-            case PlaceType.Floor: 
-            case PlaceType.Ceiling: 
-                                    
-                finalPlacePos = previewItem.transform.position;
-                finalPlaceRot = previewItem.transform.rotation;
-                break;
-
-            default:
-                return;
-        }
+        Vector3 finalPlacePos = previewItem.transform.position;
+        Quaternion finalPlaceRot = previewItem.transform.rotation;
 
         GameObject placedObject = Instantiate(heldItem, finalPlacePos, finalPlaceRot);
-        placedObject.SetActive(true); 
+        placedObject.SetActive(true);
 
         Collider placedCollider = placedObject.GetComponent<Collider>();
         if (placedCollider != null)
         {
-            placedCollider.enabled = true; 
+            placedCollider.enabled = true;
         }
 
-        Destroy(heldItem); 
+        Destroy(heldItem);
         heldItem = null;
 
         Destroy(previewItem);
-        previewItem = null; 
-        isPreviewActive = false; 
+        previewItem = null;
+        isPreviewActive = false;
 
         UpdatePlacementInfo(item.itemName, finalPlacePos, finalPlaceRot);
     }
@@ -304,9 +288,16 @@ public class PlacementManager : MonoBehaviour
         if (itemScores.ContainsKey(itemName))
         {
             Vector3 rotationEuler = placeRot.eulerAngles;
-            HappyEarth.instance.Install_Interior(itemName, itemScores[itemName], placePos, rotationEuler);
-            int score = itemScores[itemName];
-            Debug.Log($"{itemName} 배치됨. 점수: {score}");
+            if (HappyEarth.instance != null)
+            {
+                HappyEarth.instance.Install_Interior(itemName, itemScores[itemName], placePos, rotationEuler);
+                int score = itemScores[itemName];
+                Debug.Log($"{itemName} 배치됨. 점수: {score}");
+            }
+            else
+            {
+                Debug.LogWarning("HappyEarth.instance를 찾을 수 없습니다. 점수 업데이트가 불가능합니다.");
+            }
         }
         else
         {
@@ -329,17 +320,17 @@ public class PlacementManager : MonoBehaviour
                     if (material.HasProperty("_Color"))
                     {
                         Color color = material.color;
-                        color = new Color(0f / 255f, 255f / 255f, 255f / 255f, alpha);
+                        color = new Color(0f, 255f / 255f, 255f / 255f, alpha);
                         material.color = color;
 
-                        material.SetFloat("_Mode", 3); // Transparent 모드로 설정
+                        material.SetFloat("_Mode", 3); 
                         material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
                         material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                        material.SetInt("_ZWrite", 0);
+                        material.SetInt("_ZWrite", 0); 
                         material.DisableKeyword("_ALPHATEST_ON");
                         material.EnableKeyword("_ALPHABLEND_ON");
                         material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                        material.renderQueue = 3000;
+                        material.renderQueue = 3000; 
                     }
                 }
             }
