@@ -587,6 +587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Compressor
   placeType: 0
+  prefab: {fileID: 3727913305909142402}
 --- !u!1 &3752796211477714825
 GameObject:
   m_ObjectHideFlags: 0
