@@ -76,8 +76,11 @@ public class BtnAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             case btnType.Back:
                 transform.parent.gameObject.SetActive(false);
                 GameManager_ScrapLand.instance.SetSensOrigin();
-                PlayerInvenManager.instance.HotBar_Bar.gameObject.SetActive(true);
-                PlayerInvenManager.instance.HotBar_Background.gameObject.SetActive(true);
+                if(PlayerInvenManager.instance != null)
+                {
+                    PlayerInvenManager.instance.HotBar_Bar.gameObject.SetActive(true);
+                    PlayerInvenManager.instance.HotBar_Background.gameObject.SetActive(true);
+                }
                 break;
 
         }
