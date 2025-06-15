@@ -85,6 +85,10 @@ public class PlacementManager : MonoBehaviour
 
     void Update()
     {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
         if (heldItem == null) return;
         if (mainCamera == null)
         {
