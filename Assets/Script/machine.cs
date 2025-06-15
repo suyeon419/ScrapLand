@@ -4,7 +4,9 @@ using UnityEngine;
 using TMPro;
 using System.Threading;
 using UnityEditor;
-using static UnityEditor.Progress;
+#if UNITY_EDITOR
+using static UnityEditor.Progress; // 에디터 전용 코드
+#endif
 
 
 namespace Controller
