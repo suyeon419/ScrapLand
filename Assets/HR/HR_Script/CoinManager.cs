@@ -28,7 +28,7 @@ public class CoinManager : MonoBehaviour
     //public TextMeshProUGUI MachineShop_CoinText; //기계 구매 상점
 
     //디버깅용
-    public TextMeshProUGUI HappyText;
+    //public TextMeshProUGUI HappyText;
 
     void Awake()
     {

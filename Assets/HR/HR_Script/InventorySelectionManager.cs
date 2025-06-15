@@ -72,11 +72,15 @@ public class InventorySelectionManager : MonoBehaviour
                     Debug.LogWarning("핫바 슬롯이 아직 초기화되지 않았습니다. Start() 이후에 슬롯이 생성될 수 있습니다.");
                 }*/
         EnsureSelection();
+        // 선택된 슬롯의 상태 갱신
+        if (SelectedSlot != null && SelectedInventoryUI != null)
+            SetSelection(SelectedSlot, SelectedInventoryUI);
+        //OnSlotClicked(); // 초기 슬롯 클릭 이벤트 호출
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+/*        if (Input.GetKeyDown(KeyCode.P))
         {
             //RemoveSelectedHotBarItem();
             AddItemToSelectedSlot("Hat");
@@ -87,11 +91,11 @@ public class InventorySelectionManager : MonoBehaviour
             RemoveItemFromAllInventories("Hat", 3);
             //InventoryController.instance.AddItemPos("HotBar", "Hat", 5);
             //Debug.Log(CheckInvenFull());
-/*            bool hasHotBarEmpty = InventoryController.instance.GetInventory("HotBar").HasEmptySlot();
+*//*            bool hasHotBarEmpty = InventoryController.instance.GetInventory("HotBar").HasEmptySlot();
             bool hasPlayerInventoryEmpty = InventoryController.instance.GetInventory("PlayerInventory").HasEmptySlot();
-            Debug.Log($"핫바 빈 슬롯: {hasHotBarEmpty}, 플레이어 인벤토리 빈 슬롯: {hasPlayerInventoryEmpty}");*/
+            Debug.Log($"핫바 빈 슬롯: {hasHotBarEmpty}, 플레이어 인벤토리 빈 슬롯: {hasPlayerInventoryEmpty}");*//*
 
-        }
+        }*/
     }
 
     public static void SetSelection(GameObject slot, InventoryUIManager inventoryUIManager)
@@ -205,7 +209,7 @@ public class InventorySelectionManager : MonoBehaviour
 
             if (item != null && !item.GetIsNull())
             {
-                DebugText.text = $"선택된 아이템: {item.GetItemType()}";
+                //DebugText.text = $"선택된 아이템: {item.GetItemType()}";
                 string itemType = item.GetItemType();
 
                 PlacementManager.Instance.SetHeldItem(itemType);
@@ -234,7 +238,7 @@ public class InventorySelectionManager : MonoBehaviour
             }
             else
             {
-                DebugText.text = "선택된 슬롯에 아이템이 없습니다.";
+                //DebugText.text = "선택된 슬롯에 아이템이 없습니다.";
                 // PlacementManager.Instance.SetHeldItem(null); // 필요시 주석 해제
             }
         }
@@ -429,5 +433,6 @@ public class InventorySelectionManager : MonoBehaviour
                 Debug.LogWarning("EnsureSelection: 핫바 슬롯이 아직 초기화되지 않았거나 Slot 컴포넌트가 없습니다.");
             }
         }
+
     }
 }
