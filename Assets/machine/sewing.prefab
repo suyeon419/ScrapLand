@@ -1794,7 +1794,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: SewingMachine
   placeType: 0
-  prefab: {fileID: 9064511618312506645}
 --- !u!1 &9075949339992415028
 GameObject:
   m_ObjectHideFlags: 0
