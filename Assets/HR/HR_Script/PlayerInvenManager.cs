@@ -22,7 +22,7 @@ public class PlayerInvenManager : MonoBehaviour
     public GameObject Inven_Background;
     public GameObject HotBar_Background;
     public RectTransform HotBar_Bar;
-    public Button CloseBtn;
+    //public Button CloseBtn;
 
     public bool InvenMode; //인벤이 켜져 있는 상황
     public bool IsBagOn = false; //내부 인벤 확장
@@ -116,28 +116,33 @@ public class PlayerInvenManager : MonoBehaviour
             }
         }
 
-/*        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.P)) //Esc키로 인벤 닫기
         {
-            AddItemToHotBarOrPlayerInventory("Old Chest");
+            AddItemToHotBarOrPlayerInventory("Bench");
         }
 
-        if( Input.GetKeyDown(KeyCode.M))
-        {
-            Debug.Log("백업 파일로 인벤토리 저장 시도");
-            InventorySaveSystem.SaveInventoryWithBackup(
-                InventoryController.instance.GetInventoryManager(),
-                UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
-                backupFileName
-            );
-        }*/
+        /*        if (Input.GetKeyDown(KeyCode.I))
+                {
+                    AddItemToHotBarOrPlayerInventory("Old Chest");
+                }
 
-/*        if (Input.GetKeyDown(KeyCode.N))
-        {
-            Debug.Log("백업 파일에서 인벤토리 불러오기 시도");
-            var backupData = InventorySaveSystem.LoadBackup(backupFileName);
-            InventorySaveSystem.RestoreInventoryFromBackup(backupData);
-            InvenClose(); // 인벤토리 닫기
-        }*/
+                if( Input.GetKeyDown(KeyCode.M))
+                {
+                    Debug.Log("백업 파일로 인벤토리 저장 시도");
+                    InventorySaveSystem.SaveInventoryWithBackup(
+                        InventoryController.instance.GetInventoryManager(),
+                        UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
+                        backupFileName
+                    );
+                }*/
+
+        /*        if (Input.GetKeyDown(KeyCode.N))
+                {
+                    Debug.Log("백업 파일에서 인벤토리 불러오기 시도");
+                    var backupData = InventorySaveSystem.LoadBackup(backupFileName);
+                    InventorySaveSystem.RestoreInventoryFromBackup(backupData);
+                    InvenClose(); // 인벤토리 닫기
+                }*/
     }
 
     public void Debug_GetItem()
@@ -303,11 +308,5 @@ public class PlayerInvenManager : MonoBehaviour
             itemSellCounts[itemType]++;
         else
             itemSellCounts[itemType] = 1;
-    }
-
-    public static void ClearSellCounts() //몰라
-    {
-        itemSellCounts.Clear();
-        SaveSellCounts(); // 초기화 후 저장
     }
 }
