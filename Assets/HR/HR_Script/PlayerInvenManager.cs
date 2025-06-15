@@ -116,7 +116,7 @@ public class PlayerInvenManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+/*        if (Input.GetKeyDown(KeyCode.I))
         {
             AddItemToHotBarOrPlayerInventory("Old Chest");
         }
@@ -129,15 +129,15 @@ public class PlayerInvenManager : MonoBehaviour
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
                 backupFileName
             );
-        }
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.N))
+/*        if (Input.GetKeyDown(KeyCode.N))
         {
             Debug.Log("백업 파일에서 인벤토리 불러오기 시도");
             var backupData = InventorySaveSystem.LoadBackup(backupFileName);
             InventorySaveSystem.RestoreInventoryFromBackup(backupData);
             InvenClose(); // 인벤토리 닫기
-        }
+        }*/
     }
 
     public void Debug_GetItem()
@@ -257,6 +257,9 @@ public class PlayerInvenManager : MonoBehaviour
                 Debug.Log("PlayerInventory가 비활성화 상태입니다.");
             }
         }
+
+        InventorySelectionManager.Instance.OnSlotClicked();
+
     }
 
     // 아이템별 해피포인트 저장 및 불러오기

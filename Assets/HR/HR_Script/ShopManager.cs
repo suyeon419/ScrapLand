@@ -186,7 +186,8 @@ public class ShopManager : MonoBehaviour
             {
                 Debug.Log($"아이템 '{itemType}'은 해피포인트 제한 도달");
             }
-            CoinManager.Instance.HappyText.text = $"{CoinManager.Instance.HappyP}";
+            //CoinManager.Instance.HappyText.text = $"{CoinManager.Instance.HappyP}";
+            //디버깅용 해피포인트 출력
 
             //판매 횟수 증가
             PlayerInvenManager.IncrementSellCount(itemType);
