@@ -171,7 +171,7 @@ public class PlacementManager : MonoBehaviour
             case PlaceType.Floor:
                 if (Physics.Raycast(rayOrigin, rayDirection, out hit, placeDistance, floorLayer))
                 {
-                    if (item.name.Contains("Old Chest")) 
+                    if (item.name.Contains("Old Chest")|| item.name.Contains("Grinder") || item.name.Contains("SewingMachine")) 
                     {
                         placePos = hit.point + new Vector3(0, 0.5f, 0);
                     }
