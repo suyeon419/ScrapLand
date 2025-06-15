@@ -12,7 +12,6 @@ public class InventorySelectionManager : MonoBehaviour
     public static InventoryUIManager SelectedInventoryUI { get; private set; }
 
     // 손에 들기
-    public TextMeshProUGUI DebugText; //디버그용 텍스트
     public GameObject Handpos; //손에 들기 위치 오브젝트
 
     // 인벤토리 매니저 딕셔너리 선언
@@ -22,6 +21,16 @@ public class InventorySelectionManager : MonoBehaviour
     public InventoryUIManager hotBarUIManager;
     public InventoryUIManager playerInventoryUIManager;
     public InventoryController inventoryController; // 인벤토리 컨트롤러
+
+    // 인테리어 및 기계 아이템 목록
+    private static readonly HashSet<string> InteriorItems = new HashSet<string>
+{
+    "Plastic Pot", "Can Pot", "Glass Pot", "Table", "Bench", "Old Chest", "Mobile", "Clock"
+};
+    private static readonly HashSet<string> MachineItems = new HashSet<string>
+{
+    "SewingMachine", "Filature", "BlastFurnace", "Grinder", "Compressor"
+};
 
     private void Awake()
     {

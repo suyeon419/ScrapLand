@@ -1,11 +1,12 @@
+using InventorySystem;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using System.IO;
-using InventorySystem;
 using System.Collections.Generic;
+using System.IO;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class ShopManager : MonoBehaviour
 {
@@ -47,6 +48,17 @@ public class ShopManager : MonoBehaviour
     public List<MachineData> machines = new List<MachineData>();
     private MachineData selectedMachine;
     public TextMeshProUGUI machinePriceText;
+    public UnityEngine.UI.Button purchaseButton;
+
+    private static readonly Dictionary<string, string> MachineNameMap = new Dictionary<string, string>
+    {
+        { "Grinder", "분쇄기" },
+        { "SewingMachine", "재봉틀" },
+        { "Filature", "방적기" },
+        { "Compressor", "압축기" },
+        { "BlastFurnace", "용광로" }
+    };
+
 
     //물건 판매
     public Inventory playerInventory;
@@ -210,6 +222,33 @@ public class ShopManager : MonoBehaviour
     /// </summary>
     /// <param name="index"></param>
 
+    /*    public void SelectMachine(int index)
+        {
+            if (index < 0 || index >= machines.Count)
+                return;
+
+            selectedMachine = machines[index];
+            UpdateMachineUI(selectedMachine);
+        }*/
+
+    /*    public void UpdateMachineUI(MachineData machine)
+        {
+            if (selectedMachine.isOnMap)
+            {
+                FirstP.text = "이미 설치된 기계입니다.";
+                Debug.Log("이미 설치된 기계입니다.");
+                purchaseButton.interactable = false; // 구매 버튼 비활성화
+            }
+            if (!selectedMachine.isPurchased)
+            {
+                FirstP.text = "첫 구매 100 코인";
+            }
+
+            machineNameText.text = machine.machineName;
+            machineDescriptionText.text = machine.description;
+            machineImage.sprite = machine.image;
+        }*/
+
     public void SelectMachine(int index)
     {
         if (index < 0 || index >= machines.Count)
@@ -221,9 +260,20 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateMachineUI(MachineData machine)
     {
-        if (!selectedMachine.isPurchased)
+        if (machine.isOnMap)
+        {
+            FirstP.text = "이미 설치된 기계입니다.";
+            Debug.Log("이미 설치된 기계입니다.");
+            purchaseButton.interactable = false; // 구매 버튼 비활성화
+        }
+        else if (!machine.isPurchased)
         {
             FirstP.text = "첫 구매 100 코인";
+            purchaseButton.interactable = true;
+        }
+        else
+        {
+            purchaseButton.interactable = true;
         }
 
         machineNameText.text = machine.machineName;
@@ -255,6 +305,7 @@ public class ShopManager : MonoBehaviour
         if (selectedMachine.isOnMap)
         {
             FirstP.text = "이미 설치된 기계입니다.";
+            Debug.Log("이미 설치된 기계입니다.");
             return;
         }
 
@@ -276,6 +327,8 @@ public class ShopManager : MonoBehaviour
 
             //인벤토리에 기계 추가
             InventoryController.instance.AddItem("HotBar", selectedMachine.relatedItem.GetItemType(), 1);
+
+            //selectedMachine.isOnMap = true; // 맵에 배치 상태로 변경
         }
         else
         {
@@ -285,6 +338,33 @@ public class ShopManager : MonoBehaviour
 
         UpdateAllMachinePrices(); // 모든 기계의 가격 업데이트
     }
+
+    public void GetOnMachine(string machineName, bool value)
+    {
+        // 영어 이름이면 한글로 변환
+        if (MachineNameMap.TryGetValue(machineName, out string koreanName))
+        {
+            machineName = koreanName;
+        }
+
+        foreach (var machine in machines)
+        {
+            if (machine.machineName.Trim().Equals(machineName.Trim(), System.StringComparison.OrdinalIgnoreCase))
+            {
+                machine.isOnMap = value;
+                Debug.Log($"{machineName}의 isOnMap이 {value}로 설정되었습니다.");
+
+                // 선택된 기계가 이 기계라면 UI 갱신
+                if (selectedMachine == machine)
+                {
+                    UpdateMachineUI(selectedMachine);
+                }
+                return;
+            }
+        }
+        Debug.LogWarning($"{machineName} 이름의 기계를 찾을 수 없습니다.");
+    }
+
 }
 
 //기계 클래스

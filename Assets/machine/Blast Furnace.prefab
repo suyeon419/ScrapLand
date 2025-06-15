@@ -489,6 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: BlastFurnace
   placeType: 0
+  prefab: {fileID: 5819632450982894236}
 --- !u!1 &6425283684852025746
 GameObject:
   m_ObjectHideFlags: 0

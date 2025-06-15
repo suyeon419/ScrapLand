@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
 
     public void CloseAllPanels()
     {
+        GlobalCanvasManager.instance.ActiveOptionPanel(false);
+        GlobalCanvasManager.instance.ActiveTutoPanel(false);
         foreach (var panel in uiPanels)
             panel.SetActive(false);
     }

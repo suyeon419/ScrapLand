@@ -115,3 +115,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Filature
   placeType: 0
+  prefab: {fileID: 3882906660563969058}
