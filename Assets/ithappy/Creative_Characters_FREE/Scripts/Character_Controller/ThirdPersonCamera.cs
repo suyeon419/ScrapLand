@@ -1,4 +1,4 @@
-using GLTF.Schema;
+//using GLTF.Schema;
 using InventorySystem;
 using UnityEngine;
 using UnityEngine.UIElements;
