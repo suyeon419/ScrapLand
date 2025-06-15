@@ -10,7 +10,7 @@ public class Test : MonoBehaviour
     {
         if (!test)
         {
-            PlacementManager.Instance.SetHeldItem("BlastFurnace");
+            PlacementManager.Instance.SetHeldItem("Grinder");
             test = true;
         }
     }
