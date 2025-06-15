@@ -8,58 +8,51 @@ using UnityEditor;
 
 public class BlockController : MonoBehaviour
 {
-    [SerializeField] private bool _machine;
-    [SerializeField] private bool _breaker;
-    [SerializeField] private bool _blastFurnace;
-    [SerializeField] private bool _compressor;
+    public static BlockController Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+            Instance = this;
+    }
 
     public bool machine
     {
-        get => _machine;
+        get => ShopManager.Instance.machines[2].isPurchased;
         set
         {
-            if (_machine != value)
-            {
-                _machine = value;
-                UpdateAllUI();
-            }
+            ShopManager.Instance.machines[2].isPurchased = value;
+            UpdateAllUI();
         }
     }
 
     public bool blastFurnace
     {
-        get => _blastFurnace;
+        get => ShopManager.Instance.machines[4].isPurchased;
         set
         {
-            if (_blastFurnace != value)
-            {
-                _blastFurnace = value;
-                UpdateAllUI();
-            }
+            ShopManager.Instance.machines[4].isPurchased = value;
+            UpdateAllUI();
         }
     }
     public bool breaker
     {
-        get => _breaker;
+        get => ShopManager.Instance.machines[0].isPurchased;
         set
         {
-            if (_breaker != value)
-            {
-                _breaker = value;
-                UpdateAllUI();
-            }
+            ShopManager.Instance.machines[0].isPurchased = value;
+            UpdateAllUI();
         }
     }
     public bool compressor
     {
-        get => _compressor;
+        get => ShopManager.Instance.machines[3].isPurchased;
         set
         {
-            if (_compressor != value)
-            {
-                _compressor = value;
-                UpdateAllUI();
-            }
+            ShopManager.Instance.machines[3].isPurchased = value;
+            UpdateAllUI();
         }
     }
 
@@ -132,15 +125,24 @@ public class BlockController : MonoBehaviour
             return;
         }
 
-        // 조건식은 의도대로 사용하세요.
-        bool MB = _machine && _blastFurnace && _breaker;
-        bool MC = _machine && _compressor;
-        bool BC = _blastFurnace && _breaker && _compressor;
+        if (ShopManager.Instance == null || ShopManager.Instance.machines.Count < 5)
+            return;
+
+        // 각 기계의 구매 상태 직접 참조
+        bool machinePurchased = ShopManager.Instance.machines[2].isPurchased;
+        bool breakerPurchased = ShopManager.Instance.machines[0].isPurchased;
+        bool blastFurnacePurchased = ShopManager.Instance.machines[4].isPurchased;
+        bool compressorPurchased = ShopManager.Instance.machines[3].isPurchased;
+
+        bool MB = machinePurchased && blastFurnacePurchased && breakerPurchased;
+        bool MC = machinePurchased && compressorPurchased;
+        bool BC = blastFurnacePurchased && breakerPurchased && compressorPurchased;
 
 
-        SetUIState(_m_block, !_machine, "m_block");
-        SetUIState(_b_block, !_blastFurnace, "b_block");
-        SetUIState(_c_block, !_compressor, "c_block");
+        // UI 갱신
+        SetUIState(_m_block, !machinePurchased, "m_block");
+        SetUIState(_b_block, !blastFurnacePurchased, "b_block");
+        SetUIState(_c_block, !compressorPurchased, "c_block");
 
         SetUIState(_mb_block, !MB, "mb_block");
         SetUIState(_mc_block, !MC, "mc_block");
