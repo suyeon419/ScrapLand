@@ -8,12 +8,10 @@ public class Test : MonoBehaviour
 
     void Update()
     {
-        /*
         if (!test)
         {
             PlacementManager.Instance.SetHeldItem("Grinder");
             test = true;
         }
-        */
     }
 }
