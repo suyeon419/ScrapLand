@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class PlacementManager : MonoBehaviour
 {
@@ -278,6 +279,15 @@ public class PlacementManager : MonoBehaviour
         Destroy(previewItem);
         previewItem = null;
         isPreviewActive = false;
+
+        if (item.tag == "BlastFurnace" || item.tag == "breaker" || item.tag == "compressor" || item.tag == "machine" || item.tag == "sewing")
+        {
+            if (!itemPrefabs.ContainsKey(item.itemName))
+            {
+                Debug.Log(item.itemName);
+                ShopManager.Instance.GetOnMachine(item.itemName, true);
+            }
+        }
 
         UpdatePlacementInfo(item.itemName, finalPlacePos, finalPlaceRot);
     }
