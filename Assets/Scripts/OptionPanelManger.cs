@@ -2,6 +2,8 @@ using Controller;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
+using InventorySystem;
+using UnityEngine.UI;
 
 public class GlobalCanvasManager : MonoBehaviour
 {
@@ -32,13 +34,15 @@ public class GlobalCanvasManager : MonoBehaviour
         {
             if (DaySummery.instance.IsActiveSummeryPannel())
             {
-                GlobalCanvasManager.instance.StopCamMoving();
+                StopCamMoving();
                 return;
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            bool willOpen = !optionPanel.activeSelf;
+
             if (optionPanel.activeSelf) 
             {
                 GameManager_ScrapLand.instance.SetSensOrigin();
@@ -48,11 +52,21 @@ public class GlobalCanvasManager : MonoBehaviour
                 StopCamMoving();
             }
             optionPanel.SetActive(!optionPanel.activeSelf);
+
+            // 핫바 활성/비활성화
+            if (PlayerInvenManager.instance != null && PlayerInvenManager.instance.HotBar_Bar != null)
+                PlayerInvenManager.instance.HotBar_Bar.gameObject.SetActive(!willOpen);
+            if (PlayerInvenManager.instance != null && PlayerInvenManager.instance.HotBar_Background != null)
+                PlayerInvenManager.instance.HotBar_Background.gameObject.SetActive(!willOpen);
+
+
         }
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            if (TutoPanel.activeSelf) 
+            bool willOpen = !TutoPanel.activeSelf;
+
+            if (TutoPanel.activeSelf)
             {
                 GameManager_ScrapLand.instance.SetSensOrigin();
             }
@@ -61,9 +75,18 @@ public class GlobalCanvasManager : MonoBehaviour
                 StopCamMoving();
             }
             TutoPanel.SetActive(!TutoPanel.activeSelf);
+
+            // 핫바 활성/비활성화
+            if (PlayerInvenManager.instance != null)
+            {
+                if (PlayerInvenManager.instance.HotBar_Bar != null)
+                    PlayerInvenManager.instance.HotBar_Bar.gameObject.SetActive(!willOpen);
+                if (PlayerInvenManager.instance.HotBar_Background != null)
+                    PlayerInvenManager.instance.HotBar_Background.gameObject.SetActive(!willOpen);
+            }
         }
 
-        if(!mainBtn.activeSelf && SceneManager.GetActiveScene().buildIndex != 0)
+        if (!mainBtn.activeSelf && SceneManager.GetActiveScene().buildIndex != 0)
         {
             mainBtn.SetActive(true);
         }

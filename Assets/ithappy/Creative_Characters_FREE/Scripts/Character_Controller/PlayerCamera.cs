@@ -17,7 +17,7 @@ namespace Controller
         private float m_SensitivityY = 0.1f;
 
         [SerializeField, Range(0f, 1f)]
-        private float m_Zoom = 0.5f;
+        protected float m_Zoom = 0.5f;
         [SerializeField, Range(0f, 1f)]
         private float m_SensetivityZoom = 0.1f;
 
