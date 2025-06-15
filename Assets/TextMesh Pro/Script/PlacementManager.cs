@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class PlacementManager : MonoBehaviour
 {
     public LayerMask floorLayer, wallLayer, ceilingLayer;
-    public float placeDistance = 15f; 
+    public float placeDistance = 50f; 
     public List<PlaceableItem> prefab;
     public Transform playerHand;
 
