@@ -313,6 +313,7 @@ public class ShopManager : MonoBehaviour
         {
             coinManager.coin -= selectedMachine.currentPrice;
             selectedMachine.isPurchased = true;
+            BlockController.Instance.ForceUIUpdate();
 
             coinManager.CoinText.text = $"Coin: {coinManager.coin:N0}";
             Debug.Log($"{selectedMachine.machineName},{selectedMachine.currentPrice} 구매 성공!");
