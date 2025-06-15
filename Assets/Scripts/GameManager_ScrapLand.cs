@@ -442,12 +442,12 @@ public class GameManager_ScrapLand : MonoBehaviour
             machine.activate = active;
         }
     }
-    public void SetPurchased_Machines(string name, bool active)
+    public void SetPurchased_Machines(string name, bool purchased)
     {
         var machine = GetMachine(name);
         if (machine != null)
         {
-            machine.activate = active;
+            machine.isPurchased = purchased;
         }
     }
     public MachineData_save GetMachine(string name)

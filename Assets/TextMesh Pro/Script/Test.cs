@@ -8,10 +8,12 @@ public class Test : MonoBehaviour
 
     void Update()
     {
+        /*
         if (!test)
         {
-            PlacementManager.Instance.SetHeldItem("Mobile");
+            PlacementManager.Instance.SetHeldItem("Clock");
             test = true;
         }
+        */
     }
 }
