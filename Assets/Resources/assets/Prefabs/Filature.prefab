@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1673446017516226678}
   - component: {fileID: 9213168932322915709}
   m_Layer: 0
-  m_Name: BlastFurnace 1
+  m_Name: Filature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

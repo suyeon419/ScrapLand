@@ -106,6 +106,7 @@ public class PlacementManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             TryPlaceItem();
+            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
         }
     }
 
