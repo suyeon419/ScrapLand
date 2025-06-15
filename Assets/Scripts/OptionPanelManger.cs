@@ -32,7 +32,7 @@ public class GlobalCanvasManager : MonoBehaviour
         {
             if (DaySummery.instance.IsActiveSummeryPannel())
             {
-                GlobalCanvasManager.instance.StopCamMoving();
+                StopCamMoving();
                 return;
             }
         }
