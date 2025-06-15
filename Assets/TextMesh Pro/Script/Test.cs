@@ -11,7 +11,7 @@ public class Test : MonoBehaviour
         /*
         if (!test)
         {
-            PlacementManager.Instance.SetHeldItem("Clock");
+            PlacementManager.Instance.SetHeldItem("Grinder");
             test = true;
         }
         */
