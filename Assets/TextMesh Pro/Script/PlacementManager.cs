@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Controller;
 
 public class PlacementManager : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class PlacementManager : MonoBehaviour
 
     private GameObject heldItem;
     private GameObject previewItem;  
-    private bool isPreviewActive = false; 
+    private bool isPreviewActive = false;
+    private ThirdPersonCamera thirdPersonCam;
 
     private static PlacementManager instance = null;
     public static PlacementManager Instance
@@ -69,6 +71,11 @@ public class PlacementManager : MonoBehaviour
             else
                 Debug.LogWarning("Map Portal pos를 찾을 수 없습니다.");
         }
+        thirdPersonCam = FindObjectOfType<ThirdPersonCamera>();
+        if (thirdPersonCam == null)
+        {
+            Debug.LogError("ThirdPersonCamera를 찾을 수 없");
+        }
     }
 
     void Update()
@@ -119,7 +126,7 @@ public class PlacementManager : MonoBehaviour
 
     void UpdatePreviewItem()
     {
-        if (previewItem == null) return;
+        if (previewItem == null || thirdPersonCam == null) return;
 
         PlaceableItem item = heldItem.GetComponent<PlaceableItem>();
         if (item == null) return;
@@ -195,7 +202,7 @@ public class PlacementManager : MonoBehaviour
                 break; 
 
             case PlaceType.Ceiling:
-                if (Physics.Raycast(playerHand.position, playerHand.forward, out hit, placeDistance, ceilingLayer))
+                if (Physics.Raycast(playerHand.position, Vector3.up, out hit, placeDistance, ceilingLayer))
                 {
                     placePos = hit.point + new Vector3(0, -1.8f, 0); 
                                                                       
