@@ -15,6 +15,7 @@ namespace Controller
     {
         private ThirdPersonCamera cameraScript;
         private BlockController machineController;
+        public MachineData machineData;
 
         //¼Õ À§Ä¡
         public GameObject handPos;
@@ -164,6 +165,8 @@ namespace Controller
 
         //¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á
 
+        
+
 
         private void Start()
         {
@@ -267,6 +270,7 @@ namespace Controller
                                 if (Machine != null)
                                 {
                                     Destroy(Machine);
+                                    ShopManager.Instance.machines[2].isOnMap = false;
                                     machine = 10;
                                 }
                             }
@@ -353,6 +357,7 @@ namespace Controller
                             if (Breaker != null)
                             {
                                 Destroy(Breaker);
+                                ShopManager.Instance.machines[0].isOnMap = false;
                                 breaker = 45;
                             }
                         }
@@ -438,6 +443,7 @@ namespace Controller
                             if (BlastFurnace != null)
                             {
                                 Destroy(BlastFurnace);
+                                ShopManager.Instance.machines[4].isOnMap = false;
                                 blastFurnace = 15;
                             }
                         }
@@ -481,6 +487,7 @@ namespace Controller
                                 if (Compressor != null)
                                 {
                                     Destroy(Compressor);
+                                    ShopManager.Instance.machines[3].isOnMap = false;
                                     compressor = 15;
                                 }
                             }
