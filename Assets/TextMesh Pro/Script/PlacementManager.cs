@@ -104,7 +104,10 @@ public class PlacementManager : MonoBehaviour
 
         if (isPreviewActive)
         {
-            UpdatePreviewItem();
+            if (isHome)
+            {
+                UpdatePreviewItem();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.X))
