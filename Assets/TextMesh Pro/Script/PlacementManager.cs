@@ -136,11 +136,14 @@ public class PlacementManager : MonoBehaviour
         if (heldItem != null)
         {
             Destroy(heldItem);
+            heldItem = null;
         }
         if (previewItem != null)
         {
             Destroy(previewItem);
+            previewItem = null;
         }
+        isPreviewActive = false;
 
         heldItem = Instantiate(prefabToInstantiate);
         heldItem.SetActive(false);
@@ -304,7 +307,8 @@ public class PlacementManager : MonoBehaviour
             if (!itemPrefabs.ContainsKey(item.itemName))
             {
                 Debug.Log(item.itemName);
-                HappyEarth.instance.Install_Interior(item.itemName, 0, finalPlacePos, finalPlaceRot);
+                Vector3 rotationEuler = finalPlaceRot.eulerAngles;
+                HappyEarth.instance.Install_Interior(item.itemName, 0, finalPlacePos, rotationEuler);
                 ShopManager.Instance.GetOnMachine(item.itemName, true);
             }
         }
