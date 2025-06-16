@@ -147,7 +147,6 @@ public class InventorySelectionManager : MonoBehaviour
         SelectedInventoryUI = null;
     }
 
-
     //해피포인트 관리
 
     // 아이템 타입 -> 판매 횟수
@@ -208,7 +207,7 @@ public class InventorySelectionManager : MonoBehaviour
 
             if (item != null && !item.GetIsNull())
             {
-                //DebugText.text = $"선택된 아이템: {item.GetItemType()}";
+                Debug.Log($"선택된 아이템: {item.GetItemType()}");
                 string itemType = item.GetItemType();
 
                 PlacementManager.Instance.SetHeldItem(itemType);
