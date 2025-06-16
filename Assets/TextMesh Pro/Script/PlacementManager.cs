@@ -8,6 +8,10 @@ public class PlacementManager : MonoBehaviour
     public float placeDistance = 50f; 
     public List<PlaceableItem> prefab;
     public Transform playerHand;
+    
+    [HideInInspector]
+    public bool isHome = false;
+
 
     private GameObject heldItem;
     private GameObject previewItem;
@@ -100,13 +104,24 @@ public class PlacementManager : MonoBehaviour
 
         if (isPreviewActive)
         {
-            UpdatePreviewItem();
+            if (isHome)
+            {
+                UpdatePreviewItem();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            TryPlaceItem();
-            InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
+            if (isHome)
+            {
+                TryPlaceItem();
+                InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
+            }
+
+            else 
+            {
+                return;
+            }
         }
     }
 
@@ -127,6 +142,11 @@ public class PlacementManager : MonoBehaviour
             isPreviewActive = false; 
 
             return; 
+        }
+
+        if (!isHome)
+        {
+            return;
         }
 
         GameObject prefabToInstantiate = itemPrefabs[itemName];

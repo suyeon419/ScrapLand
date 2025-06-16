@@ -21,6 +21,8 @@ namespace Controller
         [SerializeField, Range(0f, 50f)]
         public float m_RaycastDistance = 10f;
 
+        [SerializeField] GameObject Hotbar;
+
         private Vector3 m_LookPoint;
         private Vector3 m_TargetPos;
 
@@ -234,19 +236,22 @@ namespace Controller
                 }
                 else if (hit.collider.tag == "Interior")
                 {
-                    Interior_ui.SetActive(true);
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (!InventorySelectionManager.Instance.CheckInvenFull())
                     {
-                        GameObject hitObj = hit.collider.gameObject;
-                        string itemName = hit.collider.gameObject.name.Replace("(Clone)", "").Trim();
-                        Vector3 pos = hitObj.transform.position;
-                        Quaternion rot = hitObj.transform.rotation;
-                        Vector3 rotEuler = rot.eulerAngles;
+                        Interior_ui.SetActive(true);
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            GameObject hitObj = hit.collider.gameObject;
+                            string itemName = hit.collider.gameObject.name.Replace("(Clone)", "").Trim();
+                            Vector3 pos = hitObj.transform.position;
+                            Quaternion rot = hitObj.transform.rotation;
+                            Vector3 rotEuler = rot.eulerAngles;
 
-                        PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(itemName);
+                            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(itemName);
 
-                        GameManager_ScrapLand.instance.Remove_Interior_AtPosition(pos, rotEuler);
-                        Destroy(hit.collider.gameObject);
+                            GameManager_ScrapLand.instance.Remove_Interior_AtPosition(pos, rotEuler);
+                            Destroy(hit.collider.gameObject);
+                        }
                     }
                 }
                 else if (hit.collider.tag == "Maker")
@@ -256,6 +261,7 @@ namespace Controller
                     {
                         Maker_ui.SetActive(true);
                         Camera.enabled = false;
+                        Hotbar.SetActive(false);
                     }
                 }
                 else if (hit.collider.tag == "sewing")
@@ -265,6 +271,7 @@ namespace Controller
                     {
                         Sewing_ui.SetActive(true);
                         Camera.enabled = false;
+                        Hotbar.SetActive(false);
                     }
                 }
                 else if (hit.collider.tag == "shop")
