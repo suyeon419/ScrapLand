@@ -16,6 +16,7 @@ public class PlacementManager : MonoBehaviour
     private GameObject heldItem;
     private GameObject previewItem;
     private bool isPreviewActive = false;
+    private bool isOverlapping = false;
 
     private Camera mainCamera; 
 
@@ -115,7 +116,10 @@ public class PlacementManager : MonoBehaviour
             if (isHome)
             {
                 TryPlaceItem();
-                InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
+                if (!isOverlapping)
+                {
+                    InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
+                }
             }
 
             else 
@@ -295,9 +299,9 @@ public class PlacementManager : MonoBehaviour
         PlaceableItem item = heldItem.GetComponent<PlaceableItem>();
         if (item == null) return;
 
-        if (!previewItem.activeSelf)
+        if (!isPreviewActive || !previewItem.activeSelf) // isPreviewActive도 확인하여 미리보기가 활성화되지 않은 상태인지 확인
         {
-            Debug.Log("미리보기 위치가 유효하지 않아 아이템을 배치할 수 없.");
+            Debug.Log("미리보기 위치가 유효하지 않아 아이템을 배치할 수 없습니다.");
             return;
         }
 
@@ -308,40 +312,52 @@ public class PlacementManager : MonoBehaviour
 
         if (previewCollider != null)
         {
+            // 겹침 검사를 위해 미리보기 콜라이더를 잠시 활성화
             previewCollider.enabled = true;
 
-            Collider[] hitColliders = Physics.OverlapBox(finalPlacePos + previewCollider.bounds.center, previewCollider.bounds.extents, finalPlaceRot);
+            // OverlapBox의 중심점 계산 개선
+            // World space center of the collider, considering its current position and rotation
+            Vector3 colliderWorldCenter = previewItem.transform.TransformPoint(previewCollider.bounds.center - previewItem.transform.position);
+            Vector3 colliderHalfExtents = previewCollider.bounds.extents;
 
-            bool isOverlapping = false;
+            Collider[] hitColliders = Physics.OverlapBox(colliderWorldCenter, colliderHalfExtents, finalPlaceRot);
+
+            isOverlapping = false;
             foreach (Collider col in hitColliders)
             {
-                if (col.gameObject != previewItem && col.isTrigger == false) 
+                // 자신(previewItem)이 아니고, 트리거가 아닌 다른 오브젝트와 겹치는지 확인
+                if (col.gameObject != previewItem && col.isTrigger == false)
                 {
+                    // 특정 태그를 가진 오브젝트와 겹치는지 확인 (여기서 "previewItem" 자체의 콜라이더는 제외되어야 합니다)
                     if (col.CompareTag("Interior") || col.CompareTag("BlastFurnace") || col.CompareTag("breaker") || col.CompareTag("compressor") || col.CompareTag("machine") || col.CompareTag("sewing"))
                     {
                         isOverlapping = true;
-                        break; 
+                        break;
                     }
                 }
             }
 
+            // 겹침 검사 후 콜라이더를 다시 비활성화
+            previewCollider.enabled = false;
+
             if (isOverlapping)
             {
-                Debug.Log("다른 아이템과 겹쳐서 배치할 수 없.");
-                previewCollider.enabled = false;
-                return; 
+                Debug.Log("다른 아이템과 겹쳐서 배치할 수 없습니다.");
+                return;
             }
         }
 
+        // 겹치지 않을 경우에만 아이템 배치 진행
         GameObject placedObject = Instantiate(heldItem, finalPlacePos, finalPlaceRot);
         placedObject.SetActive(true);
 
         Collider placedCollider = placedObject.GetComponent<Collider>();
         if (placedCollider != null)
         {
-            placedCollider.enabled = true;
+            placedCollider.enabled = true; // 배치된 아이템의 콜라이더는 활성화
         }
 
+        // 기존 heldItem과 previewItem 정리
         Destroy(heldItem);
         heldItem = null;
 
@@ -349,6 +365,7 @@ public class PlacementManager : MonoBehaviour
         previewItem = null;
         isPreviewActive = false;
 
+        // 추가 로직 (ShopManager, HappyEarth 등)
         if (item.tag == "BlastFurnace" || item.tag == "breaker" || item.tag == "compressor" || item.tag == "machine" || item.tag == "sewing")
         {
             if (itemPrefabs.ContainsKey(item.itemName))

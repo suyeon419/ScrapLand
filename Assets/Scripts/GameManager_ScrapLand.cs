@@ -155,7 +155,16 @@ public class GameManager_ScrapLand : MonoBehaviour
         itemUsages.Add(new ItemUsageData("Tongs"));
         itemUsages.Add(new ItemUsageData("Cup"));
         itemUsages.Add(new ItemUsageData("Bowl"));
+        itemUsages.Add(new ItemUsageData("Doll"));
         itemUsages.Add(new ItemUsageData("Pet_Boat"));
+        #region 자전거 부품
+        itemUsages.Add(new ItemUsageData("Bicycle_Frame"));
+        itemUsages.Add(new ItemUsageData("Bicycle_Wheel"));
+        itemUsages.Add(new ItemUsageData("Bicycle_Chain"));
+        itemUsages.Add(new ItemUsageData("Bicycle_Handle"));
+        itemUsages.Add(new ItemUsageData("Bicycle_Brake"));
+        itemUsages.Add(new ItemUsageData("Bicycle_Saddle"));
+        #endregion
         itemUsages.Add(new ItemUsageData("Bicycle"));
     }
 
@@ -393,6 +402,37 @@ public class GameManager_ScrapLand : MonoBehaviour
         if (sewing != null)
         {
             sewing.SewingMachine = GetMachine("SewingMachine").hp;
+            sewing.CapMaking = GetCount_Produce("Hat");
+            sewing.GroveMaking = GetCount_Produce("Glove");
+            sewing.TopMaking = GetCount_Produce("Shirt");
+            sewing.BottomMaking = GetCount_Produce("Pants");
+            sewing.ShoesMaking = GetCount_Produce("Shoes");
+            sewing.DollMaking = GetCount_Produce("Doll");
+        }
+        MakingController making = FindObjectOfType<MakingController>();
+        if (making != null)
+        {
+            making.BagMaking = GetCount_Produce("Bag");
+            making.P_PotMaiking = GetCount_Produce("Plastic Pot");
+            making.C_PotMaiking = GetCount_Produce("Can Pot");
+            making.G_PotMaiking = GetCount_Produce("Glass Pot");
+            making.TableMaking = GetCount_Produce("Table");
+            making.ChairMaking = GetCount_Produce("Bench");
+            making.StorageBoxMaking = GetCount_Produce("Old Chest");
+            making.MobileMaking = GetCount_Produce("Mobile");
+            making.ClockMaking = GetCount_Produce("Clock");
+            making.KeyringMaking = GetCount_Produce("Keyring");
+            making.TongsMaking = GetCount_Produce("Tongs");
+            making.CupMaking = GetCount_Produce("Cup");
+            making.BowlMaking = GetCount_Produce("Bowl");
+            making.BoatMaking = GetCount_Produce("Pet_Boat");
+            making.FrameMaking = GetCount_Produce("Bicycle_Frame");
+            making.WheelMaking = GetCount_Produce("Bicycle_Wheel");
+            making.ChainMaking = GetCount_Produce("Bicycle_Chain");
+            making.HandleMaking = GetCount_Produce("Bicycle_Handle");
+            making.BrakeMaking = GetCount_Produce("Bicycle_Brake");
+            making.SaddleMaking = GetCount_Produce("Bicycle_Saddle");
+            making.BikeMaking = GetCount_Produce("Bicycle");
         }
         Machine machine = FindObjectOfType<Machine>();
         if (machine != null)
@@ -493,11 +533,44 @@ public class GameManager_ScrapLand : MonoBehaviour
             Completed["compressed_paper"] = machine.IsCompressedPaperCompleted();
 
         }
+        MakingController making = FindObjectOfType<MakingController>();
+        if(making != null)
+        {
+            SetCount_Procude("Bag", making.BagMaking);
+            SetCount_Procude("Plastic Pot", making.P_PotMaiking);
+            SetCount_Procude("Can Pot", making.C_PotMaiking);
+            SetCount_Procude("Glass Pot", making.G_PotMaiking);
+            SetCount_Procude("Table", making.TableMaking);
+            SetCount_Procude("Bench", making.ChairMaking);
+            SetCount_Procude("Old Chest", making.StorageBoxMaking);
+            SetCount_Procude("Mobile", making.MobileMaking);
+            SetCount_Procude("Clock", making.ClockMaking);
+            SetCount_Procude("Keyring", making.KeyringMaking);
+            SetCount_Procude("Tongs", making.TongsMaking);
+            SetCount_Procude("Cup", making.CupMaking);
+            SetCount_Procude("Bowl", making.BowlMaking);
+            SetCount_Procude("Pet_Boat", making.BoatMaking);
+            SetCount_Procude("Bicycle_Frame", making.FrameMaking);
+            SetCount_Procude("Bicycle_Wheel", making.WheelMaking);
+            SetCount_Procude("Bicycle_Chain", making.ChainMaking);
+            SetCount_Procude("Bicycle_Handle", making.HandleMaking);
+            SetCount_Procude("Bicycle_Brake", making.BrakeMaking);
+            SetCount_Procude("Bicycle_Saddle", making.SaddleMaking);
+            SetCount_Procude("Bicycle", making.BikeMaking);
+        }
+
         SewingMachineController sewing = FindObjectOfType<SewingMachineController>();
         if (sewing != null)
         {
             SetHP_Machines("SewingMachine", sewing.SewingMachine);
             sewing.SewingMachine = GetMachine("SewingMachine").hp;
+
+            SetCount_Procude("Hat", sewing.CapMaking);
+            SetCount_Procude("Glove", sewing.GroveMaking);
+            SetCount_Procude("Shirt", sewing.TopMaking);
+            SetCount_Procude("Pants", sewing.BottomMaking);
+            SetCount_Procude("Shoes", sewing.ShoesMaking);
+            SetCount_Procude("Doll", sewing.DollMaking);
         }
     }
     #endregion

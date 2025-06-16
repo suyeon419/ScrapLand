@@ -257,7 +257,7 @@ namespace Controller
                     //손이 비어있지 않을때, ptthread(페트실)이 만들어지지 않은 상태일때
                     if (handPos != null && handPos.transform.childCount > 0 && ptthread == false)
                     {
-                        if (heldTag == "pt") //손에 pt를 들고 있을 때
+                        if (heldTag == "pt" && pt_deleteCount < 1) //손에 pt를 들고 있을 때
                         {
                             Destroy(child.gameObject); //오브젝트 삭제
                             InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
@@ -302,7 +302,7 @@ namespace Controller
                     //어떠한 재료도 완성되지 않았고 손에 오브젝트가 있을 때
                     if (handPos != null && handPos.transform.childCount > 0 && glass_break == false && plastic_break == false && can_break == false)
                     {
-                        if (heldTag == "glass") //유리를 들고 있을 때
+                        if (heldTag == "glass" && glass_deleteCount < 1) //유리를 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
                             InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
@@ -316,7 +316,7 @@ namespace Controller
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
                             }
                         }
-                        else if (heldTag == "plastic") //플라스틱을 들고 있을 때
+                        else if (heldTag == "plastic" && plastic_deleteCount < 1) //플라스틱을 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
                             InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
@@ -330,7 +330,7 @@ namespace Controller
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
                             }
                         }
-                        else if (heldTag == "can") //캔을 들고 있을 때
+                        else if (heldTag == "can" && can_deleteCount < 1) //캔을 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
                             InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
@@ -388,7 +388,7 @@ namespace Controller
                     //어떠한 재료도 완성되지 않았고 손에 오브젝트가 있을 때
                     if (handPos != null && handPos.transform.childCount > 0 && glass_molten == false && plastic_molten == false && glass_molten == false)
                     {
-                        if (heldTag == "breakglass") //간 유리를 들고 있을 때
+                        if (heldTag == "breakglass" && b_glass_deleteCount < 3) //간 유리를 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
                             InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
@@ -402,7 +402,7 @@ namespace Controller
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
                             }
                         }
-                        else if (heldTag == "breakplastic") //간 플라스틱을 들고 있을 때
+                        else if (heldTag == "breakplastic" && b_plastic_deleteCount < 3) //간 플라스틱을 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
                             InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
@@ -416,7 +416,7 @@ namespace Controller
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
                             }
                         }
-                        else if (heldTag == "breakcan") //간 캔을 들고 있을 때
+                        else if (heldTag == "breakcan" && b_can_deleteCount < 3) //간 캔을 들고 있을 때
                         {
                             Destroy(child.gameObject); //손에 있는 오브젝트 삭제
                             InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
@@ -475,7 +475,7 @@ namespace Controller
                     //손이 비어있지 않을때, 압축종이가 만들어지지 않은 상태일때
                     if (handPos != null && handPos.transform.childCount > 0 && compressed_paper == false)
                     {
-                        if (heldTag == "paper") //손에 종이를 들고 있을 때
+                        if (heldTag == "paper" && paper_deleteCount < 3) //손에 종이를 들고 있을 때
                         {
                             Destroy(child.gameObject); //오브젝트 삭제
                             InventorySelectionManager.Instance.RemoveSelectedHotBarItem();
@@ -483,7 +483,7 @@ namespace Controller
                             paper_deleteCount++; //몇 개 넣었는지 카운트
                             UpdateText(); //UI 변경
 
-                            if (paper_deleteCount == 1) //페트실 만드는 페트병이 다 모였을 때
+                            if (paper_deleteCount == 3) //페트실 만드는 페트병이 다 모였을 때
                             {
                                 item_name = "compressedPaper"; //만들 아이템: 페트실
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
