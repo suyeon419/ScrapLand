@@ -290,7 +290,7 @@ public class PlacementManager : MonoBehaviour
         {
             previewCollider.enabled = true;
 
-            Collider[] hitColliders = Physics.OverlapBox(finalPlacePos + previewCollider.center, previewCollider.bounds.extents, finalPlaceRot);
+            Collider[] hitColliders = Physics.OverlapBox(finalPlacePos + previewCollider.bounds.center, previewCollider.bounds.extents, finalPlaceRot);
 
             bool isOverlapping = false;
             foreach (Collider col in hitColliders)
@@ -307,6 +307,7 @@ public class PlacementManager : MonoBehaviour
 
             if (isOverlapping)
             {
+                Debug.Log("다른 아이템과 겹쳐서 배치할 수 없.");
                 previewCollider.enabled = false;
                 return; 
             }
@@ -321,23 +322,23 @@ public class PlacementManager : MonoBehaviour
             placedCollider.enabled = true;
         }
 
-        if (heldItem.tag == "BlastFurnace" || heldItem.tag == "breaker" || heldItem.tag == "compressor" || heldItem.tag == "machine" || heldItem.tag == "sewing")
-        {
-            if (!itemPrefabs.ContainsKey(heldItem.itemName))
-            {
-                Debug.Log(heldItem.itemName);
-                Vector3 rotationEuler = finalPlaceRot.eulerAngles;
-                HappyEarth.instance.Install_Interior(heldItem.itemName, 0, finalPlacePos, rotationEuler);
-                ShopManager.Instance.GetOnMachine(heldItem.itemName, true);
-            }
-        }
-
         Destroy(heldItem);
         heldItem = null;
 
         Destroy(previewItem);
         previewItem = null;
         isPreviewActive = false;
+
+        if (item.tag == "BlastFurnace" || item.tag == "breaker" || item.tag == "compressor" || item.tag == "machine" || item.tag == "sewing")
+        {
+            if (!itemPrefabs.ContainsKey(item.itemName))
+            {
+                Debug.Log(item.itemName);
+                Vector3 rotationEuler = finalPlaceRot.eulerAngles;
+                HappyEarth.instance.Install_Interior(item.itemName, 0, finalPlacePos, rotationEuler);
+                ShopManager.Instance.GetOnMachine(item.itemName, true);
+            }
+        }
 
         UpdatePlacementInfo(item.itemName, finalPlacePos, finalPlaceRot);
     }
