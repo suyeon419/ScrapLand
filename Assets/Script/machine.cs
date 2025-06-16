@@ -187,20 +187,37 @@ namespace Controller
             {
                 finish_ui.SetActive(true);
             }
+            else
+            {
+                finish_ui.SetActive(false); //완성UI 비활성화
+            }
 
             if (glass_break || plastic_break || can_break)
             {
                 B_finish_ui.SetActive(true);
             }
-
-            if(aluminum || moltenGlass || moltenPlastic)
+            else
             {
+                B_finish_ui.SetActive(false); //완성UI 비활성화
+            }
+
+            if (glass_molten || plastic_molten || can_molten)
+            {
+                Debug.Log($"알:{aluminum}, 유{moltenGlass}, 플{moltenGlass}");
                 BF_finish_ui.SetActive(true);
+            }
+            else
+            {
+                BF_finish_ui.SetActive(false); //완성UI 비활성화
             }
 
             if (compressed_paper)
             {
                 C_finish_ui.SetActive(true); //완성 ui활성화
+            }
+            else
+            {
+                C_finish_ui.SetActive(false); //완성UI 비활성화
             }
         }
 
