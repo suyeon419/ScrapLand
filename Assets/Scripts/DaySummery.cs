@@ -1,3 +1,4 @@
+using Controller;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -78,8 +79,31 @@ public class DaySummery : MonoBehaviour
         coinText.text = (coin - GameManager_ScrapLand.instance.GetCoin() > 0 ? "+" : "") + (coin - GameManager_ScrapLand.instance.GetCoin()) + "coin";
 
         UIManager.Instance.CloseAllPanels();
+        StopMoving();
         SoundManager.instance.PlayBGM("Summery");
         summeryPan.SetActive(true);
+    }
+
+    void StopMoving()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            MovePlayerInput input = playerObject.GetComponent<MovePlayerInput>();
+            if (input != null)
+            {
+                input.enabled = false;
+            }
+            else
+            {
+                Debug.LogWarning("Player 오브젝트에 MovePlayerInput 컴포넌트가 없습니다!");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Player 태그를 가진 오브젝트를 찾을 수 없습니다!");
+        }
+
     }
 
     public bool IsActiveSummeryPannel()
