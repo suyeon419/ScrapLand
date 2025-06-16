@@ -114,8 +114,6 @@ public class PlacementManager : MonoBehaviour
     {
         if (!itemPrefabs.ContainsKey(itemName))
         {
-            Debug.LogError($"SetHeldItem: '{itemName}'에 해당하는 프리팹이 itemPrefabs 딕셔너리에 없습니다.");
-
             if (heldItem != null)
             {
                 Destroy(heldItem);
@@ -279,12 +277,40 @@ public class PlacementManager : MonoBehaviour
 
         if (!previewItem.activeSelf)
         {
-            Debug.Log("미리보기 위치가 유효하지 않아 아이템을 배치할 수 없습니다.");
+            Debug.Log("미리보기 위치가 유효하지 않아 아이템을 배치할 수 없.");
             return;
         }
 
         Vector3 finalPlacePos = previewItem.transform.position;
         Quaternion finalPlaceRot = previewItem.transform.rotation;
+
+        Collider previewCollider = previewItem.GetComponent<Collider>();
+
+        if (previewCollider != null)
+        {
+            previewCollider.enabled = true;
+
+            Collider[] hitColliders = Physics.OverlapBox(finalPlacePos + previewCollider.center, previewCollider.bounds.extents, finalPlaceRot);
+
+            bool isOverlapping = false;
+            foreach (Collider col in hitColliders)
+            {
+                if (col.gameObject != previewItem && col.isTrigger == false) 
+                {
+                    if (col.CompareTag("Interior") || col.CompareTag("BlastFurnace") || col.CompareTag("breaker") || col.CompareTag("compressor") || col.CompareTag("machine") || col.CompareTag("sewing"))
+                    {
+                        isOverlapping = true;
+                        break; 
+                    }
+                }
+            }
+
+            if (isOverlapping)
+            {
+                previewCollider.enabled = false;
+                return; 
+            }
+        }
 
         GameObject placedObject = Instantiate(heldItem, finalPlacePos, finalPlaceRot);
         placedObject.SetActive(true);
@@ -295,23 +321,23 @@ public class PlacementManager : MonoBehaviour
             placedCollider.enabled = true;
         }
 
+        if (heldItem.tag == "BlastFurnace" || heldItem.tag == "breaker" || heldItem.tag == "compressor" || heldItem.tag == "machine" || heldItem.tag == "sewing")
+        {
+            if (!itemPrefabs.ContainsKey(heldItem.itemName))
+            {
+                Debug.Log(heldItem.itemName);
+                Vector3 rotationEuler = finalPlaceRot.eulerAngles;
+                HappyEarth.instance.Install_Interior(heldItem.itemName, 0, finalPlacePos, rotationEuler);
+                ShopManager.Instance.GetOnMachine(heldItem.itemName, true);
+            }
+        }
+
         Destroy(heldItem);
         heldItem = null;
 
         Destroy(previewItem);
         previewItem = null;
         isPreviewActive = false;
-
-        if (item.tag == "BlastFurnace" || item.tag == "breaker" || item.tag == "compressor" || item.tag == "machine" || item.tag == "sewing")
-        {
-            if (!itemPrefabs.ContainsKey(item.itemName))
-            {
-                Debug.Log(item.itemName);
-                Vector3 rotationEuler = finalPlaceRot.eulerAngles;
-                HappyEarth.instance.Install_Interior(item.itemName, 0, finalPlacePos, rotationEuler);
-                ShopManager.Instance.GetOnMachine(item.itemName, true);
-            }
-        }
 
         UpdatePlacementInfo(item.itemName, finalPlacePos, finalPlaceRot);
     }
