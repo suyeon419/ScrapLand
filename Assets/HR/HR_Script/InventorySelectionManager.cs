@@ -22,16 +22,6 @@ public class InventorySelectionManager : MonoBehaviour
     public InventoryUIManager playerInventoryUIManager;
     public InventoryController inventoryController; // 인벤토리 컨트롤러
 
-    // 인테리어 및 기계 아이템 목록
-    private static readonly HashSet<string> InteriorItems = new HashSet<string>
-{
-    "Plastic Pot", "Can Pot", "Glass Pot", "Table", "Bench", "Old Chest", "Mobile", "Clock"
-};
-    private static readonly HashSet<string> MachineItems = new HashSet<string>
-{
-    "SewingMachine", "Filature", "BlastFurnace", "Grinder", "Compressor"
-};
-
     private void Awake()
     {
         if (Instance == null)
@@ -249,6 +239,8 @@ public class InventorySelectionManager : MonoBehaviour
             {
                 //DebugText.text = "선택된 슬롯에 아이템이 없습니다.";
                 // PlacementManager.Instance.SetHeldItem(null); // 필요시 주석 해제
+                // 빈 슬롯이면 "empty" 전달
+                PlacementManager.Instance.SetHeldItem("empty");
             }
         }
         else
@@ -402,7 +394,9 @@ public class InventorySelectionManager : MonoBehaviour
             Debug.LogWarning("선택된 슬롯이 핫바에 없거나 슬롯 인덱스를 찾을 수 없습니다.");
         }
 
-        OnSlotClicked(); // 슬롯 클릭 이벤트 호출하여 아이템 정보 업데이트
+        //OnSlotClicked(); // 슬롯 클릭 이벤트 호출하여 아이템 정보 업데이트
+        if (SelectedSlot != null && SelectedInventoryUI != null)
+            SetSelection(SelectedSlot, SelectedInventoryUI);
     }
 
     public bool CheckInvenFull()

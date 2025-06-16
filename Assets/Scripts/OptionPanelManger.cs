@@ -52,13 +52,7 @@ public class GlobalCanvasManager : MonoBehaviour
                 StopCamMoving();
             }
             optionPanel.SetActive(!optionPanel.activeSelf);
-
-            // 핫바 활성/비활성화
-            if (PlayerInvenManager.instance != null && PlayerInvenManager.instance.HotBar_Bar != null)
-                PlayerInvenManager.instance.HotBar_Bar.gameObject.SetActive(!willOpen);
-            if (PlayerInvenManager.instance != null && PlayerInvenManager.instance.HotBar_Background != null)
-                PlayerInvenManager.instance.HotBar_Background.gameObject.SetActive(!willOpen);
-
+            wInven(willOpen);
 
         }
 
@@ -76,19 +70,39 @@ public class GlobalCanvasManager : MonoBehaviour
             }
             TutoPanel.SetActive(!TutoPanel.activeSelf);
 
-            // 핫바 활성/비활성화
-            if (PlayerInvenManager.instance != null)
-            {
-                if (PlayerInvenManager.instance.HotBar_Bar != null)
-                    PlayerInvenManager.instance.HotBar_Bar.gameObject.SetActive(!willOpen);
-                if (PlayerInvenManager.instance.HotBar_Background != null)
-                    PlayerInvenManager.instance.HotBar_Background.gameObject.SetActive(!willOpen);
-            }
+            wInven(willOpen);
+
         }
 
         if (!mainBtn.activeSelf && SceneManager.GetActiveScene().buildIndex != 0)
         {
             mainBtn.SetActive(true);
+        }
+    }
+
+    public void wInven(bool willOpen)
+    {
+        // 핫바 활성/비활성화
+        // 패널 만들어둘걸..................
+        if (PlayerInvenManager.instance.InvenMode)
+        {
+            PlayerInvenManager.instance.Inventory_Cloth.gameObject.SetActive(!willOpen);
+            PlayerInvenManager.instance.Inven_Background.gameObject.SetActive(!willOpen);
+            if (PlayerInvenManager.instance.IsBagOn)
+            {
+                PlayerInvenManager.instance.InventoryUI.gameObject.SetActive(!willOpen);
+            }
+        }
+        if (StorageManager.instance.isStorageOpen)
+        {
+            StorageManager.instance.Storage1.gameObject.SetActive(!willOpen);
+            PlayerInvenManager.instance.HotBar_Bar.gameObject.SetActive(!willOpen);
+
+        }
+        else
+        {
+            PlayerInvenManager.instance.HotBar_Bar.gameObject.SetActive(!willOpen);
+            PlayerInvenManager.instance.HotBar_Background.gameObject.SetActive(!willOpen);
         }
     }
 

@@ -212,6 +212,13 @@ public class ShopManager : MonoBehaviour
 
             //손에 드는 상태 갱신
             InventorySelectionManager.SetSelection(selectedSlot, selectedUI);
+            // 아이템 판매 후 해당 슬롯이 비었으면 PlacementManager에 "empty" 전달
+            InventoryItem afterItem = slot.GetItem();
+            if (afterItem == null || afterItem.GetIsNull())
+            {
+                if (PlacementManager.Instance != null)
+                    PlacementManager.Instance.SetHeldItem("empty");
+            }
 
         }
     }

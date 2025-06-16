@@ -80,6 +80,19 @@ public class BtnAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 {
                     PlayerInvenManager.instance.HotBar_Bar.gameObject.SetActive(true);
                     PlayerInvenManager.instance.HotBar_Background.gameObject.SetActive(true);
+                    if (PlayerInvenManager.instance.InvenMode)
+                    {
+                        PlayerInvenManager.instance.Inventory_Cloth.gameObject.SetActive(true);
+                        PlayerInvenManager.instance.Inven_Background.gameObject.SetActive(true);
+                        if (StorageManager.instance.isStorageOpen)
+                        {
+                            StorageManager.instance.Storage1.gameObject.SetActive(true);
+                        }
+                    }
+                    if (PlayerInvenManager.instance.IsBagOn)
+                    {
+                        PlayerInvenManager.instance.InventoryUI.gameObject.SetActive(true);
+                    }
                 }
                 break;
 
