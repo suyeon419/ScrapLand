@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEditor.PlayerSettings;
+#if UNITY_EDITOR
+using static UnityEditor.PlayerSettings; // 에디터 전용 코드
+#endif
 
 public class MapPortal : MonoBehaviour
 {

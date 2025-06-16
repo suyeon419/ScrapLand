@@ -136,7 +136,7 @@ public class SewingMachineController : MonoBehaviour
         capButton.onClick.AddListener(() => StartCapMaking());
         gloveButton.onClick.AddListener(() => StartGloveMaking());
         topButton.onClick.AddListener(() => StartTopMaking());
-        topButton.onClick.AddListener(() => StartBottomMaking());
+        bottomButton.onClick.AddListener(() => StartBottomMaking());
         shoesButton.onClick.AddListener(() => StartShoesMaking());
         dollButton.onClick.AddListener(() => StartDollMaking());
 
@@ -234,7 +234,7 @@ public class SewingMachineController : MonoBehaviour
     {
         if (plasticThread >= CapPt && paper >= CapPaper)
         {
-            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", CapPt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PetRope", CapPt);
             InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Paper", CapPaper);
             
             CapMaking++;
@@ -262,7 +262,7 @@ public class SewingMachineController : MonoBehaviour
     {
         if (plasticThread >= GrovePt && oldCloth >= GloveOldCloth)
         {
-            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", GrovePt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PetRope", GrovePt);
             InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", GloveOldCloth);
 
             GroveMaking++;
@@ -286,7 +286,7 @@ public class SewingMachineController : MonoBehaviour
     {
         if (plasticThread >= TopPt && oldCloth >= TopOldCloth)
         {
-            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", TopPt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PetRope", TopPt);
             InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", TopOldCloth);
 
             TopMaking++;
@@ -309,7 +309,7 @@ public class SewingMachineController : MonoBehaviour
     {
         if (plasticThread >= BottomPt && oldCloth >= BottomOldCloth)
         {
-            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", BottomPt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PetRope", BottomPt);
             InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", BottomOldCloth);
 
             BottomMaking++;
@@ -356,7 +356,7 @@ public class SewingMachineController : MonoBehaviour
         if(oldCloth >= DollOldCloth && plasticThread >= DollPt && vinyl >= DollVinyl)
         {
             InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Clothes", DollOldCloth);
-            InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Pet", DollPt);
+            InventorySelectionManager.Instance.RemoveItemFromAllInventories("PetRope", DollPt);
             InventorySelectionManager.Instance.RemoveItemFromAllInventories("T_Vinyl", DollVinyl);
 
             DollMaking++;
