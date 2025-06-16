@@ -114,8 +114,21 @@ public class PlacementManager : MonoBehaviour
     {
         if (!itemPrefabs.ContainsKey(itemName))
         {
-            Debug.LogError($"SetHeldItem: '{itemName}'에 해당하는 프리팹이 itemPrefabs 딕셔너리에 없습니다. prefab 리스트에 PlaceableItem이 할당되었는지, itemName이 정확한지 확인하세요.");
-            return;
+            Debug.LogError($"SetHeldItem: '{itemName}'에 해당하는 프리팹이 itemPrefabs 딕셔너리에 없습니다.");
+
+            if (heldItem != null)
+            {
+                Destroy(heldItem);
+                heldItem = null; 
+            }
+            if (previewItem != null)
+            {
+                Destroy(previewItem);
+                previewItem = null; 
+            }
+            isPreviewActive = false; 
+
+            return; 
         }
 
         GameObject prefabToInstantiate = itemPrefabs[itemName];
