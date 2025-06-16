@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4709902046323684087, guid: 085918e4e30385342a4ce5d232d8dddc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.717
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4709902046323684087, guid: 085918e4e30385342a4ce5d232d8dddc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Plastic Pot
   placeType: 0
+  prefab: {fileID: 0}
 --- !u!65 &8627770066607080069
 BoxCollider:
   m_ObjectHideFlags: 0
