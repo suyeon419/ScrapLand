@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
 using System.Collections;
-using static UnityEditor.Progress;
+#if UNITY_EDITOR
+using static UnityEditor.Progress; // 에디터 전용 코드
+#endif
 
 namespace Controller
 {
