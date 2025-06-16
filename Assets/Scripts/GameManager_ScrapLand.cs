@@ -222,11 +222,13 @@ public class GameManager_ScrapLand : MonoBehaviour
         }
     }
 
-    public bool IsHappyGageAvailable_install(string itemName) // 인테리어 설치 횟수 확인해서 되면 +1
+    public bool IsHappyGageAvailable_install(string itemName)
     {
         if (itemName == null) { return false; }
 
         ItemUsageData item = itemUsages.FirstOrDefault(item => item.itemName == itemName);
+
+        if (item == null) return false; //itemUsages에 없는 경우 : (1) 이름이 잘못되었거나, (2) 기계거나
 
         if (item.count_install < 1)
         {

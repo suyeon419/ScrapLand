@@ -82,8 +82,7 @@ public class GlobalCanvasManager : MonoBehaviour
 
     public void wInven(bool willOpen)
     {
-        // 핫바 활성/비활성화
-        // 패널 만들어둘걸..................
+        if (!SceneManager.GetActiveScene().name.Equals("PlayScene")) return;
         if (PlayerInvenManager.instance.InvenMode)
         {
             PlayerInvenManager.instance.Inventory_Cloth.gameObject.SetActive(!willOpen);
