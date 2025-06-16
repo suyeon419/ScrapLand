@@ -11,7 +11,7 @@ public class Test : MonoBehaviour
         /*
         if (!test)
         {
-            PlacementManager.Instance.SetHeldItem("Plastic Pot");
+            PlacementManager.Instance.SetHeldItem("Old Chest");
             test = true;
         }
         */

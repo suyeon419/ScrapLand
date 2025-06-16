@@ -17,6 +17,7 @@ public class PlacementManager : MonoBehaviour
     private GameObject previewItem;
     private bool isPreviewActive = false;
     private bool isOverlapping = false;
+    private bool isChest = false;
 
     private Camera mainCamera; 
 
@@ -105,7 +106,7 @@ public class PlacementManager : MonoBehaviour
 
         if (isPreviewActive)
         {
-            if (isHome)
+            if (isHome && !isChest)
             {
                 UpdatePreviewItem();
             }
@@ -113,7 +114,7 @@ public class PlacementManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (isHome)
+            if (isHome && !isChest)
             {
                 TryPlaceItem();
                 if (!isOverlapping)
@@ -375,6 +376,11 @@ public class PlacementManager : MonoBehaviour
                 HappyEarth.instance.Install_Interior(item.itemName, 0, finalPlacePos, rotationEuler);
                 ShopManager.Instance.GetOnMachine(item.itemName, true);
             }
+        }
+
+        if (item.itemName.Contains("Old Chest"))
+        {
+            isChest = true;
         }
 
         UpdatePlacementInfo(item.itemName, finalPlacePos, finalPlaceRot);
