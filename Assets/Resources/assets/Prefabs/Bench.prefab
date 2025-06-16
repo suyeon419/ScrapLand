@@ -10,27 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ebe3eae8d48f441479040fe6905cd046, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.015475599
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe3eae8d48f441479040fe6905cd046, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2
+      value: 0.015476399
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe3eae8d48f441479040fe6905cd046, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2
+      value: 0.0095996
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe3eae8d48f441479040fe6905cd046, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.000083204
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe3eae8d48f441479040fe6905cd046, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0054279
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe3eae8d48f441479040fe6905cd046, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.000023153
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe3eae8d48f441479040fe6905cd046, type: 3}
       propertyPath: m_LocalRotation.w
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Bench
   placeType: 0
+  prefab: {fileID: 0}
 --- !u!65 &6250172171382955402
 BoxCollider:
   m_ObjectHideFlags: 0
