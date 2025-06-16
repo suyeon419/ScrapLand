@@ -46,6 +46,15 @@ public class Portal : MonoBehaviour
     {
         CharacterController controller = player.GetComponent<CharacterController>();
 
+        if (destination.name.Contains("Home Portal"))
+        {
+            PlacementManager.Instance.isHome = true;
+        }
+        else
+        {
+            PlacementManager.Instance.isHome = false;
+        }
+            
         controller.enabled = false;
         player.transform.position = destination.position;
         if (Camera.main != null)
