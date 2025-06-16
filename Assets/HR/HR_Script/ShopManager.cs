@@ -136,6 +136,14 @@ public class ShopManager : MonoBehaviour
         HotBar.gameObject.SetActive(false);
         HotBar_Background.SetActive(false);
 
+        bool CheckInvenFull = InventorySelectionManager.Instance.CheckInvenFull();
+        Debug.Log($"인벤토리 가득 찼는지 확인: {CheckInvenFull}");
+
+        if (InventorySelectionManager.Instance.CheckInvenFull())
+            purchaseButton.interactable = false; // 인벤토리가 가득 차면 비활성화
+        else
+            purchaseButton.interactable = true;  // 아니면 활성화
+
         //판매상점 UI 활성화
         //ShopModeOff();
         BuyShopUI.SetActive(true);
@@ -257,6 +265,19 @@ public class ShopManager : MonoBehaviour
 
     public void SelectMachine(int index)
     {
+        bool CheckInvenFull = InventorySelectionManager.Instance.CheckInvenFull();
+        Debug.Log($"인벤토리 가득 찼는지 확인: {CheckInvenFull}");
+
+        if (InventorySelectionManager.Instance.CheckInvenFull())
+        {
+            purchaseButton.interactable = false; // 인벤토리가 가득 차면 비활성화
+            FirstP.text = "인벤토리가 가득 찼습니다!"; // 메시지 업데이트
+        }
+        else
+        {
+            purchaseButton.interactable = true;  // 아니면 활성화
+            FirstP.text = "구매할 기계를 선택하세요";
+        }
         if (index < 0 || index >= machines.Count)
             return;
 
@@ -305,6 +326,7 @@ public class ShopManager : MonoBehaviour
 
     public void PurchaseSelectedMachine()
     {
+
         if (selectedMachine == null)
             return;
 
@@ -312,6 +334,13 @@ public class ShopManager : MonoBehaviour
         {
             FirstP.text = "이미 설치된 기계입니다.";
             Debug.Log("이미 설치된 기계입니다.");
+            return;
+        }
+
+        if (InventorySelectionManager.Instance.CheckInvenFull())
+        {
+            purchaseButton.interactable = false; // 인벤토리가 가득 차면 비활성화
+            FirstP.text = "인벤토리가 \n가득 찼습니다!"; // 메시지 업데이트
             return;
         }
 
@@ -334,7 +363,7 @@ public class ShopManager : MonoBehaviour
             //인벤토리에 기계 추가
             InventoryController.instance.AddItem("HotBar", selectedMachine.relatedItem.GetItemType(), 1);
 
-            //selectedMachine.isOnMap = true; // 맵에 배치 상태로 변경
+            selectedMachine.isOnMap = true; // false 받기 전까지는 구매 불가
         }
         else
         {
