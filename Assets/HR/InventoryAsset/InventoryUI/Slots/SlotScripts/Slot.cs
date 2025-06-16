@@ -74,7 +74,7 @@ namespace InventorySystem
                     SlotItemHolder.GetComponent<Image>().sprite = item.GetItemImage();
                     SlotItemHolder.transform.localPosition = Vector3.zero;
                     SlotItemHolder.SetActive(true);
-                    Debug.Log("1" + SlotItemHolder.transform.localPosition);
+                    //Debug.Log("1" + SlotItemHolder.transform.localPosition);
                 }
                 else
                 {
