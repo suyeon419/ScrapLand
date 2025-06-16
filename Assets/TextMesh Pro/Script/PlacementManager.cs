@@ -331,7 +331,7 @@ public class PlacementManager : MonoBehaviour
 
         if (item.tag == "BlastFurnace" || item.tag == "breaker" || item.tag == "compressor" || item.tag == "machine" || item.tag == "sewing")
         {
-            if (!itemPrefabs.ContainsKey(item.itemName))
+            if (itemPrefabs.ContainsKey(item.itemName))
             {
                 Debug.Log(item.itemName);
                 Vector3 rotationEuler = finalPlaceRot.eulerAngles;
