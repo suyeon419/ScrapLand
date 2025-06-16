@@ -304,6 +304,7 @@ public class PlacementManager : MonoBehaviour
             if (!itemPrefabs.ContainsKey(item.itemName))
             {
                 Debug.Log(item.itemName);
+                HappyEarth.instance.Install_Interior(item.itemName, 0, finalPlacePos, finalPlaceRot);
                 ShopManager.Instance.GetOnMachine(item.itemName, true);
             }
         }
