@@ -131,8 +131,8 @@ namespace InventorySystem
                 dropped = false;
 
                 //원래 위치 저장
-                item.SetInventory(CurrentSlot.GetInventoryUI().GetInventoryName());
-                item.SetPosition(CurrentSlot.GetPosition());
+                //item.SetInventory(CurrentSlot.GetInventoryUI().GetInventoryName());
+                //item.SetPosition(CurrentSlot.GetPosition());
 
                 // 드래그 중이므로 슬롯은 비우고, 부모를 UI 루트로 변경
                 CurrentSlot.ResetSlot();
@@ -198,7 +198,7 @@ namespace InventorySystem
                 slot.GetInventoryUI().UnHighlight(result.gameObject);
                 prevslot.GetComponent<Slot>().GetInventoryUI().ResetHighlight();
 
-                // 드롭된 슬롯이 핫바면 선택 및 손에 들기 상태 갱신
+/*                // 드롭된 슬롯이 핫바면 선택 및 손에 들기 상태 갱신
                 if (slot.GetInventoryUI().GetInventoryName() == "HotBar")
                 {
                     InventorySelectionManager.SetSelection(result.gameObject, slot.GetInventoryUI());
@@ -210,7 +210,7 @@ namespace InventorySystem
                     var ui = CurrentSlot.GetInventoryUI();
                     if (ui != null && ui.GetInventoryName() == "HotBar")
                         InventorySelectionManager.SetSelection(CurrentSlot.gameObject, ui);
-                }
+                }*/
 
                 Destroy(gameObject);
             }

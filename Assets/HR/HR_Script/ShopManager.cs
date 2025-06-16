@@ -93,14 +93,17 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-/*        if (Input.GetKeyDown(KeyCode.Q)){ //판매 상점
-            ShopModeOn();
-        }
-        if (Input.GetKeyDown(KeyCode.E)) //구매 상점
+        /*        if (Input.GetKeyDown(KeyCode.Q)){ //판매 상점
+                    ShopModeOn();
+                }
+                if (Input.GetKeyDown(KeyCode.E)) //구매 상점
+                {
+                    BuyShopModeOn();
+                }*/
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            BuyShopModeOn();
-        }*/
-
+            GetOnMachine("Grinder", false);
+        }
     }
 
     public void SellingBtnClicked()
@@ -205,8 +208,6 @@ public class ShopManager : MonoBehaviour
             {
                 Debug.Log($"아이템 '{itemType}'은 해피포인트 제한 도달");
             }
-            //CoinManager.Instance.HappyText.text = $"{CoinManager.Instance.HappyP}";
-            //디버깅용 해피포인트 출력
 
             //판매 횟수 증가
             PlayerInvenManager.IncrementSellCount(itemType);
@@ -235,33 +236,6 @@ public class ShopManager : MonoBehaviour
     /// 기계 구매
     /// </summary>
     /// <param name="index"></param>
-
-    /*    public void SelectMachine(int index)
-        {
-            if (index < 0 || index >= machines.Count)
-                return;
-
-            selectedMachine = machines[index];
-            UpdateMachineUI(selectedMachine);
-        }*/
-
-    /*    public void UpdateMachineUI(MachineData machine)
-        {
-            if (selectedMachine.isOnMap)
-            {
-                FirstP.text = "이미 설치된 기계입니다.";
-                Debug.Log("이미 설치된 기계입니다.");
-                purchaseButton.interactable = false; // 구매 버튼 비활성화
-            }
-            if (!selectedMachine.isPurchased)
-            {
-                FirstP.text = "첫 구매 100 코인";
-            }
-
-            machineNameText.text = machine.machineName;
-            machineDescriptionText.text = machine.description;
-            machineImage.sprite = machine.image;
-        }*/
 
     public void SelectMachine(int index)
     {
@@ -293,7 +267,8 @@ public class ShopManager : MonoBehaviour
             Debug.Log("이미 설치된 기계입니다.");
             purchaseButton.interactable = false; // 구매 버튼 비활성화
         }
-        else if (!machine.isPurchased)
+        
+        if (!machine.isPurchased)
         {
             FirstP.text = "첫 구매 100 코인";
             purchaseButton.interactable = true;
@@ -346,23 +321,31 @@ public class ShopManager : MonoBehaviour
 
         if (coinManager.coin >= selectedMachine.currentPrice)
         {
-            coinManager.coin -= selectedMachine.currentPrice;
-            selectedMachine.isPurchased = true;
+            if(!selectedMachine.isPurchased)
+            {
+                coinManager.coin -= 100; // 첫 구매는 100 코인
+                selectedMachine.isPurchased = true;
+            }
+            else
+            {
+                coinManager.coin -= selectedMachine.originalPrice; // 코인 차감
+            }
             BlockController.Instance.ForceUIUpdate();
 
             coinManager.CoinText.text = $"Coin: {coinManager.coin:N0}";
             Debug.Log($"{selectedMachine.machineName},{selectedMachine.currentPrice} 구매 성공!");
 
             // 다음부터는 원래 가격으로
-            selectedMachine.currentPrice = selectedMachine.originalPrice;
+            //selectedMachine.currentPrice = selectedMachine.originalPrice;
+            Debug.Log(selectedMachine.isPurchased);
 
             // 구매 완료 후 UI 갱신 필요하면 여기에 추가
             FirstP.text = "구매 완료";
             machinePriceText.text = $"{selectedMachine.currentPrice:N0}코인";
 
             //인벤토리에 기계 추가
-            InventoryController.instance.AddItem("HotBar", selectedMachine.relatedItem.GetItemType(), 1);
-
+            PlayerInvenManager.instance.AddItemToHotBarOrPlayerInventory(selectedMachine.relatedItem.GetItemType());
+            
             selectedMachine.isOnMap = true; // false 받기 전까지는 구매 불가
         }
         else

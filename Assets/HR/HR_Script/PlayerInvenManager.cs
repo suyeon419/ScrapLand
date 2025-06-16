@@ -118,7 +118,7 @@ public class PlayerInvenManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P)) //Esc키로 인벤 닫기
         {
-            AddItemToHotBarOrPlayerInventory("Table");
+            AddItemToHotBarOrPlayerInventory("Old Chest");
         }
 
         /*        if (Input.GetKeyDown(KeyCode.I))

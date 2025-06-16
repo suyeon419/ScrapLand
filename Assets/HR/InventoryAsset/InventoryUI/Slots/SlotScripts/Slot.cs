@@ -53,6 +53,7 @@ namespace InventorySystem
 
             item = inventoryUIManager.GetInventoryItem(position);
             initialSlotChildPosition = SlotItemHolder.transform.position;
+            Debug.Log(initialSlotChildPosition);
 
             UpdateSlot();
 
@@ -71,7 +72,9 @@ namespace InventorySystem
                     dragItem.SetItem(item);
                     dragItem.SetText();
                     SlotItemHolder.GetComponent<Image>().sprite = item.GetItemImage();
+                    SlotItemHolder.transform.localPosition = Vector3.zero;
                     SlotItemHolder.SetActive(true);
+                    Debug.Log("1" + SlotItemHolder.transform.localPosition);
                 }
                 else
                 {

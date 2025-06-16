@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using InventorySystem;
+using UnityEngine.SceneManagement;
 
 
 public class StorageManager : MonoBehaviour
@@ -55,6 +56,7 @@ public class StorageManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     public void MakeStorage()
@@ -66,6 +68,21 @@ public class StorageManager : MonoBehaviour
 
     public void OpenStorage()
     {
+        /*        InventorySaveSystem.SaveInventoryWithBackup((
+                    InventoryController.GetInventoryManager(),
+                    SceneManager.GetActiveScene().name,
+                    "Storage_Backup.dat"
+                ); // 스토리지 데이터를 저장
+        */
+        //Debug.Log("Storage data saved for scene: " + SceneManager.GetActiveScene().name);
+
+        InventorySaveSystem.SaveInventoryWithBackup(
+            InventoryController.GetInventoryManager(),
+            SceneManager.GetActiveScene().name,
+            "Storage_Backup.dat"
+        ); // 스토리지 데이터를 저장
+        Debug.Log("Storage data saved for scene: " + SceneManager.GetActiveScene().name);
+
         isStorageOpen = true; //Storage가 열렸음을 표시
 
         //인벤토리 위치 이동
@@ -93,8 +110,15 @@ public class StorageManager : MonoBehaviour
 
         //StorageActive = false;
         Storage1.SetActive(false);
-    }
 
+        //InventorySaveSystem.LoadItem(SceneManager.GetActiveScene().name); // 스토리지 데이터를 불러옴
+        //InventoryController.LoadSave();
+        InventorySaveSystem.LoadBackup("Storage_Backup.dat"); // 스토리지 데이터를 불러옴
+        Debug.Log("Storage data loaded for scene: " + SceneManager.GetActiveScene().name);
+        //InventorySaveSystem.LoadItem("PlayerInventory"); // 플레이어 인벤토리 데이터 불러옴
+        //InventorySaveSystem.LoadItem("HotBar"); // 핫바 데이터 불러옴
+    }
+    
     public void InvenMove()
     {
 

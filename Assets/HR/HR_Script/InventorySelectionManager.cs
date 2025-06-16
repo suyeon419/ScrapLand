@@ -219,9 +219,9 @@ public class InventorySelectionManager : MonoBehaviour
                     {
                         GameObject go = Instantiate(prefab, Handpos.transform);
                         go.name = itemType;
-                        go.transform.localPosition = Vector3.zero;
-                        go.transform.localRotation = Quaternion.identity;
-                        go.transform.localScale = Vector3.one * 0.5f; // 필요시 크기 조정
+                        //go.transform.localPosition = Vector3.zero;
+                        //go.transform.localRotation = Quaternion.identity;
+                        //go.transform.localScale = Vector3.one * 0.5f; // 필요시 크기 조정
                     }
                     else
                     {
