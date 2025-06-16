@@ -21,6 +21,8 @@ namespace Controller
         [SerializeField, Range(0f, 50f)]
         public float m_RaycastDistance = 10f;
 
+        [SerializeField] GameObject Hotbar;
+
         private Vector3 m_LookPoint;
         private Vector3 m_TargetPos;
 
@@ -256,6 +258,7 @@ namespace Controller
                     {
                         Maker_ui.SetActive(true);
                         Camera.enabled = false;
+                        Hotbar.SetActive(false);
                     }
                 }
                 else if (hit.collider.tag == "sewing")
@@ -265,6 +268,7 @@ namespace Controller
                     {
                         Sewing_ui.SetActive(true);
                         Camera.enabled = false;
+                        Hotbar.SetActive(false);
                     }
                 }
                 else if (hit.collider.tag == "shop")
