@@ -9,12 +9,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8439a9e0d1795024c8d20eda8735642e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8439a9e0d1795024c8d20eda8735642e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8439a9e0d1795024c8d20eda8735642e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8439a9e0d1795024c8d20eda8735642e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8439a9e0d1795024c8d20eda8735642e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8439a9e0d1795024c8d20eda8735642e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -94,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Mobile
   placeType: 2
+  prefab: {fileID: 0}
 --- !u!65 &1665397720999167047
 BoxCollider:
   m_ObjectHideFlags: 0
