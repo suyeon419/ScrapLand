@@ -33,6 +33,7 @@ public class DayCycleManager : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Numlock)) currentTime += (totalDayDuration/4);
         if (dayEnded) return;
 
         currentTime += Time.deltaTime;
@@ -73,7 +74,6 @@ public class DayCycleManager : MonoBehaviour
             float angle = 360f * t;
             needleTransform.localRotation = Quaternion.Euler(0f, 0f, -angle);
         }
-
 
         if (currentTime >= totalDayDuration)
             EndDay();
