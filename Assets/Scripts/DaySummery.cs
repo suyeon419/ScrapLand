@@ -21,7 +21,7 @@ public class DaySummery : MonoBehaviour
     private void Start()
     {
         instance = this;
-        Debug.Log(GameManager_ScrapLand.instance.GetDayNum()+"일차 시작!!");
+        //Debug.Log(GameManager_ScrapLand.instance.GetDayNum()+"일차 시작!!");
         summeryPan.SetActive(false);
     }
 

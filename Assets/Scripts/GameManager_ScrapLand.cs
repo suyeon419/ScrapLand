@@ -339,7 +339,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     }
     public void SetHappyGage(int value)
     {
-        Debug.Log("저장된 게이지" + value);
+        //Debug.Log("저장된 게이지" + value);
         HappyGage = value;
     }
     public void SetItemUsageList(List<ItemUsageData> list)
