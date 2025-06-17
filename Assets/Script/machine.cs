@@ -309,9 +309,11 @@ namespace Controller
 
                             glass_deleteCount++; //유리 +1
                             UpdateText(); //UI 반영
+                            Debug.Log(glass_deleteCount);
 
                             if (glass_deleteCount == 1) //조건 충족
                             {
+                                Debug.Log("만들거야~!!!!!!!!!!!!!!!!!!!!!11");
                                 item_name = "breakGlass"; //만들 아이템: 간 유리
                                 StartCoroutine(DelayTime(item_name)); //코루틴 호출
                             }
@@ -531,7 +533,7 @@ namespace Controller
             breaker_countText_can.text = $"{b_can_deleteCount}/3";
 
             //방적기 관련 UI
-            C_countText.text = $"{paper_deleteCount}/1"; //페트 개수
+            C_countText.text = $"{paper_deleteCount}/3"; //페트 개수
         }
 
         IEnumerator DelayTime(string item_name) //기계 제작 시간
@@ -625,6 +627,7 @@ namespace Controller
 
             if (item_name == "compressedPaper")
             {
+                Debug.Log("진짜 만든다잉");
                 C_loading_ui.SetActive(true); //방적기 로딩 ui활성화
                 yield return new WaitForSeconds(2.0f); // 2초 동안 대기
                 C_loading_ui.SetActive(false);//로딩 ui 비활성화
