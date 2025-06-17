@@ -141,6 +141,24 @@ public class InventorySelectionManager : MonoBehaviour
         Instance.OnSlotClicked();
     }
 
+    public string GetSelectedItemType()
+    {
+        if (SelectedSlot == null)
+        {
+            Debug.LogWarning("GetSelectedItemType: 선택된 슬롯이 없습니다.");
+            return null;
+        }
+        var slotComponent = SelectedSlot.GetComponent<Slot>();
+        if (slotComponent == null)
+        {
+            Debug.LogWarning("GetSelectedItemType: 선택된 슬롯에 Slot 컴포넌트가 없습니다.");
+            return null;
+        }
+        InventoryItem item = slotComponent.GetItem();
+        Debug.Log("item type: " + item.GetItemType());
+        return item != null ? item.GetItemType() : null;
+    }
+
     public static void ClearSelection()
     {
         SelectedSlot = null;

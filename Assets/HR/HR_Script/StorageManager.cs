@@ -117,6 +117,8 @@ public class StorageManager : MonoBehaviour
         Debug.Log("Storage data loaded for scene: " + SceneManager.GetActiveScene().name);
         //InventorySaveSystem.LoadItem("PlayerInventory"); // 플레이어 인벤토리 데이터 불러옴
         //InventorySaveSystem.LoadItem("HotBar"); // 핫바 데이터 불러옴
+
+        InventorySelectionManager.Instance.OnSlotClicked();
     }
     
     public void InvenMove()

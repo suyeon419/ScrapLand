@@ -53,7 +53,7 @@ namespace InventorySystem
 
             item = inventoryUIManager.GetInventoryItem(position);
             initialSlotChildPosition = SlotItemHolder.transform.position;
-            Debug.Log(initialSlotChildPosition);
+            //Debug.Log(initialSlotChildPosition);
 
             UpdateSlot();
 
