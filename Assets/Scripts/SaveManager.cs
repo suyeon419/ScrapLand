@@ -27,6 +27,7 @@ public class SaveData
     public bool isBgmMuted;
 
     public List<bool> Completed;
+    public List<int> ingredient;
 }
 
 public class SaveManager : MonoBehaviour
@@ -71,6 +72,7 @@ public class SaveManager : MonoBehaviour
         saveData.isBgmMuted = SoundManager.instance.GetBgmMuteStatus();
 
         saveData.Completed = GameManager_ScrapLand.instance.GetCompletedForSave().Values.ToList();
+        saveData.ingredient = GameManager_ScrapLand.instance.GetingredientForSave().Values.ToList();
 
         string json = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(saveFilePath, json);
@@ -120,6 +122,18 @@ public class SaveManager : MonoBehaviour
             }
             GameManager_ScrapLand.instance.SetCompletedForSave(completedDict);
         }
+
+        var ingredientDict = GameManager_ScrapLand.instance.GetingredientForSave();
+        if(saveData.ingredient != null && saveData.ingredient.Count == ingredientDict.Count)
+        {
+            var keys = ingredientDict.Keys.ToList();
+            for(int i=0; i < keys.Count; i++)
+            {
+                ingredientDict[keys[i]] = saveData.ingredient[i];
+            }
+            GameManager_ScrapLand.instance.SetingredientForSave(ingredientDict);
+        }
+
 
         Debug.Log((GameManager_ScrapLand.instance.GetDayNum() + "///" + SceneManager.GetActiveScene().name + SceneManager.GetActiveScene().Equals("PlayScene")));
         if (GameManager_ScrapLand.instance.GetDayNum() > 1 && SceneManager.GetActiveScene().name.Equals("PlayScene"))

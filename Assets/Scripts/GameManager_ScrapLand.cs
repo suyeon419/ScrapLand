@@ -1,4 +1,6 @@
 using Controller;
+using JetBrains.Annotations;
+using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,6 +79,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     private List<ItemUsageData> itemUsages = new List<ItemUsageData>();
     private List<InteriorOnHouse> Interiors = new List<InteriorOnHouse>();
     private List<MachineData_save> machines = new List<MachineData_save>();
+    private Dictionary<string, int> ingredient = new Dictionary<string, int>();
 
     private Dictionary<string, bool> Completed = new Dictionary<string, bool>();
 
@@ -91,6 +94,7 @@ public class GameManager_ScrapLand : MonoBehaviour
             InitializeItemUsages();
             InitializeMachines();
             InitializeCompleted();
+            InitializeIngredient();
         }
         else if (instance != this)
         {
@@ -189,6 +193,19 @@ public class GameManager_ScrapLand : MonoBehaviour
         Completed.Add("plastic_molten", false);
         Completed.Add("can_molten", false);
         Completed.Add("compressed_paper", false);
+    }
+
+    void InitializeIngredient()
+    {
+        ingredient.Clear();
+        ingredient.Add("pt_deleteCount", 0);
+        ingredient.Add("glass_deleteCount", 0);
+        ingredient.Add("plastic_deleteCount", 0);
+        ingredient.Add("can_deleteCount", 0);
+        ingredient.Add("b_glass_deleteCount", 0);
+        ingredient.Add("b_plastic_deleteCount", 0);
+        ingredient.Add("b_can_deleteCount", 0);
+        ingredient.Add("paper_deleteCount", 0);
     }
 
     /// <summery>
@@ -353,6 +370,10 @@ public class GameManager_ScrapLand : MonoBehaviour
     {
         Completed = com;
     }
+    public void SetingredientForSave (Dictionary<string, int> ing)
+    {
+        ingredient = ing;
+    }
     #endregion
 
     #region Get
@@ -377,7 +398,7 @@ public class GameManager_ScrapLand : MonoBehaviour
     public List<InteriorOnHouse> GetInteriorOnHouses() { return Interiors; }
     public List<MachineData_save> GetMachineForSave() { return machines; }
     public Dictionary<string, bool> GetCompletedForSave() { return Completed; }
-
+    public Dictionary<string, int> GetingredientForSave() { return ingredient; }
     #endregion
 
     #region 기계 데이터
@@ -450,6 +471,15 @@ public class GameManager_ScrapLand : MonoBehaviour
             machine.SetPlasticMoltenCompletion(Completed["plastic_molten"]);
             machine.SetCanMoltenCompletion(Completed["can_molten"]);
             machine.SetCompressedPaperCompletion(Completed["compressed_paper"]);
+
+            machine.SetPtDeleteCount(ingredient["pt_deleteCount"]);
+            machine.SetGlassDeleteCount(ingredient["glass_deleteCount"]);
+            machine.SetPlasticDeleteCount(ingredient["plastic_deleteCount"]);
+            machine.SetCanDeleteCount(ingredient["can_deleteCount"]);
+            machine.SetBGlassDeleteCount(ingredient["b_glass_deleteCount"]);
+            machine.SetBPlasticDeleteCount(ingredient["b_plastic_deleteCount"]);
+            machine.SetBCanDeleteCount(ingredient["b_can_deleteCount"]);
+            machine.SetPaperDeleteCount(ingredient["paper_deleteCount"]);
         }
 
         if (ShopManager.Instance != null)
@@ -532,6 +562,14 @@ public class GameManager_ScrapLand : MonoBehaviour
             Completed["can_molten"] = machine.IsCanMoltenCompleted();
             Completed["compressed_paper"] = machine.IsCompressedPaperCompleted();
 
+            ingredient["pt_deleteCount"] = machine.GetPtDeleteCount();
+            ingredient["glass_deleteCount"] = machine.GetGlassDeleteCount();
+            ingredient["plastic_deleteCount"] = machine.GetPlasticDeleteCount();
+            ingredient["can_deleteCount"] = machine.GetCanDeleteCount();
+            ingredient["b_glass_deleteCount"] = machine.GetBGlassDeleteCount();
+            ingredient["b_plastic_deleteCount"] = machine.GetBPlasticDeleteCount();
+            ingredient["b_can_deleteCount"] = machine.GetBCanDeleteCount();
+            ingredient["paper_deleteCount"] = machine.GetPaperDeleteCount();
         }
         MakingController making = FindObjectOfType<MakingController>();
         if(making != null)
@@ -669,6 +707,7 @@ public class GameManager_ScrapLand : MonoBehaviour
             InitializeMachines();
             InitializeItemUsages();
             InitializeCompleted();
+            InitializeIngredient();
             Interiors.Clear();
         }
         SaveManager.instance.LoadGame();
@@ -687,6 +726,7 @@ public class GameManager_ScrapLand : MonoBehaviour
         InitializeItemUsages();
         InitializeMachines();
         InitializeCompleted();
+        InitializeIngredient();
         Interiors.Clear();
         PlayerInvenManager.ResetSellCounts();
     }
