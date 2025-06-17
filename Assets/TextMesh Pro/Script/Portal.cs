@@ -49,8 +49,8 @@ public class Portal : MonoBehaviour
         if (destination.name.Contains("Home Portal"))
         {
             PlacementManager.Instance.isHome = true;
-            string item = InventorySelectionManager.Instance.GetSelectedItemType();
-            PlacementManager.Instance.SetHeldItem(item);
+            //string item = InventorySelectionManager.Instance.GetSelectedItemType();
+            //PlacementManager.Instance.SetHeldItem(item);
         }
         else
         {
