@@ -10,9 +10,9 @@ namespace Controller
     {
         [Header("Movement")]
         [SerializeField]
-        private float m_WalkSpeed = 1f;
+        private float m_WalkSpeed = 4f;
         [SerializeField]
-        private float m_RunSpeed = 4f;
+        private float m_RunSpeed = 12f;
         [SerializeField, Range(0f, 360f)]
         private float m_RotateSpeed = 90f;
         [SerializeField]
