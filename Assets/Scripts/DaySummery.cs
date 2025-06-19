@@ -34,7 +34,7 @@ public class DaySummery : MonoBehaviour
         day = GameManager_ScrapLand.instance.GetDayNum();
         happy = HappyEarth.instance.GetHappyGage();
         coin = CoinManager.Instance.coin;
-
+        Debug.Log(day + "/" + happy);
         Check_Passing(day, happy);
     }
 
@@ -55,6 +55,7 @@ public class DaySummery : MonoBehaviour
             }
             else // 7일 완료
             {
+                Debug.Log("7일완료");
                 // 해피 지구력 조건 충족
                 GameManager_ScrapLand.instance.EndingChecking();
             }
