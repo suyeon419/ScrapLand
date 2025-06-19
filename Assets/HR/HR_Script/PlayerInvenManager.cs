@@ -118,9 +118,15 @@ public class PlayerInvenManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P)) //Esc키로 인벤 닫기
         {
-            AddItemToHotBarOrPlayerInventory("SewingMachine");
+            AddItemToHotBarOrPlayerInventory("Hat");
+            CoinManager.Instance.OnAddMoney(1000); // 테스트용으로 코인 1000 추가
         }
 
+        if(Input.GetKeyDown(KeyCode.O)) //O키로 인벤 열기
+        {
+            ShopManager.Instance.machines[2].isOnMap = false;
+            Debug.Log("filature false");
+        }
         /*        if (Input.GetKeyDown(KeyCode.I))
                 {
                     AddItemToHotBarOrPlayerInventory("Old Chest");
@@ -191,6 +197,8 @@ public class PlayerInvenManager : MonoBehaviour
         bagInventoryUIManager.SetDraggable(false);
         bagInventoryUIManager.SetHighlightable(false);
 
+        if (InventorySelectionManager.SelectedSlot != null && InventorySelectionManager.SelectedInventoryUI != null)
+            InventorySelectionManager.SetSelection(InventorySelectionManager.SelectedSlot, InventorySelectionManager.SelectedInventoryUI);
     }
 
     public void BagOff()

@@ -57,19 +57,6 @@ public class InventorySelectionManager : MonoBehaviour
 
         Handpos.SetActive(true);
 
-        /*        // 핫바 슬롯 리스트 가져오기
-                var slots = typeof(InventoryUIManager)
-                    .GetField("slots", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                    .GetValue(hotBarUIManager) as List<GameObject>;
-
-                if (slots != null && slots.Count > 0 && slots[0] != null)
-                {
-                    SetSelection(slots[0], hotBarUIManager);
-                }
-                else
-                {
-                    Debug.LogWarning("핫바 슬롯이 아직 초기화되지 않았습니다. Start() 이후에 슬롯이 생성될 수 있습니다.");
-                }*/
         EnsureSelection();
         // 선택된 슬롯의 상태 갱신
         if (SelectedSlot != null && SelectedInventoryUI != null)
@@ -200,6 +187,12 @@ public class InventorySelectionManager : MonoBehaviour
             Debug.LogWarning("OnSlotClicked: 선택된 슬롯에 Slot 컴포넌트가 없습니다.");
             return;
         }
+        
+/*        if (SelectedInventoryUI = SelectedInventoryUI)
+        {
+            Debug.Log("OnSlotClicked: PlayerInventory");
+            return;
+        }*/
 
         InventoryItem item = slotComponent.GetItem();
         Sprite sprite = item != null ? item.GetItemImage() : null;

@@ -40,6 +40,10 @@ public class ClothManager : MonoBehaviour
         {
             Debug.LogWarning("Index out of range: " + index);
         }
+
+        if (InventorySelectionManager.SelectedSlot != null && InventorySelectionManager.SelectedInventoryUI != null)
+            InventorySelectionManager.SetSelection(InventorySelectionManager.SelectedSlot, InventorySelectionManager.SelectedInventoryUI);
+
     }
 
     public void SetClothInactive(int index)
@@ -52,5 +56,8 @@ public class ClothManager : MonoBehaviour
         {
             Debug.LogWarning("Index out of range: " + index);
         }
+
+        if (InventorySelectionManager.SelectedSlot != null && InventorySelectionManager.SelectedInventoryUI != null)
+            InventorySelectionManager.SetSelection(InventorySelectionManager.SelectedSlot, InventorySelectionManager.SelectedInventoryUI);
     }
 }
