@@ -59,8 +59,6 @@ public class InventorySelectionManager : MonoBehaviour
 
         EnsureSelection();
         // 선택된 슬롯의 상태 갱신
-        if (SelectedSlot != null && SelectedInventoryUI != null)
-            SetSelection(SelectedSlot, SelectedInventoryUI);
         //OnSlotClicked(); // 초기 슬롯 클릭 이벤트 호출
     }
 
@@ -187,12 +185,13 @@ public class InventorySelectionManager : MonoBehaviour
             Debug.LogWarning("OnSlotClicked: 선택된 슬롯에 Slot 컴포넌트가 없습니다.");
             return;
         }
-        
-/*        if (SelectedInventoryUI = SelectedInventoryUI)
+
+        // 핫바 인벤토리에서만 손에 들기 동작
+        if (SelectedInventoryUI != hotBarUIManager)
         {
-            Debug.Log("OnSlotClicked: PlayerInventory");
+            Debug.Log("OnSlotClicked: 핫바 인벤토리가 아니므로 손에 들기 동작 안함");
             return;
-        }*/
+        }
 
         InventoryItem item = slotComponent.GetItem();
         Sprite sprite = item != null ? item.GetItemImage() : null;
@@ -331,8 +330,9 @@ public class InventorySelectionManager : MonoBehaviour
 
 
         // 선택된 슬롯의 상태 갱신
-        if (SelectedSlot != null && SelectedInventoryUI != null)
-            SetSelection(SelectedSlot, SelectedInventoryUI);
+/*        if (SelectedSlot != null && SelectedInventoryUI != null)
+            SetSelection(SelectedSlot, SelectedInventoryUI);*/
+        OnSlotClicked(); // 슬롯 클릭 이벤트 호출하여 아이템 정보 업데이트
 
     }
 
@@ -376,8 +376,9 @@ public class InventorySelectionManager : MonoBehaviour
         }
 
         // 선택된 슬롯의 상태 갱신
-        if (SelectedSlot != null && SelectedInventoryUI != null)
-            SetSelection(SelectedSlot, SelectedInventoryUI);
+/*        if (SelectedSlot != null && SelectedInventoryUI != null)
+            SetSelection(SelectedSlot, SelectedInventoryUI);*/
+        OnSlotClicked(); // 슬롯 클릭 이벤트 호출하여 아이템 정보 업데이트
 
     }
 
@@ -405,8 +406,9 @@ public class InventorySelectionManager : MonoBehaviour
         }
 
         //OnSlotClicked(); // 슬롯 클릭 이벤트 호출하여 아이템 정보 업데이트
-        if (SelectedSlot != null && SelectedInventoryUI != null)
-            SetSelection(SelectedSlot, SelectedInventoryUI);
+/*        if (SelectedSlot != null && SelectedInventoryUI != null)
+            SetSelection(SelectedSlot, SelectedInventoryUI);*/
+        OnSlotClicked(); // 슬롯 클릭 이벤트 호출하여 아이템 정보 업데이트
     }
 
     public bool CheckInvenFull()
